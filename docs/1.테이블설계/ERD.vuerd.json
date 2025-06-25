@@ -4,9 +4,9 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -1314,
-    "scrollLeft": -685.6182,
-    "zoomLevel": 0.79,
+    "scrollTop": -591.7402,
+    "scrollLeft": -83.1409,
+    "zoomLevel": 0.82,
     "show": 511,
     "database": 4,
     "databaseName": "",
@@ -407,7 +407,6 @@
         "name": "MEMBERS_TERMS_OF_USE",
         "comment": "회원이 동의한 이용약관 정보를 저장하는 테이블",
         "columnIds": [
-          "2K3WlZ52YWf2j1VCAqJoD",
           "ytJ9JAzaMeCljAupzTwZm",
           "5qZHvZgzko4muair_CluZ",
           "flFiVH5LvOXpQ5-O9R8C-",
@@ -431,7 +430,7 @@
           "color": ""
         },
         "meta": {
-          "updateAt": 1750856757545,
+          "updateAt": 1750856872950,
           "createAt": 1750856557006
         }
       }
@@ -2799,7 +2798,7 @@
             "ytJ9JAzaMeCljAupzTwZm"
           ],
           "x": 1195.0686,
-          "y": 1738.1736,
+          "y": 1732.1736,
           "direction": 1
         },
         "meta": {
@@ -2827,7 +2826,7 @@
             "5qZHvZgzko4muair_CluZ"
           ],
           "x": 1195.0686,
-          "y": 1838.1736,
+          "y": 1820.1736,
           "direction": 1
         },
         "meta": {
