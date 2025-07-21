@@ -1192,7 +1192,7 @@
 - BODY
   ```json
   {
-    "rule" : : "{passwordRule}"
+    "rule" : "{passwordRule}"
   }
   ```
 - Success Result
@@ -1432,7 +1432,7 @@
 - BODY
   ```json
   {
-    "memberId" : : "{memberId}",
+    "memberId" : "{memberId}",
     "apiUrl" : "{apiUrl}",
     "statusCode" : "{statusCode}",
     "status" : "{status}",
@@ -1508,7 +1508,7 @@
       "list" : [
         {
           "apiHistoryId" : "{apiHistoryId}",
-          "memberId" : : "{memberId}",
+          "memberId" : "{memberId}",
           "apiUrl" : "{apiUrl}",
           "statusCode" : "{statusCode}",
           "status" : "{status}",
@@ -1518,7 +1518,7 @@
           "createDate" : "20250101 12:00:00"
         }, {
           "apiHistoryId" : "{apiHistoryId}",
-          "memberId" : : "{memberId}",
+          "memberId" : "{memberId}",
           "apiUrl" : "{apiUrl}",
           "statusCode" : "{statusCode}",
           "status" : "{status}",
@@ -1579,7 +1579,7 @@
       "count" : 10,
       "list" : {
         "apiHistoryId" : "{apiHistoryId}",
-        "memberId" : : "{memberId}",
+        "memberId" : "{memberId}",
         "apiUrl" : "{apiUrl}",
         "statusCode" : "{statusCode}",
         "status" : "{status}",
