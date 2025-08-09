@@ -104,7 +104,7 @@ tasks.named('asciidoctor') {
 
 <br/>
 
-## 2. JDK 설정
+# 2. JDK 설정
 
 ![JDK 설정 1](../../images/매뉴얼/개발자매뉴얼/1.프로젝트_생성/jdk_setting_1.png)
 
