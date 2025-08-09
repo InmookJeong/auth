@@ -47,6 +47,62 @@
 
 ⑱ 프로젝트가 정상적으로 만들어졌다면 위와 같은 패키지 구조도 생성되었는지 확인할 수 있습니다.
 
+⑲ `build.gradle` 파일을 열면 아래와 같이 Spring boot 버전, JDK 버전, 그리고 프로젝트를 생성할 때 추가한 `Dependencies`를 확인할 수 있습니다.
+
+```gradle
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.4'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.asciidoctor.jvm.convert' version '3.3.2'
+}
+
+group = 'kr.mook'
+version = '0.0.1-SNAPSHOT'
+
+/* JDK(Java) 버전 확인  */
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('snippetsDir', file("build/generated-snippets"))
+}
+
+/* Spring Web, Lombok, Spring REST Docs Dependencies 확인 */
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	outputs.dir snippetsDir
+	useJUnitPlatform()
+}
+
+tasks.named('asciidoctor') {
+	inputs.dir snippetsDir
+	dependsOn test
+}
+```
+
+<br/>
 
 ## 2. JDK 설정
 
