@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.home.service.HomeService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -28,8 +27,11 @@ public class HomeController {
 	 * - '/' 또는 '/home'으로 API를 호출될 때 실행
 	 * 
 	 * @return
+	 * @since 2025. 08. 09
+	 * @version 0.1
+	 * @author Inmook, Jeong
 	 */
-	@GetMapping(value = {"/", "/home"})
+	@GetMapping(value = "/api/home")
 	public ResponseEntity<ResponseDto> Home() {
 		return ResponseEntity.ok(this._homeService.home());
 	}
