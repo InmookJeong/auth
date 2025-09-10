@@ -1,0 +1,15 @@
+= Auth API Documentation (Auth API 문서)
+https://github.com/InmookJeong/auth (auth 프로젝트 Repository)
+:doctype: restTest
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[Home-API]]
+== Home API
+
+[[home-기본-조회]]
+=== Home 조회
+operation::home-test[snippets='http-request,http-response,response-fields']
