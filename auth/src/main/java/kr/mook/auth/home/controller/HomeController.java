@@ -24,7 +24,7 @@ public class HomeController {
 	
 	/**
 	 * auth 프로젝트의 root path API<br/>
-	 * - '/' 또는 '/home'으로 API를 호출될 때 실행
+	 * - '/api/home'으로 API를 호출될 때 실행
 	 * 
 	 * @return
 	 * @since 2025. 08. 09
