@@ -1,6 +1,8 @@
 # 1. Spring REST Docs란?
 
 ![Swagger Logo](../../images/매뉴얼/개발자매뉴얼/3.SpringRestDocs_설정/springrestdocs.png)
+<br/><br/>
+
 `Spring REST Docs`는 **Spring MVC**를 기반으로 `RESTful API 문서`를 자동 생성해주는 라이브러리입니다.
 
 이 라이브러리는 `테스트 주도 방식`으로 API 문서를 작성하며, 특히 `테스트가 성공해야 문서가 생성`되기 때문에 정확한 정보를 제공할 수 있습니다.
