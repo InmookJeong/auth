@@ -471,6 +471,7 @@ MVC와 연동되도록 기본 설정을 세팅해줍니다.
 ③ 테스트 코드가 정상적으로 동작하면 모든 `Run Task`가 성공했다고 알려줍니다.
 
 ④ 모든 테스트가 성공했다면 `build/generated-snippets/home-test` 경로에 스니펫(Snippets), 즉 adoc 파일이 생성된 것을 확인할 수 있습니다.
+<br/><br/>
 
 # 6. 최종 API 문서(index.adoc) 작성
 
