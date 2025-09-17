@@ -462,4 +462,100 @@ MVC와 연동되도록 기본 설정을 세팅해줍니다.
 
 # 5. JUnit 테스트 실행 및 Snippets 파일 생성
 
+![Gradle Test 실행](../../images/매뉴얼/개발자매뉴얼/3.SpringRestDocs_설정/테스트1.png)
+
+① 테스트 코드 위에서 마우스 오른쪽 버튼을 클릭하여 `Run As` 메뉴를 선택합니다.
+
+② `Gradle Test` 메뉴를 클릭하여 테스트를 실행합니다.
+
+③ 테스트 코드가 정상적으로 동작하면 모든 `Run Task`가 성공했다고 알려줍니다.
+
+④ 모든 테스트가 성공했다면 `build/generated-snippets/home-test` 경로에 스니펫(Snippets), 즉 adoc 파일이 생성된 것을 확인할 수 있습니다.
+
 # 6. 최종 API 문서(index.adoc) 작성
+
+테스트를 통해 요청과 응답, 그리고 반환되는 값들에 대한 설명이 작성된 스니펫(Snippets)들이 만들어졌습니다.
+
+이제 이 파일들을 하나로 묶어 최종 문서를 만들어 보겠습니다.
+
+### > `index.adoc` 파일 생성하기
+`index.adoc` 파일은 앞에서 만들어진 스니펫들을 하나로 묶어 최종 API 문서를 생성해주는 역할을 합니다.
+
+`src/docs/asciidoc` 폴더를 만들고, 그 안에 `index.adoc` 파일을 만들어줍니다.
+
+![index.acod 파일 생성](../../images/매뉴얼/개발자매뉴얼/3.SpringRestDocs_설정/index_adoc.png)
+
+이제 아래와 같이 `index.adoc` 파일의 내용을 작성해줍니다.
+
+```adoc
+= Auth API Documentation (Auth API 문서)
+https://github.com/InmookJeong/auth (auth 프로젝트 Repository)
+:doctype: restTest
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[Home-API]]
+== Home API
+
+[[home-기본-조회]]
+=== Home 조회
+operation::home-test[snippets='http-request,http-response,response-fields']
+```
+
+첫 번째 문단은 API 문서에 대한 제목과 전체적인 설정 등이 작성되었습니다.
+
+그리고 두 번째 문단의 `== Home API`는 메뉴의 제목입니다.
+
+세 번째 문단이 바로 테스트를 통해 생성된 스니펫들을 포함시키는 부분입니다.
+
+이 파일은 명령어를 통해 HTML 파일로 변환되며, 변환된 HTML 파일을 통해 사용자에게 API 문서를 제공하게 됩니다.
+
+
+### > `최종 API 문서` 생성하기
+이제 `최종 API 문서(HTML)`를 생성하기 위한 명령어를 실행해보겠습니다.
+
+```cmd
+> ./gradlew asciidocto
+```
+API 문서를 작성 중인 IDE의 터미널에 위와 같은 명령어를 입력한 후 실행합니다.
+
+명령어가 실행되면 JUnit으로 작성된 테스트가 실행되고, `/build/docs/asciidoc` 폴더에 `index.html` 파일이 생성됩니다.
+
+* 참고로 프로젝트 안에 `gradlew` 파일이 있는 위치로 이동한 후 `./gradlew 명령어`를 실행해야 합니다.
+<br/><br/>
+
+```cmd
+> ./gradlew build
+```
+`index.html` 파일이 잘 생성되었다면, 이제 위의 명령어처럼 build를 해줍니다.
+
+이 명령어가 실행되면 `src/main/resources/static/docs/` 폴더에 `index.html` 파일이 복사됩니다.
+
+이 파일이 사용자에게 제공될 `최종 API 문서`입니다.
+
+
+### > API 문서 확인하기
+API 문서를 생성했으니 이제 웹에서 확인해봅시다.
+
+먼저 IDE에서 프로젝트를 실행합니다.
+
+그리고 브라우저 주소창에 `http://localhost:8080/docs/index.html`을 입력하면 다음과 같이 API 문서를 열람할 수 있습니다.
+
+![최종 API 문서](../../images/매뉴얼/개발자매뉴얼/3.SpringRestDocs_설정/최종_API_문서.png)
+
+API 문서는 앞서 작성한 `index.adoc` 파일의 내용에 따라 배치됩니다.
+
+① 첫 번째 문단이었던 `문서의 제목`이 출력됩니다.
+
+② 그리고 `메뉴의 제목`이 출력됩니다.
+
+③ 마지막으로 생성된 스니펫들의 정보가 출력됩니다.
+
+## 결론
+
+여기까지 `Spring REST Docs`를 통해 API 문서를 만드는 방법에 대해 학습하였습니다.
+
+Home API 이후 개발된 모든 API들 모두 스니펫을 생성하여 API 문서에 추가해주면 됩니다.

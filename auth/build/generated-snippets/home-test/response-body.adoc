@@ -1,4 +1,4 @@
 [source,json,options="nowrap"]
 ----
-{"statusCode":"HOME_ACCESS","status":"200","resultType":"STRING","result":"�젒�냽�쓣 �솚�쁺�빀�땲�떎.","language":"KOREAN"}
+{"statusCode":"HOME_ACCESS","status":"200","resultType":"STRING","result":"접속을 환영합니다.","language":"KOREAN"}
 ----
