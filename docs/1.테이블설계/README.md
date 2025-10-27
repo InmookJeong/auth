@@ -3,9 +3,10 @@
 |테이블명(한글)|테이블명(영어)|설명|비고|
 |---|---|---|---|
 |공통코드|COMMON_CODE|프로젝트에서 공통적으로 사용하는 코드를 저장하는 테이블|-|
+|테이블시퀀스|TABLE_SEQUENCES|시퀀스를 저장하기 위한 테이블|-|
 |사용자|USER|로그인을 하지 않은 모든 사용자들의 정보(IP, MAC, 접속날짜 등)를 저장하는 테이블|-|
 |회원|MEMBER|회원가입한 사용자들의 정보(ID, 계정, 비밀번호, 이름 등)를 저장하는 테이블|-|
-|정보이용약관|TERMS_OF_USE|회원가입 시 정보 이용에 대한 약관 내용을 저장하는 테이블|-|
+|이용약관|TERMS|회원가입 시 정보 수집 및 이용에 대한 약관 내용을 저장하는 테이블|-|
 |로그인이력|LOGIN_HISTORY|회원이 로그인 및 로그아웃 한 이력을 저장하는 테이블|-|
 |API사용이력|API_USE_HISTORY|회원과 비회원 등 모든 사용자들이 API를 사용한 이력을 저장하는 테이블|-|
 |인증번호|AUTH_NUMBER|회원 비밀번호 변경 또는 계정 활성화를 위해 전송되는 인증번호를 저장하는 테이블|-|
@@ -25,7 +26,72 @@ CREATE TABLE COMMON_CODE (
 ) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COMMENT='공통코드 테이블';
 ```
 
-## 2. 사용자
+## 2. 테이블시퀀스
+- 테이블 생성
+```sql
+/* 시퀀스를 저장할 테이블 생성 */
+CREATE TABLE TABLE_SEQUENCES (
+    name VARCHAR(100) COMMENT '시퀀스 이름',
+    currval BIGINT UNSIGNED COMMENT '현재 시퀀스 값'
+) ENGINE=INNODB COMMENT='시퀀스를 저장하기 위한 테이블';
+```
+
+- 시퀀스 생성을 위한 프로시저 작성(MySQL 기준)
+```sql
+/* 시퀀스 생성을 위한 CREATE_SEQ 프로시저 정의 */
+CREATE PROCEDURE CREATE_SEQ (in seq_name VARCHAR(50))
+MODIFIES SQL DATA
+DETERMINISTIC
+BEGIN
+    DELETE FROM TABLE_SEQUENCES WHERE name = seq_name;
+    INSERT INTO TABLE_SEQUENCES VALUES(seq_name, 0);
+END
+```
+
+- 시퀀스 활용을 위한 함수(NEXTVAL, CURRVAL) 작성(MySQL 기준)
+```sql
+/* 함수를 생성할 수 있도록 권한 부여 */
+show global variables like 'log_bin_trust_function_creators'; -- off
+set global log_bin_trust_function_creators=ON;
+
+/* NEXTVAL 함수 생성 */
+CREATE FUNCTION NEXTVAL (seq_name VARCHAR(50))
+RETURNS BIGINT UNSIGNED
+MODIFIES SQL DATA
+DETERMINISTIC
+BEGIN
+    DECLARE RET BIGINT UNSIGNED;
+    UPDATE TABLE_SEQUENCES SET currval = currval + 1 WHERE name = seq_name;
+    SELECT currval INTO RET FROM TABLE_SEQUENCES WHERE name = seq_name;
+    RETURN RET;
+END
+
+/* CURRVAL 함수 생성 */
+CREATE FUNCTION CURRVAL (seq_name VARCHAR(50))
+RETURNS BIGINT UNSIGNED
+MODIFIES SQL DATA
+DETERMINISTIC
+BEGIN
+    DECLARE RET BIGINT UNSIGNED;
+    SELECT currval INTO RET FROM TABLE_SEQUENCES WHERE name = seq_name;
+    RETURN RET;
+END
+```
+
+- 시퀀스 생성 및 조회 테스트
+```sql
+/* 이용약관 시퀀스 생성 */
+CALL CREATE_SEQ('terms_of_use_seq');  -- 운영용 시퀀스(101번~)
+CALL CREATE_SEQ('terms_of_use_test_seq');  -- 테스트용 시퀀스(1~100번)
+
+/* 다음 시퀀스 값 가져오기 테스트 */
+SELECT NEXTVAL('terms_of_use_test_seq') FROM DUAL;
+
+/* 현재 시퀀스 값 가져오기 테스트 */
+SELECT CURRVAL('terms_of_use_test_seq') FROM DUAL;
+```
+
+## 3. 사용자
 ```sql
 CREATE TABLE USER (
     USER_NO BIGINT NOT NULL AUTO_INCREMENT COMMENT '사용자 번호',
@@ -39,7 +105,7 @@ CREATE TABLE USER (
 ) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COMMENT='접속한 사용자 정보를 저장하는 테이블';
 ```
 
-## 3. 회원
+## 4. 회원
 ```sql
 CREATE TABLE MEMBER (
     MEMBER_ID BIGINT NOT NULL AUTO_INCREMENT COMMENT '회원 아이디',
@@ -63,92 +129,37 @@ CREATE TABLE MEMBER (
 ) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COMMENT='회원 정보를 저장하는 테이블';
 ```
 
-## 4. 정보이용약관
+## 5. 이용약관
 ```sql
 /* 테이블 생성 */
-CREATE TABLE TERMS_OF_USE (
-    TERMS_OF_USE_NO BIGINT NOT NULL COMMENT '정보이용약관 번호',
+CREATE TABLE TERMS (
+    TERMS_NO BIGINT NOT NULL COMMENT '애플리케이션 이용 약관 번호, 1~100:테스트용 번호, 101~:운영데이터 번호',
     USE_YN TINYINT NOT NULL DEFAULT 1 COMMENT '사용 여부(1:사용, 0:미사용)',
     REQUIRE_YN TINYINT NOT NULL DEFAULT 1 COMMENT '필수 여부(1:필수, 0:선택)',
     ORDER_NO BIGINT NOT NULL DEFAULT 9999 COMMENT '출력 순서(작을수록 먼저 출력)',
     TITLE VARCHAR(2000) NOT NULL COMMENT '제목',
     CONTENTS LONGTEXT NOT NULL COMMENT '내용',
-    CREATE_ID BIGINT NOT NULL COMMENT '생성자 아이디',
+    CREATE_ID BIGINT NOT NULL COMMENT '생성한 회원 아이디',
     CREATE_DATE DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성일자',
-    UPDATE_ID BIGINT COMMENT '수정자 아이디',
+    UPDATE_ID BIGINT COMMENT '수정한 회원 아이디',
     UPDATE_DATE DATETIME COMMENT '수정일자',
-    CONSTRAINT TERMS_OF_USE_PK PRIMARY KEY(TERMS_OF_USE_NO)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COMMENT='정보 이용 약관 정보를 저장하는 테이블';
+    CONSTRAINT TERMS_PK PRIMARY KEY(TERMS_NO)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COMMENT='애플리케이션 이용 약관 정보를 저장하는 테이블';
 ```
 
+## 6. 회원_이용약관
 ```sql
-/* 시퀀스를 저장할 테이블 생성 */
-CREATE TABLE TABLE_SEQUENCES (
-    name VARCHAR(100) COMMENT '시퀀스 이름',
-    currval BIGINT UNSIGNED COMMENT '현재 시퀀스 값'
-) ENGINE=INNODB COMMENT='시퀀스를 저장하기 위한 테이블'
-```
-
-```sql
-/* 시퀀스 생성을 위한 CREATE_SEQ 프로시저 정의 */
-CREATE PROCEDURE CREATE_SEQ (in seq_name text)
-MODIFIES SQL DATA
-DETERMINSTIC
-BEGIN
-    DELETE FROM TABLE_SEQUENCES WHERE name = seq_name;
-    INSERT INTO TABLE_SEQUENCES VALUES(seq_name, 0);
-END
-
-/* NEXTVAL 함수 생성 */
-CREATE PROCEDURE NEXTVAL (seq_name VARCHAR(50))
-RETURNS BIGINT UNSIGNED
-MODIFIES SQL DATA
-DETERMINISTIC
-BEGIN
-    DECLARE RET BIGINT UNSIGNED;
-    UPDATE TABLE_SEQUENCES SET currval = currval + 1 WHERE name = seq_name;
-    SELECT currval INTO RET FROM TABLE_SEQUENCES WHERE name = seq_name;
-    RETURN RET;
-END
-
-/* CURRVAL 함수 생성 */
-CREATE PROCEDURE CURRVAL (seq_name VARCHAR(50))
-RETURNS BIGINT UNSIGNED
-MODIFIES SQL DATA
-DETERMINISTIC
-BEGIN
-    DECLARE RET BIGINT UNSIGNED;
-    SELECT currval INTO RET FROM TABLE_SEQUENCES WHERE name = seq_name;
-    RETURN RET;
-END
-```
-
-```sql
-/* 이용약관 시퀀스 생성 */
-CALL CREATE_SEQ('terms_of_use_seq');  -- 운영용 시퀀스(101번~)
-CALL CREATE_SEQ('terms_of_use_test_seq');  -- 테스트용 시퀀스(1~100번)
-
-/* 다음 시퀀스 값 가져오기 테스트 */
-SELECT NEXTVAL('terms_of_use_test_seq') FROM DUAL;
-
-/* 현재 시퀀스 값 가져오기 테스트 */
-SELECT CURRVAL('terms_of_use_test_seq') FROM DUAL;
-```
-
-
-## 5. 회원_정보이용약관
-```sql
-CREATE TABLE MEMBERS_TERMS_OF_USE (
+CREATE TABLE MEMBERS_TERMS (
     MEMBER_ID BIGINT NOT NULL COMMENT '회원 아이디',
-    TERMS_OF_USE_NO BIGINT NOT NULL COMMENT '정보이용약관 번호',
-    TERMS_OF_USE_YN TINYINT NOT NULL DEFAULT 1 COMMENT '정보이용약관 동의 여부(1:동의, 0:미동의)',
+    TERMS_NO BIGINT NOT NULL COMMENT '이용약관 번호',
+    TERMS_YN TINYINT NOT NULL DEFAULT 1 COMMENT '이용약관 동의 여부(1:동의, 0:미동의)',
     CREATE_DATE DATETIME2 NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성일자',
     UPDATE_DATE DATETIME2 COMMENT '수정일자',
-    CONSTRAINT MEMBERS_TERMS_OF_USE_PK PRIMARY KEY(MEMBER_ID, TERMS_OF_USE_NO)
+    CONSTRAINT MEMBERS_TERMS_PK PRIMARY KEY(MEMBER_ID, TERMS_NO)
 ) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COMMENT='회원이 동의한 이용약관 정보를 저장하는 테이블';
 ```
 
-## 6. 로그인이력
+## 7. 로그인이력
 ```sql
 CREATE TABLE LOGIN_HISTORY (
     LOGIN_HISTORY_NO BIGINT NOT NULL AUTO_INCREMENT COMMENT '로그인이력 번호',
@@ -165,7 +176,7 @@ CREATE TABLE LOGIN_HISTORY (
 ) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COMMENT='로그인 및 로그아웃 이력을 저장하는 테이블';
 ```
 
-## 7. API사용이력
+## 8. API사용이력
 ```sql
 CREATE TABLE API_USE_HISTORY (
     API_USE_HISTORY_NO BIGINT NOT NULL AUTO_INCREMENT COMMENT 'API사용이력 번호',
@@ -180,7 +191,7 @@ CREATE TABLE API_USE_HISTORY (
 ) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COMMENT='사용자가 API를 사용한 이력 정보를 저장하는 테이블';
 ```
 
-## 8. 인증번호
+## 9. 인증번호
 ```sql
 CREATE TABLE AUTH_NUMBER (
     AUTH_NUMBER BIGINT NOT NULL COMMENT '인증번호',
@@ -202,7 +213,7 @@ CREATE TABLE AUTH_NUMBER (
 ) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4 COMMENT='회원 정보 변경 시 회원 인증을 하기 위해 발급된 인증번호 및 인증 정보를 저장하는 테이블';
 ```
 
-## 9. 설정
+## 10. 설정
 ```sql
 CREATE TABLE SETTINGS (
     SETTING_NO BIGINT NOT NULL AUTO_INCREMENT COMMENT '설정 번호',
