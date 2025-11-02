@@ -8,8 +8,16 @@ https://github.com/InmookJeong/auth (auth 프로젝트 Repository)
 :sectlinks:
 
 [[Home-API]]
-== Home API
+== 1. Home API
 
 [[home-기본-조회]]
-=== Home 조회
+=== (1) Home 조회
 operation::home-test[snippets='http-request,http-response,response-fields']
+
+[[이용약관-API]]
+== 2. 이용약관 API
+
+=== (1) 이용약관 상세 조회
+
+==== # 잘못된 이용약관 번호(TermsNO)가 전달되었을 경우
+operation::terms/search/one/search-by-unvaild-terms-no[snippets='http-request,http-response,response-fields']
