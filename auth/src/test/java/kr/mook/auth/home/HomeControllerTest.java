@@ -49,7 +49,7 @@ public class HomeControllerTest {
 	}
 	
 	@Test
-    void home() throws Exception {
+	void home() throws Exception {
 		ResponseDto successResponseDto = ResponseDto.builder()
 											 .status("200")
 											 .statusCode("HOME_ACCESS")
@@ -59,24 +59,24 @@ public class HomeControllerTest {
 											 .build();
 		when(homeService.home()).thenReturn(successResponseDto);
 		
-        mockMvc.perform(get("/api/home")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-        		.andExpect(jsonPath("$.statusCode").exists())
-        		.andExpect(jsonPath("$.status").exists())
-        		.andExpect(jsonPath("$.resultType").exists())
-        		.andExpect(jsonPath("$.result").exists())
-        		.andExpect(jsonPath("$.language").exists())
-        		.andDo(print())
-        		.andDo(document(
-        				"home-test",
-    					responseFields(
-    							fieldWithPath("statusCode").description("결과 상태 코드"),
-    							fieldWithPath("status").description("상태코드 명칭(설명)"),
-    							fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
-    							fieldWithPath("result").description("결과 메시지"),
-    							fieldWithPath("language").description("사용 언어")
+		mockMvc.perform(get("/api/home")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.statusCode").exists())
+				.andExpect(jsonPath("$.status").exists())
+				.andExpect(jsonPath("$.resultType").exists())
+				.andExpect(jsonPath("$.result").exists())
+				.andExpect(jsonPath("$.language").exists())
+				.andDo(print())
+				.andDo(document(
+						"home-test",
+						responseFields(
+								fieldWithPath("statusCode").description("결과 상태 코드"),
+								fieldWithPath("status").description("상태코드 명칭(설명)"),
+								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
+								fieldWithPath("result").description("결과 메시지"),
+								fieldWithPath("language").description("사용 언어")
 						)
 				));
-    }
+	}
 }
