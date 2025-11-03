@@ -6,6 +6,7 @@ import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.common.enumeration.LanguageEnum;
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
 import kr.mook.auth.terms.persistence.search.SearchTermsMapper;
+import kr.mook.auth.terms.vo.TermsVo;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -38,6 +39,11 @@ public class SearchTermsServiceImpl implements SearchTermsService {
 		if(termsNo <= 0L) {
 			return this._getResponseDtoForBadRequest(responseDto);
 		}
+		
+		TermsVo termsVo = this._searchTermsMapper.findByTermsNo(termsNo);
+		if(termsVo == null) {
+			return this._getResponseDtoForNotFound(responseDto);
+		}
 			
 		return null;
 	}
@@ -53,6 +59,20 @@ public class SearchTermsServiceImpl implements SearchTermsService {
 		responseDto.setStatus("SEARCH[THE TERMS_NO IS GAREATER THAN ZERO]");
 		responseDto.setResultType(ResponseTypeEnum.STRING);
 		responseDto.setResult("이용약관 번호가 올바르지 않습니다. 이용약관 번호는 1이상의 숫자를 입력해주세요.");
+		return responseDto;
+	}
+	
+	/**
+	 * 이용약관 데이터를 찾을 수 없음을 반환하도록 DTO 작성
+	 * 
+	 * @param responseDto
+	 * @return
+	 */
+	private ResponseDto _getResponseDtoForNotFound(ResponseDto responseDto) {
+		responseDto.setStatusCode("404");
+		responseDto.setStatus("SEARCH[NOT FOUND TERMS]");
+		responseDto.setResultType(ResponseTypeEnum.STRING);
+		responseDto.setResult("이용약관 정보를 찾을 수 없습니다. 이용약관 번호를 다시 확인해주세요.");
 		return responseDto;
 	}
 }

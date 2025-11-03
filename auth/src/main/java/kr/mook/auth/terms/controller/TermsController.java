@@ -53,10 +53,17 @@ public class TermsController {
 	public ResponseEntity<ResponseDto> searchByTermsNo(@PathVariable(value = "termsNo") final long termsNo) {
 		ResponseDto responseDto = this._serchTermsService.searchByTermsNo(termsNo);
 		
+		// 잘못된 TermsNo가 전달된 경우
 		if("400".equals(responseDto.getStatusCode())) {
 			return ResponseEntity.badRequest().body(responseDto);
 		}
 		
+		// 올바른 TermsNo가 전달되었지만 데이터가 없는 경우
+		if("404".equals(responseDto.getStatusCode())) {
+			return ResponseEntity.status(404).body(responseDto);
+		}
+		
+		// 데이터를 찾은 경우
 		return ResponseEntity.ok(responseDto);
 	}
 }
