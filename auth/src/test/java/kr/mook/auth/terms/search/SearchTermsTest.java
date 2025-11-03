@@ -36,7 +36,7 @@ import kr.mook.auth.terms.service.search.SearchTermsServiceImpl;
  * 이용약관 조회 테스트
  * 
  * @since 2025. 10. 31.
- * @version
+ * @version 0.1
  * @author Inmook, Jeong
  */
 @AutoConfigureRestDocs(outputDir = "target/snippets")
@@ -59,12 +59,15 @@ class SearchTermsTest {
 	}
 	
 	/**
-	 * TermsNo가 0 이하일 때 반환되는 400에러와 이용약관 번호가 올바르지 않다는 
+	 * 이용약관 번호 오류 테스트<br/>
+	 * - 적합하지 않은 이용약관 번호를 전달하였을 경우, 이용약관 번호가 올바르지 않다는 메시지가 출력되는지 테스트<br/>
+	 * - TermsN가 0 이하의 숫자인 경우 400 에러 발생
+	 * 
 	 * @throws Exception
 	 */
 	@Test
 	void testSearchByUnvaildTermsNo() throws Exception {
-		long termsNo = 0l;
+		long termsNo = 0L;
 		
 		ResponseDto expectedResponseDto = ResponseDto.builder()
 													.statusCode("400")
@@ -77,7 +80,6 @@ class SearchTermsTest {
 		ResponseDto actualResponseDto = new SearchTermsServiceImpl(this._searchTermsMapper).searchByTermsNo(termsNo);
 		assertEquals(expectedResponseDto, actualResponseDto);
 		
-		
 		mockMvc.perform(get("/api/terms/" + termsNo)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest())
@@ -89,6 +91,48 @@ class SearchTermsTest {
 				.andDo(print())
 				.andDo(document(
 						"terms/search/one/search-by-unvaild-terms-no",
+						responseFields(
+								fieldWithPath("statusCode").description("결과 상태 코드"),
+								fieldWithPath("status").description("상태코드 명칭(설명)"),
+								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
+								fieldWithPath("result").description("결과 메시지"),
+								fieldWithPath("language").description("사용 언어")
+								)
+						));
+	}
+	
+	/**
+	 * 이용약관 정보 조회 실패 테스트<br/>
+	 * - 저장되지 않은 이용약관 번호를 통해 API를 실행할 경우, 조회되는 데이터가 없다는 에러 메시지가 출력되는지 테스트
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testTermsNotFound() throws Exception {
+		long termsNo = 10L;
+		
+		ResponseDto expectedResponseDto = ResponseDto.builder()
+													.statusCode("404")
+													.status("SEARCH[NOT FOUND TERMS]")
+													.resultType(ResponseTypeEnum.STRING)
+													.result("이용약관 정보를 찾을 수 없습니다. 이용약관 번호를 다시 확인해주세요.")
+													.language(LanguageEnum.KOREAN)
+													.build();
+		
+		ResponseDto actualResponseDto = new SearchTermsServiceImpl(this._searchTermsMapper).searchByTermsNo(termsNo);
+		assertEquals(expectedResponseDto, actualResponseDto);
+		
+		mockMvc.perform(get("/api/terms/" + termsNo)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.statusCode").exists())
+				.andExpect(jsonPath("$.status").exists())
+				.andExpect(jsonPath("$.resultType").exists())
+				.andExpect(jsonPath("$.result").exists())
+				.andExpect(jsonPath("$.language").exists())
+				.andDo(print())
+				.andDo(document(
+						"terms/search/one/terms-not-found",
 						responseFields(
 								fieldWithPath("statusCode").description("결과 상태 코드"),
 								fieldWithPath("status").description("상태코드 명칭(설명)"),
