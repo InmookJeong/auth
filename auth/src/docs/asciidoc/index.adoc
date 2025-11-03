@@ -21,3 +21,6 @@ operation::home-test[snippets='http-request,http-response,response-fields']
 
 ==== # 잘못된 이용약관 번호(TermsNO)가 전달되었을 경우
 operation::terms/search/one/search-by-unvaild-terms-no[snippets='http-request,http-response,response-fields']
+
+==== # 올바른 이용약관 번호(TermsNO)가 전달되었지만 이용약관 데이터를 찾을 수 없는 경우
+operation::terms/search/one/terms-not-found[snippets='http-request,http-response,response-fields']
