@@ -32,7 +32,7 @@ import kr.mook.auth.common.enumeration.ResponseTypeEnum;
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-@AutoConfigureRestDocs(outputDir = "target/snippets")
+@AutoConfigureRestDocs
 class SearchTermsTest {
 	
 	@Autowired
@@ -137,6 +137,55 @@ class SearchTermsTest {
 								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
 								fieldWithPath("result").description("결과 메시지"),
 								fieldWithPath("language").description("사용 언어")
+								)
+						));
+	}
+	
+	/**
+	 * 이용약관 정보 조회 성공 테스트<br/>
+	 * - 전달된 이용약관 번호를 통해 데이터가 조회되었을 경우, 조회된 이용약관 데이터가 전달되는지 테스트
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testSearchTerms() throws Exception {
+		long termsNo = 1L;
+		
+		mockMvc.perform(get("/api/terms/{termsNo}", termsNo)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.statusCode").value("200"))
+				.andExpect(jsonPath("$.status").value("SEARCH[TERMS]"))
+				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.OBJECT.name()))
+				.andExpect(jsonPath("$.language").value(LanguageEnum.KOREAN.name()))
+				.andExpect(jsonPath("$.result.termsNo").value(1L))
+				.andExpect(jsonPath("$.result.useYn").value(true))
+				.andExpect(jsonPath("$.result.requireYn").value(true))
+				.andExpect(jsonPath("$.result.orderNo").value(1L))
+				.andExpect(jsonPath("$.result.title").value("테스트 - 사이트 이용 약관"))
+				.andExpect(jsonPath("$.result.contents").value("사이트에 대한 설명과 이용 규칙 및 규정, 광고, 서비스 오류 사항, 운영 정책 등에 대한 내용이 작성됩니다."))
+				.andExpect(jsonPath("$.result.createId").value(0L))
+				.andExpect(jsonPath("$.result.createDate").exists())
+				.andExpect(jsonPath("$.result.updateId").isEmpty())
+				.andExpect(jsonPath("$.result.updateDate").isEmpty())
+				.andDo(print())
+				.andDo(document(
+						"terms/search/one/search-terms",
+						responseFields(
+								fieldWithPath("statusCode").description("결과 상태 코드"),
+								fieldWithPath("status").description("상태코드 명칭(설명)"),
+								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
+								fieldWithPath("language").description("사용 언어"),
+								fieldWithPath("result.termsNo").description("이용약관 번호"),
+								fieldWithPath("result.useYn").description("사용 여부"),
+								fieldWithPath("result.requireYn").description("필수 여부"),
+								fieldWithPath("result.orderNo").description("출력 순번"),
+								fieldWithPath("result.title").description("이용약관 제목"),
+								fieldWithPath("result.contents").description("이용약관 상세 내용"),
+								fieldWithPath("result.createId").description("이용약관 생성자 아이디"),
+								fieldWithPath("result.createDate").description("이용약관 생성일시"),
+								fieldWithPath("result.updateId").description("이용약관 수정자 아이디"),
+								fieldWithPath("result.updateDate").description("이용약관 수정일시")
 								)
 						));
 	}
