@@ -1,8 +1,6 @@
 package kr.mook.auth.terms.search;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -10,27 +8,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
-import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.common.enumeration.LanguageEnum;
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
-import kr.mook.auth.terms.controller.TermsController;
-import kr.mook.auth.terms.persistence.search.SearchTermsMapper;
-import kr.mook.auth.terms.service.search.SearchTermsServiceImpl;
 
 /**
  * 이용약관 조회 테스트
@@ -39,24 +30,53 @@ import kr.mook.auth.terms.service.search.SearchTermsServiceImpl;
  * @version 0.1
  * @author Inmook, Jeong
  */
+@SpringBootTest
+@AutoConfigureMockMvc
 @AutoConfigureRestDocs(outputDir = "target/snippets")
-@WebMvcTest(TermsController.class)
-@ExtendWith(RestDocumentationExtension.class)
-@Import(SearchTermsServiceImpl.class)	// MockitoBean으로 정의하면 가짜 Service를 주입하기 때문에 원하는 Method를 실행할 수 없으므로, @Import를 통해 실제 ServiceImpl을 실행할 수 있도록 작성
 class SearchTermsTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
 	
-	@MockitoBean
-	private SearchTermsMapper _searchTermsMapper;
-	
+	/**
+	 * 각 테스트 코드 수행 전 테이블 생성 및 테스트 데이터 저장
+	 */
+	@Sql(
+		statements = {
+			"CREATE TABLE TERMS (" +
+			"	TERMS_NO BIGINT NOT NULL," +
+			"	USE_YN TINYINT NOT NULL DEFAULT 1," + 
+			"	REQUIRE_YN TINYINT NOT NULL DEFAULT 1," +
+			"	ORDER_NO BIGINT NOT NULL DEFAULT 9999," +
+			"	TITLE VARCHAR(2000) NOT NULL," +
+			"	ONTENTS LONGTEXT NOT NULL," +
+			"	CREATE_ID BIGINT NOT NULL," +
+			"	CREATE_DATE DATETIME NOT NULL," +
+			"	UPDATE_ID BIGINT," +
+			"	UPDATE_DATE DATETIME," +
+			"	CONSTRAINT TERMS_PK PRIMARY KEY(TERMS_NO)" +
+			");",
+			"INSERT INTO TERMS (TERMS_NO,USE_YN, REQUIRE_YN, ORDER_NO, TITLE, CONTENTS, CREATE_ID, CREATE_DATE)" + 
+			"VALUES ( 1, 1, 1, 1, '테스트 - 사이트 이용 약관', '사이트에 대한 설명과 이용 규칙 및 규정, 광고, 서비스 오류 사항, 운영 정책 등에 대한 내용이 작성됩니다.', 0, NOW() );" + 
+			"INSERT INTO TERMS (TERMS_NO,USE_YN, REQUIRE_YN, ORDER_NO, TITLE, CONTENTS, CREATE_ID, CREATE_DATE)" + 
+			"VALUES (2, 1, 0, 2, '테스트 - 개인정보 수집 및 이용', '개인정보보호법에 따라 수집되는 개인 정보와 이용 목적을 안내하고, 동의 거부 시 불이익에 대한 내용을 안내합니다.', 0, NOW());"
+		},
+		executionPhase = ExecutionPhase.BEFORE_TEST_METHOD
+	)
 	@BeforeEach
-	void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-				.apply(documentationConfiguration(restDocumentation))
-				.build();
-	}
+	void createTempTableAndData() {}
+	
+	/**
+	 * 각 테스트 코드 수행 후 테이블 제거
+	 */
+	@Sql(
+		statements = {
+			"DROP TABLE TERMS;"
+		},
+		executionPhase = ExecutionPhase.AFTER_TEST_METHOD
+	)
+	@AfterEach
+	void dropTable() {}
 	
 	/**
 	 * 이용약관 번호 오류 테스트<br/>
@@ -69,25 +89,14 @@ class SearchTermsTest {
 	void testSearchByUnvaildTermsNo() throws Exception {
 		long termsNo = 0L;
 		
-		ResponseDto expectedResponseDto = ResponseDto.builder()
-													.statusCode("400")
-													.status("SEARCH[THE TERMS_NO IS GAREATER THAN ZERO]")
-													.resultType(ResponseTypeEnum.STRING)
-													.result("이용약관 번호가 올바르지 않습니다. 이용약관 번호는 1이상의 숫자를 입력해주세요.")
-													.language(LanguageEnum.KOREAN)
-													.build();
-		
-		ResponseDto actualResponseDto = new SearchTermsServiceImpl(this._searchTermsMapper).searchByTermsNo(termsNo);
-		assertEquals(expectedResponseDto, actualResponseDto);
-		
-		mockMvc.perform(get("/api/terms/" + termsNo)
+		mockMvc.perform(get("/api/terms/{termsNo}", termsNo)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.statusCode").exists())
-				.andExpect(jsonPath("$.status").exists())
-				.andExpect(jsonPath("$.resultType").exists())
-				.andExpect(jsonPath("$.result").exists())
-				.andExpect(jsonPath("$.language").exists())
+				.andExpect(jsonPath("$.statusCode").value("400"))
+				.andExpect(jsonPath("$.status").value("SEARCH[THE TERMS_NO IS GAREATER THAN ZERO]"))
+				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.STRING.name()))
+				.andExpect(jsonPath("$.result").value("이용약관 번호가 올바르지 않습니다. 이용약관 번호는 1이상의 숫자를 입력해주세요."))
+				.andExpect(jsonPath("$.language").value(LanguageEnum.KOREAN.name()))
 				.andDo(print())
 				.andDo(document(
 						"terms/search/one/search-by-unvaild-terms-no",
@@ -111,25 +120,14 @@ class SearchTermsTest {
 	void testTermsNotFound() throws Exception {
 		long termsNo = 10L;
 		
-		ResponseDto expectedResponseDto = ResponseDto.builder()
-													.statusCode("404")
-													.status("SEARCH[NOT FOUND TERMS]")
-													.resultType(ResponseTypeEnum.STRING)
-													.result("이용약관 정보를 찾을 수 없습니다. 이용약관 번호를 다시 확인해주세요.")
-													.language(LanguageEnum.KOREAN)
-													.build();
-		
-		ResponseDto actualResponseDto = new SearchTermsServiceImpl(this._searchTermsMapper).searchByTermsNo(termsNo);
-		assertEquals(expectedResponseDto, actualResponseDto);
-		
-		mockMvc.perform(get("/api/terms/" + termsNo)
+		mockMvc.perform(get("/api/terms/{termsNo}", termsNo)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNotFound())
-				.andExpect(jsonPath("$.statusCode").exists())
-				.andExpect(jsonPath("$.status").exists())
-				.andExpect(jsonPath("$.resultType").exists())
-				.andExpect(jsonPath("$.result").exists())
-				.andExpect(jsonPath("$.language").exists())
+				.andExpect(jsonPath("$.statusCode").value("404"))
+				.andExpect(jsonPath("$.status").value("SEARCH[NOT FOUND TERMS]"))
+				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.STRING.name()))
+				.andExpect(jsonPath("$.result").value("이용약관 정보를 찾을 수 없습니다. 이용약관 번호를 다시 확인해주세요."))
+				.andExpect(jsonPath("$.language").value(LanguageEnum.KOREAN.name()))
 				.andDo(print())
 				.andDo(document(
 						"terms/search/one/terms-not-found",
