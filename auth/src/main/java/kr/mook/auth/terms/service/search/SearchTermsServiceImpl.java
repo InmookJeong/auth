@@ -45,7 +45,7 @@ public class SearchTermsServiceImpl implements SearchTermsService {
 			return this._getResponseDtoForNotFound(responseDto);
 		}
 			
-		return null;
+		return this._getResponseDtoForSuccess(responseDto, termsVo);
 	}
 	
 	/**
@@ -73,6 +73,21 @@ public class SearchTermsServiceImpl implements SearchTermsService {
 		responseDto.setStatus("SEARCH[NOT FOUND TERMS]");
 		responseDto.setResultType(ResponseTypeEnum.STRING);
 		responseDto.setResult("이용약관 정보를 찾을 수 없습니다. 이용약관 번호를 다시 확인해주세요.");
+		return responseDto;
+	}
+	
+	/**
+	 * 이용약관 데이터를 찾아 결과를 반환하도록 DTO 작성
+	 * 
+	 * @param responseDto
+	 * @param termsVo
+	 * @return
+	 */
+	private ResponseDto _getResponseDtoForSuccess(ResponseDto responseDto, TermsVo termsVo) {
+		responseDto.setStatusCode("200");
+		responseDto.setStatus("SEARCH[TERMS]");
+		responseDto.setResultType(ResponseTypeEnum.OBJECT);
+		responseDto.setResult(termsVo);
 		return responseDto;
 	}
 }
