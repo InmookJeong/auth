@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"statusCode":"404","status":"SEARCH[NOT FOUND TERMS]","resultType":"STRING","result":"�씠�슜�빟愿� �젙蹂대�� 李얠쓣 �닔 �뾾�뒿�땲�떎. �씠�슜�빟愿� 踰덊샇瑜� �떎�떆 �솗�씤�빐二쇱꽭�슂.","language":"KOREAN"}
+----

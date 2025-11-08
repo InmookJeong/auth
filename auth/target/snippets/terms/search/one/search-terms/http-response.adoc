@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 437
+
+{"statusCode":"200","status":"SEARCH[TERMS]","resultType":"OBJECT","result":{"termsNo":1,"useYn":true,"requireYn":true,"orderNo":1,"title":"테스트 - 사이트 이용 약관","contents":"사이트에 대한 설명과 이용 규칙 및 규정, 광고, 서비스 오류 사항, 운영 정책 등에 대한 내용이 작성됩니다.","createId":0,"createDate":"2025-10-20T22:07:49","updateId":null,"updateDate":null},"language":"KOREAN"}
+----

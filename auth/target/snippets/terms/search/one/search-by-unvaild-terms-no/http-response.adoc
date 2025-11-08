@@ -1,4 +1,8 @@
-[source,json,options="nowrap"]
+[source,http,options="nowrap"]
 ----
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 241
+
 {"statusCode":"400","status":"SEARCH[THE TERMS_NO IS GAREATER THAN ZERO]","resultType":"STRING","result":"이용약관 번호가 올바르지 않습니다. 이용약관 번호는 1이상의 숫자를 입력해주세요.","language":"KOREAN"}
 ----
