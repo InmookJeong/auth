@@ -43,7 +43,7 @@ public class HomeServiceImpl implements HomeService {
 					.statusCode("400")
 					.status("HOME_ACCESS_FAIL")
 					.resultType(ResponseTypeEnum.STRING)
-					.result("접속 오류가 발생하였습니다. 관리자에게 문의해주세요.")
+					.result(this._messageSource.getMessage("error.home.welcome", null, locale))
 					.language(LanguageEnum.KOREAN)
 					.build();
 		}
