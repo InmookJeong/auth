@@ -1,5 +1,7 @@
 package kr.mook.auth.home.controller;
 
+import java.util.Locale;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,13 +28,14 @@ public class HomeController {
 	 * auth 프로젝트의 root path API<br/>
 	 * - '/api/home'으로 API를 호출될 때 실행
 	 * 
+	 * @param locale : 다국어 처리를 위한 언어 정보
 	 * @return
 	 * @since 2025. 08. 09
 	 * @version 0.1
 	 * @author Inmook, Jeong
 	 */
 	@GetMapping(value = "/api/home")
-	public ResponseEntity<ResponseDto> Home() {
-		return ResponseEntity.ok(this._homeService.home());
+	public ResponseEntity<ResponseDto> Home(Locale locale) {
+		return ResponseEntity.ok(this._homeService.home(locale));
 	}
 }

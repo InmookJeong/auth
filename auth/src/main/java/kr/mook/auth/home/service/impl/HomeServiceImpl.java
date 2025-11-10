@@ -1,11 +1,15 @@
 package kr.mook.auth.home.service.impl;
 
+import java.util.Locale;
+
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.common.enumeration.LanguageEnum;
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
 import kr.mook.auth.home.service.HomeService;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Home service Implement<br/>
@@ -16,17 +20,21 @@ import kr.mook.auth.home.service.HomeService;
  * @author Inmook, Jeong
  */
 @Service
+@RequiredArgsConstructor
 public class HomeServiceImpl implements HomeService {
+	
+	/* 다국어 처리를 위한 MessageSource */
+	private final MessageSource _messageSource;
 
 	@Override
-	public ResponseDto home() {
+	public ResponseDto home(Locale locale) {
 		try {
 			return ResponseDto
 						.builder()
 						.statusCode("200")
 						.status("HOME_ACCESS")
 						.resultType(ResponseTypeEnum.STRING)
-						.result("접속을 환영합니다.")
+						.result(this._messageSource.getMessage("home.welcome", null, locale))
 						.language(LanguageEnum.KOREAN)
 						.build();
 		} catch (Exception e) {

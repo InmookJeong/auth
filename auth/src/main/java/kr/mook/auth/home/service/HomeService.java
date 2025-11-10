@@ -1,5 +1,7 @@
 package kr.mook.auth.home.service;
 
+import java.util.Locale;
+
 import kr.mook.auth.common.dto.ResponseDto;
 
 /**
@@ -15,8 +17,9 @@ public interface HomeService {
 	/**
 	 * auth 프로젝트의 root path API에 대한 로직 수행<br/>
 	 * 
+	 * @param locale : 다국어 처리를 위한 언어 정보
 	 * @return {"statusCode":"200","status":"HOME_ACCESS","resultType":"string","result":"접속을 환영합니다.","language":"ko-KR"}
 	 */
-	public ResponseDto home();
+	public ResponseDto home(Locale locale);
 
 }
