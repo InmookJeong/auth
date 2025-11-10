@@ -2,6 +2,7 @@
 ----
 GET /api/home HTTP/1.1
 Accept: application/json
+Accept-Language: ko
 Host: localhost:8080
 
 ----
