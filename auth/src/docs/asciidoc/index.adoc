@@ -12,7 +12,12 @@ https://github.com/InmookJeong/auth (auth 프로젝트 Repository)
 
 [[home-기본-조회]]
 === (1) Home 조회
-operation::home-test[snippets='http-request,http-response,response-fields']
+
+==== # 다국어 한글 적용
+operation::home/ko[snippets='http-request,http-response,response-fields']
+
+==== # 다국어 영어 적용
+operation::home/en[snippets='http-request,http-response,response-fields']
 
 [[이용약관-API]]
 == 2. 이용약관 API

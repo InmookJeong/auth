@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"statusCode":"200","status":"HOME_ACCESS","resultType":"STRING","result":"Welcome to auth.","locale":"en_US"}
+----
