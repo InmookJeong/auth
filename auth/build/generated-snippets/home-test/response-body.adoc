@@ -1,4 +1,0 @@
-[source,json,options="nowrap"]
-----
-{"statusCode":"200","status":"HOME_ACCESS","resultType":"STRING","result":"접속을 환영합니다.","language":"KOREAN"}
-----

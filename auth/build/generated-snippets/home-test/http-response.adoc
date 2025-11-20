@@ -1,8 +1,0 @@
-[source,http,options="nowrap"]
-----
-HTTP/1.1 200 OK
-Content-Type: application/json
-Content-Length: 123
-
-{"statusCode":"200","status":"HOME_ACCESS","resultType":"STRING","result":"접속을 환영합니다.","language":"KOREAN"}
-----

@@ -1,6 +1,0 @@
-[source,bash]
-----
-$ curl 'http://localhost:8080/api/home' -i -X GET \
-    -H 'Accept: application/json' \
-    -H 'Accept-Language: ko'
-----
