@@ -6,7 +6,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import kr.mook.auth.common.dto.ResponseDto;
-import kr.mook.auth.common.enumeration.LanguageEnum;
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
 import kr.mook.auth.home.service.HomeService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,7 @@ public class HomeServiceImpl implements HomeService {
 	private final MessageSource _messageSource;
 
 	@Override
-	public ResponseDto home(Locale locale) {
+	public ResponseDto home(final Locale locale) {
 		try {
 			return ResponseDto
 						.builder()
@@ -35,7 +34,7 @@ public class HomeServiceImpl implements HomeService {
 						.status("HOME_ACCESS")
 						.resultType(ResponseTypeEnum.STRING)
 						.result(this._messageSource.getMessage("home.welcome", null, locale))
-						.language(LanguageEnum.KOREAN)
+						.locale(locale)
 						.build();
 		} catch (Exception e) {
 			return ResponseDto
@@ -44,7 +43,7 @@ public class HomeServiceImpl implements HomeService {
 					.status("HOME_ACCESS_FAIL")
 					.resultType(ResponseTypeEnum.STRING)
 					.result(this._messageSource.getMessage("error.home.welcome", null, locale))
-					.language(LanguageEnum.KOREAN)
+					.locale(locale)
 					.build();
 		}
 	}

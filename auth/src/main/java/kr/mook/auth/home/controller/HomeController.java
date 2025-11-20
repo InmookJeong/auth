@@ -28,14 +28,14 @@ public class HomeController {
 	 * auth 프로젝트의 root path API<br/>
 	 * - '/api/home'으로 API를 호출될 때 실행
 	 * 
-	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보. ex)ko-KR
 	 * @return
 	 * @since 2025. 08. 09
 	 * @version 0.1
 	 * @author Inmook, Jeong
 	 */
 	@GetMapping(value = "/api/home")
-	public ResponseEntity<ResponseDto> Home(Locale locale) {
+	public ResponseEntity<ResponseDto> Home(final Locale locale) {
 		return ResponseEntity.ok(this._homeService.home(locale));
 	}
 }

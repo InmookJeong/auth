@@ -17,9 +17,9 @@ public interface HomeService {
 	/**
 	 * auth 프로젝트의 root path API에 대한 로직 수행<br/>
 	 * 
-	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보. ex)ko-KR
 	 * @return {"statusCode":"200","status":"HOME_ACCESS","resultType":"string","result":"접속을 환영합니다.","language":"ko-KR"}
 	 */
-	public ResponseDto home(Locale locale);
+	public ResponseDto home(final Locale locale);
 
 }

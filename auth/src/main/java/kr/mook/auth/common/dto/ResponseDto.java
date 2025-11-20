@@ -1,6 +1,7 @@
 package kr.mook.auth.common.dto;
 
-import kr.mook.auth.common.enumeration.LanguageEnum;
+import java.util.Locale;
+
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,5 +34,5 @@ public class ResponseDto {
 	private Object result;
 	
 	// 결과 언어(ex. ko-KR)
-	private LanguageEnum language;
+	private Locale locale;
 }
