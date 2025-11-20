@@ -25,7 +25,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import kr.mook.auth.common.enumeration.LanguageEnum;
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
 import kr.mook.auth.config.MessageSourceConfig;
 import kr.mook.auth.home.controller.HomeController;
@@ -49,27 +48,35 @@ public class HomeControllerTest {
 	}
 	
 	@Test
-	void home() throws Exception {
-		
+	void homeTestWithLocalKoKr() throws Exception {
+		this.homeTest(Locale.KOREA, "ko-KR", "접속을 환영합니다.", "home/ko");
+	}
+	
+	@Test
+	void homeTestWithLocalEnUs() throws Exception {
+		this.homeTest(Locale.US, "en-US", "Welcome to auth.", "home/en");
+	}
+	
+	void homeTest(Locale locale, String acceptLanguage, String resultMessage, String apiDocsDir) throws Exception {
 		mockMvc.perform(get("/api/home")
 				.accept(MediaType.APPLICATION_JSON)
-				.header("Accept-Language", Locale.KOREAN))
+				.header("Accept-Language", acceptLanguage))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.statusCode").value("200"))
 				.andExpect(jsonPath("$.status").value("HOME_ACCESS"))
 				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.STRING.name()))
-				.andExpect(jsonPath("$.result").value("접속을 환영합니다."))
-				.andExpect(jsonPath("$.language").value(LanguageEnum.KOREAN.name()))
+				.andExpect(jsonPath("$.result").value(resultMessage))
+				.andExpect(jsonPath("$.locale").value(locale.toString()))
 				.andDo(print())
 				.andDo(document(
-						"home-test",
+						apiDocsDir,
 						responseFields(
 								fieldWithPath("statusCode").description("결과 상태 코드"),
 								fieldWithPath("status").description("상태코드 명칭(설명)"),
 								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
 								fieldWithPath("result").description("결과 메시지"),
-								fieldWithPath("language").description("사용 언어")
-						)
-				));
+								fieldWithPath("locale").description("사용 언어")
+								)
+						));
 	}
 }
