@@ -100,7 +100,7 @@ class SearchTermsTest {
 		String statusCode = "400";
 		String status = "SEARCH[THE TERMS_NO IS GAREATER THAN ZERO]";
 		String resultMessage = "이용약관 번호가 올바르지 않습니다. 이용약관 번호는 1이상의 숫자를 입력해주세요.";
-		String apiDocsDir = "terms/search/one/search-by-unvaild-terms-no/kr";
+		String apiDocsDir = "terms/search/one/search-by-unvaild-terms-no/ko";
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
 		this._testSearchByNotValidData(termsNo, this._LOCALE_KO_KR, this._ACCEPT_LANGUAGE_KO_KR, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
