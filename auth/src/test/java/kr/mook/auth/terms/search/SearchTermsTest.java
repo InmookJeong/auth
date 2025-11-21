@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Locale;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,8 +21,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 
-import kr.mook.auth.common.enumeration.LanguageEnum;
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
 
 /**
@@ -34,6 +36,12 @@ import kr.mook.auth.common.enumeration.ResponseTypeEnum;
 @AutoConfigureMockMvc
 @AutoConfigureRestDocs
 class SearchTermsTest {
+	
+	/* 다국어 테스트를 위한 Locale 정보 */
+	private final Locale _LOCALE_KO_KR = Locale.KOREA;
+	private final Locale _LOCALE_EN_US = Locale.US;
+	private final String _ACCEPT_LANGUAGE_KO_KR = "ko-KR";
+	private final String _ACCEPT_LANGUAGE_EN_US = "en-US";
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -81,69 +89,121 @@ class SearchTermsTest {
 	/**
 	 * 이용약관 번호 오류 테스트<br/>
 	 * - 적합하지 않은 이용약관 번호를 전달하였을 경우, 이용약관 번호가 올바르지 않다는 메시지가 출력되는지 테스트<br/>
-	 * - TermsN가 0 이하의 숫자인 경우 400 에러 발생
+	 * - TermsN가 0 이하의 숫자인 경우 400 에러 발생<br/>
+	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
 	 * 
 	 * @throws Exception
 	 */
 	@Test
-	void testSearchByUnvaildTermsNo() throws Exception {
+	void testSearchByUnvaildTermsNoWithLocaleKoKr() throws Exception {
 		long termsNo = 0L;
+		String statusCode = "400";
+		String status = "SEARCH[THE TERMS_NO IS GAREATER THAN ZERO]";
+		String resultMessage = "이용약관 번호가 올바르지 않습니다. 이용약관 번호는 1이상의 숫자를 입력해주세요.";
+		String apiDocsDir = "terms/search/one/search-by-unvaild-terms-no/kr";
+		ResultMatcher resultMatcher = status().isBadRequest();
 		
-		mockMvc.perform(get("/api/terms/{termsNo}", termsNo)
-				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.statusCode").value("400"))
-				.andExpect(jsonPath("$.status").value("SEARCH[THE TERMS_NO IS GAREATER THAN ZERO]"))
-				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.STRING.name()))
-				.andExpect(jsonPath("$.result").value("이용약관 번호가 올바르지 않습니다. 이용약관 번호는 1이상의 숫자를 입력해주세요."))
-				.andExpect(jsonPath("$.language").value(LanguageEnum.KOREAN.name()))
-				.andDo(print())
-				.andDo(document(
-						"terms/search/one/search-by-unvaild-terms-no",
-						responseFields(
-								fieldWithPath("statusCode").description("결과 상태 코드"),
-								fieldWithPath("status").description("상태코드 명칭(설명)"),
-								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
-								fieldWithPath("result").description("결과 메시지"),
-								fieldWithPath("language").description("사용 언어")
-								)
-						));
+		this._testSearchByNotValidData(termsNo, this._LOCALE_KO_KR, this._ACCEPT_LANGUAGE_KO_KR, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * 이용약관 번호 오류 테스트<br/>
+	 * - 적합하지 않은 이용약관 번호를 전달하였을 경우, 이용약관 번호가 올바르지 않다는 메시지가 출력되는지 테스트<br/>
+	 * - TermsN가 0 이하의 숫자인 경우 400 에러 발생<br/>
+	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testSearchByUnvaildTermsNoWithLocaleEnUs() throws Exception {
+		long termsNo = 0L;
+		String statusCode = "400";
+		String status = "SEARCH[THE TERMS_NO IS GAREATER THAN ZERO]";
+		String resultMessage = "The Terms of Use number is incorrect. Please enter a number greater than 1.";
+		String apiDocsDir = "terms/search/one/search-by-unvaild-terms-no/en";
+		ResultMatcher resultMatcher = status().isBadRequest();
+		
+		this._testSearchByNotValidData(termsNo, this._LOCALE_EN_US, this._ACCEPT_LANGUAGE_EN_US, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
 	 * 이용약관 정보 조회 실패 테스트<br/>
-	 * - 저장되지 않은 이용약관 번호를 통해 API를 실행할 경우, 조회되는 데이터가 없다는 에러 메시지가 출력되는지 테스트
+	 * - 저장되지 않은 이용약관 번호를 통해 API를 실행할 경우, 조회되는 데이터가 없다는 에러 메시지가 출력되는지 테스트<br/>
+	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
 	 * 
 	 * @throws Exception
 	 */
 	@Test
-	void testTermsNotFound() throws Exception {
+	void testTermsNotFoundWithLocaleKoKr() throws Exception {
 		long termsNo = 10L;
+		String statusCode = "404";
+		String status = "SEARCH[NOT FOUND TERMS]";
+		String resultMessage = "이용약관 정보를 찾을 수 없습니다. 이용약관 번호를 다시 확인해주세요.";
+		String apiDocsDir = "terms/search/one/terms-not-found/ko";
+		ResultMatcher resultMatcher = status().isNotFound();
 		
+		this._testSearchByNotValidData(termsNo, this._LOCALE_KO_KR, this._ACCEPT_LANGUAGE_KO_KR, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * 이용약관 정보 조회 실패 테스트<br/>
+	 * - 저장되지 않은 이용약관 번호를 통해 API를 실행할 경우, 조회되는 데이터가 없다는 에러 메시지가 출력되는지 테스트<br/>
+	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testTermsNotFoundWithLocaleEnUs() throws Exception {
+		long termsNo = 10L;
+		String statusCode = "404";
+		String status = "SEARCH[NOT FOUND TERMS]";
+		String resultMessage = "We couldn't find the Terms of Use information. Please check the Terms of Use number again.";
+		String apiDocsDir = "terms/search/one/terms-not-found/en";
+		ResultMatcher resultMatcher = status().isNotFound();
+		
+		this._testSearchByNotValidData(termsNo, this._LOCALE_EN_US, this._ACCEPT_LANGUAGE_EN_US, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * 이용약관 번호 조회 오류 테스트<br/>
+	 * - 적합하지 않은 이용약관 번호를 전달하였거나 이용약관 정보 조회 오류가 발생하는 경우를 테스트<br/>
+	 * 
+	 * @param termsNo : 이용약관 번호
+	 * @param locale : 다국어
+	 * @param acceptLanguage : 다국어 정보(ex. ko-KR 또는 en-US)
+	 * @param statusCode : 처리 상태 코드(ex. 400, 404)
+	 * @param status : 처리 결과 상태 구문
+	 * @param resultMessage : 처리 결과 메시지
+	 * @param apiDocsDir : API 문서 경로
+	 * @throws Exception
+	 */
+	private void _testSearchByNotValidData(Long termsNo, Locale locale, String acceptLanguage, String statusCode, String status, String resultMessage, String apiDocsDir, ResultMatcher resultMatcher) throws Exception {
 		mockMvc.perform(get("/api/terms/{termsNo}", termsNo)
+				.header("Accept-Language", acceptLanguage)
 				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isNotFound())
-				.andExpect(jsonPath("$.statusCode").value("404"))
-				.andExpect(jsonPath("$.status").value("SEARCH[NOT FOUND TERMS]"))
+				.andExpect(resultMatcher)
+				.andExpect(jsonPath("$.statusCode").value(statusCode))
+				.andExpect(jsonPath("$.status").value(status))
 				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.STRING.name()))
-				.andExpect(jsonPath("$.result").value("이용약관 정보를 찾을 수 없습니다. 이용약관 번호를 다시 확인해주세요."))
-				.andExpect(jsonPath("$.language").value(LanguageEnum.KOREAN.name()))
+				.andExpect(jsonPath("$.result").value(resultMessage))
+				.andExpect(jsonPath("$.locale").value(locale.toString()))
 				.andDo(print())
 				.andDo(document(
-						"terms/search/one/terms-not-found",
+						apiDocsDir,
 						responseFields(
 								fieldWithPath("statusCode").description("결과 상태 코드"),
 								fieldWithPath("status").description("상태코드 명칭(설명)"),
 								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
 								fieldWithPath("result").description("결과 메시지"),
-								fieldWithPath("language").description("사용 언어")
+								fieldWithPath("locale").description("사용 언어")
 								)
 						));
 	}
 	
 	/**
 	 * 이용약관 정보 조회 성공 테스트<br/>
-	 * - 전달된 이용약관 번호를 통해 데이터가 조회되었을 경우, 조회된 이용약관 데이터가 전달되는지 테스트
+	 * - 전달된 이용약관 번호를 통해 데이터가 조회되었을 경우, 조회된 이용약관 데이터가 전달되는지 테스트<br/>
+	 * - 다국어를 지원하지만 결과가 동일하기 때문에 '한국어'에 대한 테스트만 진행
 	 * 
 	 * @throws Exception
 	 */
@@ -152,12 +212,13 @@ class SearchTermsTest {
 		long termsNo = 1L;
 		
 		mockMvc.perform(get("/api/terms/{termsNo}", termsNo)
+				.header("Accept-Language", this._ACCEPT_LANGUAGE_KO_KR)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.statusCode").value("200"))
 				.andExpect(jsonPath("$.status").value("SEARCH[TERMS]"))
 				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.OBJECT.name()))
-				.andExpect(jsonPath("$.language").value(LanguageEnum.KOREAN.name()))
+				.andExpect(jsonPath("$.locale").value(this._LOCALE_KO_KR.toString()))
 				.andExpect(jsonPath("$.result.termsNo").value(1L))
 				.andExpect(jsonPath("$.result.useYn").value(true))
 				.andExpect(jsonPath("$.result.requireYn").value(true))
@@ -175,7 +236,7 @@ class SearchTermsTest {
 								fieldWithPath("statusCode").description("결과 상태 코드"),
 								fieldWithPath("status").description("상태코드 명칭(설명)"),
 								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
-								fieldWithPath("language").description("사용 언어"),
+								fieldWithPath("locale").description("사용 언어"),
 								fieldWithPath("result.termsNo").description("이용약관 번호"),
 								fieldWithPath("result.useYn").description("사용 여부"),
 								fieldWithPath("result.requireYn").description("필수 여부"),
