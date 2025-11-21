@@ -1,0 +1,60 @@
+|===
+|Path|Type|Description
+
+|`+statusCode+`
+|`+String+`
+|결과 상태 코드
+
+|`+status+`
+|`+String+`
+|상태코드 명칭(설명)
+
+|`+resultType+`
+|`+String+`
+|결과 타입(ex. Number, String)
+
+|`+locale+`
+|`+String+`
+|사용 언어
+
+|`+result.termsNo+`
+|`+Number+`
+|이용약관 번호
+
+|`+result.useYn+`
+|`+Boolean+`
+|사용 여부
+
+|`+result.requireYn+`
+|`+Boolean+`
+|필수 여부
+
+|`+result.orderNo+`
+|`+Number+`
+|출력 순번
+
+|`+result.title+`
+|`+String+`
+|이용약관 제목
+
+|`+result.contents+`
+|`+String+`
+|이용약관 상세 내용
+
+|`+result.createId+`
+|`+Number+`
+|이용약관 생성자 아이디
+
+|`+result.createDate+`
+|`+String+`
+|이용약관 생성일시
+
+|`+result.updateId+`
+|`+Null+`
+|이용약관 수정자 아이디
+
+|`+result.updateDate+`
+|`+Null+`
+|이용약관 수정일시
+
+|===

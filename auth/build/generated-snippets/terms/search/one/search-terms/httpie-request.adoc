@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ http GET 'http://localhost:8080/api/terms/1' \
+    'Accept-Language:ko-KR' \
+    'Accept:application/json'
+----

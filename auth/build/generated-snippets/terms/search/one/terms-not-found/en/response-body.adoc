@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"statusCode":"404","status":"SEARCH[NOT FOUND TERMS]","resultType":"STRING","result":"We couldn't find the Terms of Use information. Please check the Terms of Use number again.","locale":"en_US"}
+----

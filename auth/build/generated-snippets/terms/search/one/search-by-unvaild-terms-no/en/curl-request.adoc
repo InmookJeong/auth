@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/terms/0' -i -X GET \
+    -H 'Accept-Language: en-US' \
+    -H 'Accept: application/json'
+----

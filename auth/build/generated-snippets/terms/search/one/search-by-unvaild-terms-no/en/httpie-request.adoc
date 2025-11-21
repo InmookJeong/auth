@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ http GET 'http://localhost:8080/api/terms/0' \
+    'Accept-Language:en-US' \
+    'Accept:application/json'
+----
