@@ -1,5 +1,7 @@
 package kr.mook.auth.terms.controller;
 
+import java.util.Locale;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,8 +52,8 @@ public class TermsController {
 				}
 	 */
 	@GetMapping("/{termsNo}")
-	public ResponseEntity<ResponseDto> searchByTermsNo(@PathVariable(value = "termsNo") final long termsNo) {
-		ResponseDto responseDto = this._serchTermsService.searchByTermsNo(termsNo);
+	public ResponseEntity<ResponseDto> searchByTermsNo(@PathVariable(value = "termsNo") final long termsNo, final Locale locale) {
+		ResponseDto responseDto = this._serchTermsService.searchByTermsNo(termsNo, locale);
 		
 		// 잘못된 TermsNo가 전달된 경우
 		if("400".equals(responseDto.getStatusCode())) {
