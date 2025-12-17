@@ -109,7 +109,7 @@ class SearchTermsTest {
 	/**
 	 * 이용약관 번호 오류 테스트<br/>
 	 * - 적합하지 않은 이용약관 번호를 전달하였을 경우, 이용약관 번호가 올바르지 않다는 메시지가 출력되는지 테스트<br/>
-	 * - TermsN가 0 이하의 숫자인 경우 400 에러 발생<br/>
+	 * - TermsNo가 0 이하의 숫자인 경우 400 에러 발생<br/>
 	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
 	 * 
 	 * @throws Exception
@@ -175,6 +175,7 @@ class SearchTermsTest {
 	 * @param status : 처리 결과 상태 구문
 	 * @param resultMessage : 처리 결과 메시지
 	 * @param apiDocsDir : API 문서 경로
+	 * @param resultMatcher : 예상되는 HTTP 상태
 	 * @throws Exception
 	 */
 	private void _testSearchByNotValidData(Long termsNo, Locale locale, String acceptLanguage, String statusCode, String status, String resultMessage, String apiDocsDir, ResultMatcher resultMatcher) throws Exception {
