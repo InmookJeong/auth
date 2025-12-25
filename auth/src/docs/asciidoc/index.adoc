@@ -42,3 +42,13 @@ operation::terms/search/one/terms-not-found/en[snippets='http-request,http-respo
 
 ==== # 이용약관 데이터를 찾은 경우
 operation::terms/search/one/search-terms[snippets='http-request,http-response,response-fields']
+
+=== (2) 이용약관 정보 저장
+
+==== # 저장할 이용약관 정보가 비어있거나 전달되지 않았을 경우
+
+===== ## 다국어 한글 적용
+operation::terms/save/terms-is-null/ko[snippets='http-request,http-response,response-fields']
+
+===== ## 다국어 영어 적용
+operation::terms/save/terms-is-null/en[snippets='http-request,http-response,response-fields']
