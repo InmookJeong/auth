@@ -5,11 +5,16 @@ import java.util.Locale;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.mook.auth.common.dto.ResponseDto;
+import kr.mook.auth.common.dto.ResponseDtoUtil;
+import kr.mook.auth.terms.service.save.SaveTermsService;
 import kr.mook.auth.terms.service.search.SearchTermsService;
+import kr.mook.auth.terms.terms.TermsDto;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -27,6 +32,7 @@ public class TermsController {
 	
 	/* Service */
 	private final SearchTermsService _serchTermsService;
+	private final SaveTermsService _saveTermsService;
 	
 	/**
 	 * 이용약관 번호(Terms No)를 통해 이용약관 정보 조회
@@ -66,6 +72,25 @@ public class TermsController {
 		}
 		
 		// 데이터를 찾은 경우
+		return ResponseEntity.ok(responseDto);
+	}
+	
+	/**
+	 * 이용약관 정보 저장
+	 * 
+	 * @param termsDto : 저장할 이용약관 정보
+	 * @param locale
+	 * @return
+	 */
+	@PostMapping
+	public ResponseEntity<ResponseDto> save(@RequestBody(required = false) TermsDto termsDto, final Locale locale) {
+		ResponseDto responseDto = this._saveTermsService.save(termsDto, locale);
+		
+		if(ResponseDtoUtil.isStatusBadRequest(responseDto)) {
+			return ResponseEntity.badRequest().body(responseDto);
+		}
+		
+		// 저장이 된 경우
 		return ResponseEntity.ok(responseDto);
 	}
 }
