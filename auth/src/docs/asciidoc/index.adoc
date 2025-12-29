@@ -1,5 +1,4 @@
 = Auth API Documentation (Auth API 문서)
-https://github.com/InmookJeong/auth (auth 프로젝트 Repository)
 :doctype: restTest
 :icons: font
 :source-highlighter: highlightjs
@@ -7,48 +6,110 @@ https://github.com/InmookJeong/auth (auth 프로젝트 Repository)
 :toclevels: 2
 :sectlinks:
 
-[[Home-API]]
-== 1. Home API
+[[API-DOCS-기본정보]]
+프로젝트 버전:: v.0.0.1
 
-[[home-기본-조회]]
-=== (1) Home 조회
+소스코드 링크:: link:https://github.com/InmookJeong/auth[window=_blank] (auth 프로젝트 Repository)
 
-==== # 다국어 한글 적용
+Auth 애플리케이션 설명::
+- Auth는 애플리케이션에서 제공하는 서비스를 이용하기 위해 필요한 인증 기능을 담당합니다.
+- Auth는 서비스를 이용할 `회원 정보`와 `이용약관 정보`를 관리하고,
+- `권한 관리`를 통해 현재 접속한 사용자가 서비스에 접근하여 이용할 수 있는지 검증합니다.
+
+Auth API 문서 설명::
+- Auth API 문서는 Auth 애플리케이션에서 제공하는 서비스를 활용하는 방법을 알려줍니다.
+- API 호출을 통해 회원 가입, 로그인, 아이디·비밀번호 찾기 등의 서비스를 이용할 뿐만 아니라
+- 로그인 정보를 활용하여 회원 정보 수정, 이용약관 정보 관리, 권한 관리 등의 서비스를 활용할 수 있습니다.
+- 프로젝트 버전 0.0.1의 API 문서에서는 한글과 영어를 지원하고 있습니다.
+
+'''
+
+[[Home]]
+== *1. Home*
+
+[[home-API]]
+=== *1) Home 접속 API*
+
+설명::
+- Home API는 `Auth` 서버에 접속이 가능한지 확인하기 위한 API로, 일종의 서버 상태를 확인하는 역할을 담당합니다.
+- API를 통해 `Auth` 서버에 접속할 경우 *HTTP Status Code* 중 성공 코드인 `*200*` 코드가 반환됩니다.
+- 또한 전달된 언어 정보(Locale)에 따라 응답 결과 메시지를 전달해줍니다.
+
+[[home-API-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
 operation::home/ko[snippets='http-request,http-response,response-fields']
 
-==== # 다국어 영어 적용
+[[home-API-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
 operation::home/en[snippets='http-request,http-response,response-fields']
 
-[[이용약관-API]]
-== 2. 이용약관 API
 
-=== (1) 이용약관 상세 조회
+[[이용약관]]
+== *2. 이용약관*
 
-==== # 잘못된 이용약관 번호(TermsNO)가 전달되었을 경우
+설명::
+- 이용약관은 애플리케이션의 서비스를 이용하는 과정에서 사용자에게 안내하거나 주의해야 할 정보를 제공하며, 
+- 애플리케이션 이용 시 수집되는 정보(개인정보 포함)를 안내하는 서비스입니다.
+- 또한 서비스 예정인 애플리케이션의 특성에 따라 이용 약관 정보를 추가·수정·삭제할 수 있습니다.
+- 이용약관 정보는 애플리케이션 관리자에 의해 추가·수정·삭제할 수 있으며,
+- 사용자는 이용약관 내용을 읽고 회원가입 시 약관에 동의하거나 비동의할 수 있습니다.
 
-===== ## 다국어 한글 적용
+[[이용약관-상세-조회]]
+=== *1) 이용약관 상세 조회*
+
+[[이용약관-상세-조회-잘못된-이용약관-번호]]
+==== (1) 잘못된 이용약관 번호(TermsNO)가 전달되었을 경우
+
+설명::
+- 이용약관 정보를 상세 조회할 때 잘못된 이용약관 번호(TermsNo), 즉 0이하의 숫자가 전달되면 오류가 발생합니다.
+- 이 때 *HTTP Status Code* 중 잘못된 요청(Bad Request)을 의미하는 `*400*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[이용약관-상세-조회-API-1-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
 operation::terms/search/one/search-by-unvaild-terms-no/ko[snippets='http-request,http-response,response-fields']
 
-===== ## 다국어 영어 적용
+[[이용약관-상세-조회-API-1-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
 operation::terms/search/one/search-by-unvaild-terms-no/en[snippets='http-request,http-response,response-fields']
 
-==== # 올바른 이용약관 번호(TermsNO)가 전달되었지만 이용약관 데이터를 찾을 수 없는 경우
+==== (2) 올바른 이용약관 번호(TermsNO)가 전달되었지만 이용약관 데이터를 찾을 수 없는 경우
 
-===== ## 다국어 한글 적용
+설명::
+- 이용약관 정보를 상세 조회할 때 이용약관 번호(TermsNo)는 형식에 맞으나 실제 데이터를 찾지 못할 경우 오류가 발생합니다.
+- 이 때 *HTTP Status Code* 중 데이터를 찾을 수 없음(Not Found)을 의미하는 `*404*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[이용약관-상세-조회-API-2-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
 operation::terms/search/one/terms-not-found/ko[snippets='http-request,http-response,response-fields']
 
-===== ## 다국어 영어 적용
+[[이용약관-상세-조회-API-2-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
 operation::terms/search/one/terms-not-found/en[snippets='http-request,http-response,response-fields']
 
-==== # 이용약관 데이터를 찾은 경우
+==== (3) 이용약관 데이터를 찾은 경우
+
+셜명::
+- 상세 조회할 이용약관 정보를 찾았을 경우 JSON 형식으로 상세 정보를 전달합니다.
+- 이 때 *HTTP Status Code* 중 데이터 조회 성공(OK)을 의미하는 `*200*` 코드가 반환되며,
+- 서비스 이용자가 전달하는 언어 정보(Locale)에 상관없이 동일한 결과를 반환합니다.
+
 operation::terms/search/one/search-terms[snippets='http-request,http-response,response-fields']
 
-=== (2) 이용약관 정보 저장
+=== *2) 이용약관 정보 저장*
 
-==== # 저장할 이용약관 정보가 비어있거나 전달되지 않았을 경우
+==== *(1) 저장할 이용약관 정보가 비어있거나 전달되지 않았을 경우*
 
-===== ## 다국어 한글 적용
+설명::
+- 이용약관을 저장할 때 이용약관 정보가 비어있거나 전달되지 않을 경우 오류가 발생합니다.
+- 이 때 *HTTP Status Code* 중 잘못된 요청(Bad Request)을 의미하는 `*400*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[이용약관-저장-API-1-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
 operation::terms/save/terms-is-null/ko[snippets='http-request,http-response,response-fields']
 
-===== ## 다국어 영어 적용
+[[이용약관-저장-API-1-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
 operation::terms/save/terms-is-null/en[snippets='http-request,http-response,response-fields']

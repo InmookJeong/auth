@@ -5,7 +5,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.18">
-<meta name="author" content="https://github.com/InmookJeong/auth (auth 프로젝트 Repository)">
 <title>Auth API Documentation (Auth API 문서)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -443,36 +442,107 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="header">
 <h1>Auth API Documentation (Auth API 문서)</h1>
 <div class="details">
-<span id="author" class="author">https://github.com/InmookJeong/auth (auth 프로젝트 Repository)</span><br>
 <span id="revnumber">version 0.0.1-SNAPSHOT</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#Home-API">1. Home API</a>
+<li><a href="#Home"><strong>1. Home</strong></a>
 <ul class="sectlevel2">
-<li><a href="#home-기본-조회">(1) Home 조회</a></li>
+<li><a href="#home-API"><strong>1) Home 접속 API</strong></a></li>
 </ul>
 </li>
-<li><a href="#이용약관-API">2. 이용약관 API</a>
+<li><a href="#이용약관"><strong>2. 이용약관</strong></a>
 <ul class="sectlevel2">
-<li><a href="#_1_이용약관_상세_조회">(1) 이용약관 상세 조회</a></li>
-<li><a href="#_2_이용약관_정보_저장">(2) 이용약관 정보 저장</a></li>
+<li><a href="#이용약관-상세-조회"><strong>1) 이용약관 상세 조회</strong></a></li>
+<li><a href="#_2_이용약관_정보_저장"><strong>2) 이용약관 정보 저장</strong></a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div id="API-DOCS-기본정보" class="dlist">
+<dl>
+<dt class="hdlist1">프로젝트 버전</dt>
+<dd>
+<p>v.0.0.1</p>
+</dd>
+<dt class="hdlist1">소스코드 링크</dt>
+<dd>
+<p><a href="https://github.com/InmookJeong/auth" class="bare" target="_blank" rel="noopener">https://github.com/InmookJeong/auth</a> (auth 프로젝트 Repository)</p>
+</dd>
+<dt class="hdlist1">Auth 애플리케이션 설명</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Auth는 애플리케이션에서 제공하는 서비스를 이용하기 위해 필요한 인증 기능을 담당합니다.</p>
+</li>
+<li>
+<p>Auth는 서비스를 이용할 `회원 정보`와 `이용약관 정보`를 관리하고,</p>
+</li>
+<li>
+<p>`권한 관리`를 통해 현재 접속한 사용자가 서비스에 접근하여 이용할 수 있는지 검증합니다.</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">Auth API 문서 설명</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Auth API 문서는 Auth 애플리케이션에서 제공하는 서비스를 활용하는 방법을 알려줍니다.</p>
+</li>
+<li>
+<p>API 호출을 통해 회원 가입, 로그인, 아이디·비밀번호 찾기 등의 서비스를 이용할 뿐만 아니라</p>
+</li>
+<li>
+<p>로그인 정보를 활용하여 회원 정보 수정, 이용약관 정보 관리, 권한 관리 등의 서비스를 활용할 수 있습니다.</p>
+</li>
+<li>
+<p>프로젝트 버전 0.0.1의 API 문서에서는 한글과 영어를 지원하고 있습니다.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<hr>
+</div>
+</div>
 <div class="sect1">
-<h2 id="Home-API"><a class="link" href="#Home-API">1. Home API</a></h2>
+<h2 id="Home"><a class="link" href="#Home"><strong>1. Home</strong></a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="home-기본-조회"><a class="link" href="#home-기본-조회">(1) Home 조회</a></h3>
-<div class="sect3">
-<h4 id="_다국어_한글_적용"><a class="link" href="#_다국어_한글_적용"># 다국어 한글 적용</a></h4>
+<h3 id="home-API"><a class="link" href="#home-API"><strong>1) Home 접속 API</strong></a></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">설명</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Home API는 <code>Auth</code> 서버에 접속이 가능한지 확인하기 위한 API로, 일종의 서버 상태를 확인하는 역할을 담당합니다.</p>
+</li>
+<li>
+<p>API를 통해 <code>Auth</code> 서버에 접속할 경우 <strong>HTTP Status Code</strong> 중 성공 코드인 <code><strong>200</strong></code> 코드가 반환됩니다.</p>
+</li>
+<li>
+<p>또한 전달된 언어 정보(Locale)에 따라 응답 결과 메시지를 전달해줍니다.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
 <div class="sect4">
-<h5 id="_다국어_한글_적용_http_request"><a class="link" href="#_다국어_한글_적용_http_request">HTTP request</a></h5>
+<h5 id="home-API-다국어-한글-지원"><a class="link" href="#home-API-다국어-한글-지원"><strong>※ 다국어 한글 지원</strong></a></h5>
+<div class="sect5">
+<h6 id="home-API-다국어-한글-지원_http_request"><a class="link" href="#home-API-다국어-한글-지원_http_request">HTTP request</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/home HTTP/1.1
@@ -482,8 +552,8 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="_다국어_한글_적용_http_response"><a class="link" href="#_다국어_한글_적용_http_response">HTTP response</a></h5>
+<div class="sect5">
+<h6 id="home-API-다국어-한글-지원_http_response"><a class="link" href="#home-API-다국어-한글-지원_http_response">HTTP response</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -494,8 +564,8 @@ Content-Length: 120
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="_다국어_한글_적용_response_fields"><a class="link" href="#_다국어_한글_적용_response_fields">Response fields</a></h5>
+<div class="sect5">
+<h6 id="home-API-다국어-한글-지원_response_fields"><a class="link" href="#home-API-다국어-한글-지원_response_fields">Response fields</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -539,10 +609,10 @@ Content-Length: 120
 </table>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_다국어_영어_적용"><a class="link" href="#_다국어_영어_적용"># 다국어 영어 적용</a></h4>
 <div class="sect4">
-<h5 id="_다국어_영어_적용_http_request"><a class="link" href="#_다국어_영어_적용_http_request">HTTP request</a></h5>
+<h5 id="home-API-다국어-영어-지원"><a class="link" href="#home-API-다국어-영어-지원"><strong>※ 다국어 영어 지원</strong></a></h5>
+<div class="sect5">
+<h6 id="home-API-다국어-영어-지원_http_request"><a class="link" href="#home-API-다국어-영어-지원_http_request">HTTP request</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/home HTTP/1.1
@@ -552,8 +622,8 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="_다국어_영어_적용_http_response"><a class="link" href="#_다국어_영어_적용_http_response">HTTP response</a></h5>
+<div class="sect5">
+<h6 id="home-API-다국어-영어-지원_http_response"><a class="link" href="#home-API-다국어-영어-지원_http_response">HTTP response</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -564,8 +634,8 @@ Content-Length: 110
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="_다국어_영어_적용_response_fields"><a class="link" href="#_다국어_영어_적용_response_fields">Response fields</a></h5>
+<div class="sect5">
+<h6 id="home-API-다국어-영어-지원_response_fields"><a class="link" href="#home-API-다국어-영어-지원_response_fields">Response fields</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -613,16 +683,62 @@ Content-Length: 110
 </div>
 </div>
 <div class="sect1">
-<h2 id="이용약관-API"><a class="link" href="#이용약관-API">2. 이용약관 API</a></h2>
+<h2 id="이용약관"><a class="link" href="#이용약관"><strong>2. 이용약관</strong></a></h2>
 <div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">설명</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>이용약관은 애플리케이션의 서비스를 이용하는 과정에서 사용자에게 안내하거나 주의해야 할 정보를 제공하며,</p>
+</li>
+<li>
+<p>애플리케이션 이용 시 수집되는 정보(개인정보 포함)를 안내하는 서비스입니다.</p>
+</li>
+<li>
+<p>또한 서비스 예정인 애플리케이션의 특성에 따라 이용 약관 정보를 추가·수정·삭제할 수 있습니다.</p>
+</li>
+<li>
+<p>이용약관 정보는 애플리케이션 관리자에 의해 추가·수정·삭제할 수 있으며,</p>
+</li>
+<li>
+<p>사용자는 이용약관 내용을 읽고 회원가입 시 약관에 동의하거나 비동의할 수 있습니다.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
 <div class="sect2">
-<h3 id="_1_이용약관_상세_조회"><a class="link" href="#_1_이용약관_상세_조회">(1) 이용약관 상세 조회</a></h3>
+<h3 id="이용약관-상세-조회"><a class="link" href="#이용약관-상세-조회"><strong>1) 이용약관 상세 조회</strong></a></h3>
 <div class="sect3">
-<h4 id="_잘못된_이용약관_번호termsno가_전달되었을_경우"><a class="link" href="#_잘못된_이용약관_번호termsno가_전달되었을_경우"># 잘못된 이용약관 번호(TermsNO)가 전달되었을 경우</a></h4>
+<h4 id="이용약관-상세-조회-잘못된-이용약관-번호"><a class="link" href="#이용약관-상세-조회-잘못된-이용약관-번호">(1) 잘못된 이용약관 번호(TermsNO)가 전달되었을 경우</a></h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">설명</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>이용약관 정보를 상세 조회할 때 잘못된 이용약관 번호(TermsNo), 즉 0이하의 숫자가 전달되면 오류가 발생합니다.</p>
+</li>
+<li>
+<p>이 때 <strong>HTTP Status Code</strong> 중 잘못된 요청(Bad Request)을 의미하는 <code><strong>400</strong></code> 코드가 반환되며,</p>
+</li>
+<li>
+<p>서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
 <div class="sect4">
-<h5 id="_다국어_한글_적용_2"><a class="link" href="#_다국어_한글_적용_2">## 다국어 한글 적용</a></h5>
+<h5 id="이용약관-상세-조회-API-1-다국어-한글-지원"><a class="link" href="#이용약관-상세-조회-API-1-다국어-한글-지원"><strong>※ 다국어 한글 지원</strong></a></h5>
 <div class="sect5">
-<h6 id="_다국어_한글_적용_2_http_request"><a class="link" href="#_다국어_한글_적용_2_http_request">HTTP request</a></h6>
+<h6 id="이용약관-상세-조회-API-1-다국어-한글-지원_http_request"><a class="link" href="#이용약관-상세-조회-API-1-다국어-한글-지원_http_request">HTTP request</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/terms/0 HTTP/1.1
@@ -633,7 +749,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_다국어_한글_적용_2_http_response"><a class="link" href="#_다국어_한글_적용_2_http_response">HTTP response</a></h6>
+<h6 id="이용약관-상세-조회-API-1-다국어-한글-지원_http_response"><a class="link" href="#이용약관-상세-조회-API-1-다국어-한글-지원_http_response">HTTP response</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
@@ -645,7 +761,7 @@ Content-Length: 238
 </div>
 </div>
 <div class="sect5">
-<h6 id="_다국어_한글_적용_2_response_fields"><a class="link" href="#_다국어_한글_적용_2_response_fields">Response fields</a></h6>
+<h6 id="이용약관-상세-조회-API-1-다국어-한글-지원_response_fields"><a class="link" href="#이용약관-상세-조회-API-1-다국어-한글-지원_response_fields">Response fields</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -690,9 +806,9 @@ Content-Length: 238
 </div>
 </div>
 <div class="sect4">
-<h5 id="_다국어_영어_적용_2"><a class="link" href="#_다국어_영어_적용_2">## 다국어 영어 적용</a></h5>
+<h5 id="이용약관-상세-조회-API-1-다국어-영어-지원"><a class="link" href="#이용약관-상세-조회-API-1-다국어-영어-지원"><strong>※ 다국어 영어 지원</strong></a></h5>
 <div class="sect5">
-<h6 id="_다국어_영어_적용_2_http_request"><a class="link" href="#_다국어_영어_적용_2_http_request">HTTP request</a></h6>
+<h6 id="이용약관-상세-조회-API-1-다국어-영어-지원_http_request"><a class="link" href="#이용약관-상세-조회-API-1-다국어-영어-지원_http_request">HTTP request</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/terms/0 HTTP/1.1
@@ -703,7 +819,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_다국어_영어_적용_2_http_response"><a class="link" href="#_다국어_영어_적용_2_http_response">HTTP response</a></h6>
+<h6 id="이용약관-상세-조회-API-1-다국어-영어-지원_http_response"><a class="link" href="#이용약관-상세-조회-API-1-다국어-영어-지원_http_response">HTTP response</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
@@ -715,7 +831,7 @@ Content-Length: 200
 </div>
 </div>
 <div class="sect5">
-<h6 id="_다국어_영어_적용_2_response_fields"><a class="link" href="#_다국어_영어_적용_2_response_fields">Response fields</a></h6>
+<h6 id="이용약관-상세-조회-API-1-다국어-영어-지원_response_fields"><a class="link" href="#이용약관-상세-조회-API-1-다국어-영어-지원_response_fields">Response fields</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -761,11 +877,31 @@ Content-Length: 200
 </div>
 </div>
 <div class="sect3">
-<h4 id="_올바른_이용약관_번호termsno가_전달되었지만_이용약관_데이터를_찾을_수_없는_경우"><a class="link" href="#_올바른_이용약관_번호termsno가_전달되었지만_이용약관_데이터를_찾을_수_없는_경우"># 올바른 이용약관 번호(TermsNO)가 전달되었지만 이용약관 데이터를 찾을 수 없는 경우</a></h4>
+<h4 id="_2_올바른_이용약관_번호termsno가_전달되었지만_이용약관_데이터를_찾을_수_없는_경우"><a class="link" href="#_2_올바른_이용약관_번호termsno가_전달되었지만_이용약관_데이터를_찾을_수_없는_경우">(2) 올바른 이용약관 번호(TermsNO)가 전달되었지만 이용약관 데이터를 찾을 수 없는 경우</a></h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">설명</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>이용약관 정보를 상세 조회할 때 이용약관 번호(TermsNo)는 형식에 맞으나 실제 데이터를 찾지 못할 경우 오류가 발생합니다.</p>
+</li>
+<li>
+<p>이 때 <strong>HTTP Status Code</strong> 중 데이터를 찾을 수 없음(Not Found)을 의미하는 <code><strong>404</strong></code> 코드가 반환되며,</p>
+</li>
+<li>
+<p>서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
 <div class="sect4">
-<h5 id="_다국어_한글_적용_3"><a class="link" href="#_다국어_한글_적용_3">## 다국어 한글 적용</a></h5>
+<h5 id="이용약관-상세-조회-API-2-다국어-한글-지원"><a class="link" href="#이용약관-상세-조회-API-2-다국어-한글-지원"><strong>※ 다국어 한글 지원</strong></a></h5>
 <div class="sect5">
-<h6 id="_다국어_한글_적용_3_http_request"><a class="link" href="#_다국어_한글_적용_3_http_request">HTTP request</a></h6>
+<h6 id="이용약관-상세-조회-API-2-다국어-한글-지원_http_request"><a class="link" href="#이용약관-상세-조회-API-2-다국어-한글-지원_http_request">HTTP request</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/terms/10 HTTP/1.1
@@ -776,7 +912,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_다국어_한글_적용_3_http_response"><a class="link" href="#_다국어_한글_적용_3_http_response">HTTP response</a></h6>
+<h6 id="이용약관-상세-조회-API-2-다국어-한글-지원_http_response"><a class="link" href="#이용약관-상세-조회-API-2-다국어-한글-지원_http_response">HTTP response</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 404 Not Found
@@ -788,7 +924,7 @@ Content-Length: 203
 </div>
 </div>
 <div class="sect5">
-<h6 id="_다국어_한글_적용_3_response_fields"><a class="link" href="#_다국어_한글_적용_3_response_fields">Response fields</a></h6>
+<h6 id="이용약관-상세-조회-API-2-다국어-한글-지원_response_fields"><a class="link" href="#이용약관-상세-조회-API-2-다국어-한글-지원_response_fields">Response fields</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -833,9 +969,9 @@ Content-Length: 203
 </div>
 </div>
 <div class="sect4">
-<h5 id="_다국어_영어_적용_3"><a class="link" href="#_다국어_영어_적용_3">## 다국어 영어 적용</a></h5>
+<h5 id="이용약관-상세-조회-API-2-다국어-한글-지원"><a class="link" href="#이용약관-상세-조회-API-2-다국어-한글-지원"><strong>※ 다국어 한글 지원</strong></a></h5>
 <div class="sect5">
-<h6 id="_다국어_영어_적용_3_http_request"><a class="link" href="#_다국어_영어_적용_3_http_request">HTTP request</a></h6>
+<h6 id="이용약관-상세-조회-API-2-다국어-한글-지원_http_request"><a class="link" href="#이용약관-상세-조회-API-2-다국어-한글-지원_http_request">HTTP request</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/terms/10 HTTP/1.1
@@ -846,7 +982,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_다국어_영어_적용_3_http_response"><a class="link" href="#_다국어_영어_적용_3_http_response">HTTP response</a></h6>
+<h6 id="이용약관-상세-조회-API-2-다국어-한글-지원_http_response"><a class="link" href="#이용약관-상세-조회-API-2-다국어-한글-지원_http_response">HTTP response</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 404 Not Found
@@ -858,7 +994,7 @@ Content-Length: 196
 </div>
 </div>
 <div class="sect5">
-<h6 id="_다국어_영어_적용_3_response_fields"><a class="link" href="#_다국어_영어_적용_3_response_fields">Response fields</a></h6>
+<h6 id="이용약관-상세-조회-API-2-다국어-한글-지원_response_fields"><a class="link" href="#이용약관-상세-조회-API-2-다국어-한글-지원_response_fields">Response fields</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -904,9 +1040,29 @@ Content-Length: 196
 </div>
 </div>
 <div class="sect3">
-<h4 id="_이용약관_데이터를_찾은_경우"><a class="link" href="#_이용약관_데이터를_찾은_경우"># 이용약관 데이터를 찾은 경우</a></h4>
+<h4 id="_3_이용약관_데이터를_찾은_경우"><a class="link" href="#_3_이용약관_데이터를_찾은_경우">(3) 이용약관 데이터를 찾은 경우</a></h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">셜명</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>상세 조회할 이용약관 정보를 찾았을 경우 JSON 형식으로 상세 정보를 전달합니다.</p>
+</li>
+<li>
+<p>이 때 <strong>HTTP Status Code</strong> 중 데이터 조회 성공(OK)을 의미하는 <code><strong>200</strong></code> 코드가 반환되며,</p>
+</li>
+<li>
+<p>서비스 이용자가 전달하는 언어 정보(Locale)에 상관없이 동일한 결과를 반환합니다.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
 <div class="sect4">
-<h5 id="_이용약관_데이터를_찾은_경우_http_request"><a class="link" href="#_이용약관_데이터를_찾은_경우_http_request">HTTP request</a></h5>
+<h5 id="_3_이용약관_데이터를_찾은_경우_http_request"><a class="link" href="#_3_이용약관_데이터를_찾은_경우_http_request">HTTP request</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /api/terms/1 HTTP/1.1
@@ -917,7 +1073,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_이용약관_데이터를_찾은_경우_http_response"><a class="link" href="#_이용약관_데이터를_찾은_경우_http_response">HTTP response</a></h5>
+<h5 id="_3_이용약관_데이터를_찾은_경우_http_response"><a class="link" href="#_3_이용약관_데이터를_찾은_경우_http_response">HTTP response</a></h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
@@ -929,7 +1085,7 @@ Content-Length: 434
 </div>
 </div>
 <div class="sect4">
-<h5 id="_이용약관_데이터를_찾은_경우_response_fields"><a class="link" href="#_이용약관_데이터를_찾은_경우_response_fields">Response fields</a></h5>
+<h5 id="_3_이용약관_데이터를_찾은_경우_response_fields"><a class="link" href="#_3_이용약관_데이터를_찾은_경우_response_fields">Response fields</a></h5>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -1020,13 +1176,33 @@ Content-Length: 434
 </div>
 </div>
 <div class="sect2">
-<h3 id="_2_이용약관_정보_저장"><a class="link" href="#_2_이용약관_정보_저장">(2) 이용약관 정보 저장</a></h3>
+<h3 id="_2_이용약관_정보_저장"><a class="link" href="#_2_이용약관_정보_저장"><strong>2) 이용약관 정보 저장</strong></a></h3>
 <div class="sect3">
-<h4 id="_저장할_이용약관_정보가_비어있거나_전달되지_않았을_경우"><a class="link" href="#_저장할_이용약관_정보가_비어있거나_전달되지_않았을_경우"># 저장할 이용약관 정보가 비어있거나 전달되지 않았을 경우</a></h4>
+<h4 id="_1_저장할_이용약관_정보가_비어있거나_전달되지_않았을_경우"><a class="link" href="#_1_저장할_이용약관_정보가_비어있거나_전달되지_않았을_경우"><strong>(1) 저장할 이용약관 정보가 비어있거나 전달되지 않았을 경우</strong></a></h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">설명</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>이용약관을 저장할 때 이용약관 정보가 비어있거나 전달되지 않을 경우 오류가 발생합니다.</p>
+</li>
+<li>
+<p>이 때 <strong>HTTP Status Code</strong> 중 잘못된 요청(Bad Request)을 의미하는 <code><strong>400</strong></code> 코드가 반환되며,</p>
+</li>
+<li>
+<p>서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
 <div class="sect4">
-<h5 id="_다국어_한글_적용_4"><a class="link" href="#_다국어_한글_적용_4">## 다국어 한글 적용</a></h5>
+<h5 id="이용약관-저장-API-1-다국어-한글-지원"><a class="link" href="#이용약관-저장-API-1-다국어-한글-지원"><strong>※ 다국어 한글 지원</strong></a></h5>
 <div class="sect5">
-<h6 id="_다국어_한글_적용_4_http_request"><a class="link" href="#_다국어_한글_적용_4_http_request">HTTP request</a></h6>
+<h6 id="이용약관-저장-API-1-다국어-한글-지원_http_request"><a class="link" href="#이용약관-저장-API-1-다국어-한글-지원_http_request">HTTP request</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/terms HTTP/1.1
@@ -1041,7 +1217,7 @@ null</code></pre>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_다국어_한글_적용_4_http_response"><a class="link" href="#_다국어_한글_적용_4_http_response">HTTP response</a></h6>
+<h6 id="이용약관-저장-API-1-다국어-한글-지원_http_response"><a class="link" href="#이용약관-저장-API-1-다국어-한글-지원_http_response">HTTP response</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
@@ -1053,7 +1229,7 @@ Content-Length: 232
 </div>
 </div>
 <div class="sect5">
-<h6 id="_다국어_한글_적용_4_response_fields"><a class="link" href="#_다국어_한글_적용_4_response_fields">Response fields</a></h6>
+<h6 id="이용약관-저장-API-1-다국어-한글-지원_response_fields"><a class="link" href="#이용약관-저장-API-1-다국어-한글-지원_response_fields">Response fields</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -1098,9 +1274,9 @@ Content-Length: 232
 </div>
 </div>
 <div class="sect4">
-<h5 id="_다국어_영어_적용_4"><a class="link" href="#_다국어_영어_적용_4">## 다국어 영어 적용</a></h5>
+<h5 id="이용약관-저장-API-1-다국어-영어-지원"><a class="link" href="#이용약관-저장-API-1-다국어-영어-지원"><strong>※ 다국어 영어 지원</strong></a></h5>
 <div class="sect5">
-<h6 id="_다국어_영어_적용_4_http_request"><a class="link" href="#_다국어_영어_적용_4_http_request">HTTP request</a></h6>
+<h6 id="이용약관-저장-API-1-다국어-영어-지원_http_request"><a class="link" href="#이용약관-저장-API-1-다국어-영어-지원_http_request">HTTP request</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/terms HTTP/1.1
@@ -1115,7 +1291,7 @@ null</code></pre>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_다국어_영어_적용_4_http_response"><a class="link" href="#_다국어_영어_적용_4_http_response">HTTP response</a></h6>
+<h6 id="이용약관-저장-API-1-다국어-영어-지원_http_response"><a class="link" href="#이용약관-저장-API-1-다국어-영어-지원_http_response">HTTP response</a></h6>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
@@ -1127,7 +1303,7 @@ Content-Length: 215
 </div>
 </div>
 <div class="sect5">
-<h6 id="_다국어_영어_적용_4_response_fields"><a class="link" href="#_다국어_영어_적용_4_response_fields">Response fields</a></h6>
+<h6 id="이용약관-저장-API-1-다국어-영어-지원_response_fields"><a class="link" href="#이용약관-저장-API-1-다국어-영어-지원_response_fields">Response fields</a></h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -1179,7 +1355,7 @@ Content-Length: 215
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2025-12-18 00:17:01 +0900
+Last updated 2025-12-29 21:34:43 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
