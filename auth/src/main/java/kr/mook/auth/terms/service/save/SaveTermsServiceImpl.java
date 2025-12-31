@@ -53,9 +53,15 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 		// 전달된 termsDto가 Null인 경우
 		if(termsDto == null) {
 			responseDto.setStatus("SAVE[DATA IS NULL]");
+			responseDto.setStatusCode(RestfulApiStatusUtil.BAD_REQUEST_CODE_STRING);
 			responseDto.setResultType(ResponseTypeEnum.STRING);
 			responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-is-empty", null, locale));
+		} else if(termsDto.getTitle() == null || "".equals(termsDto.getTitle())) {
+			String fieldName = this._messageSource.getMessage("title", null, locale);
+			responseDto.setStatus("SAVE ERROR[TERMS TITLE IS EMPTY]");
 			responseDto.setStatusCode(RestfulApiStatusUtil.BAD_REQUEST_CODE_STRING);
+			responseDto.setResultType(ResponseTypeEnum.STRING);
+			responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-data-is-empty", new String[] {fieldName}, null, locale));
 		}
 		
 		return responseDto;
