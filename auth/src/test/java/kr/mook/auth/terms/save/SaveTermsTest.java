@@ -176,6 +176,52 @@ public class SaveTermsTest {
 	}
 	
 	/**
+	 * TermsDto에 내용(contents)이 없는 경우 오류 테스트<br/>
+	 * - 저장할 이용약관 정보 중 내용(contents)이 비어있는 경우, 이용약관 내용(contents)을 입력하라는 메시지가 출력되는지 테스트<br/>
+	 * - 저장할 이용약관 정보의 제목이 입력되지 않았을 경우 400 에러 발생<br/>
+	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testTermsContentsIsEmptyWithLocalKoKr() throws Exception {
+		TermsDto termsDto = new TermsDto();
+		termsDto.setTitle("사이트 이용 약관");
+		
+		String titleFieldName = this._messageSource.getMessage("contents", null, _LOCALE_KO_KR);
+		String statusCode = "400";
+		String status = "SAVE ERROR[TERMS CONTENTS IS EMPTY]";
+		String resultMessage = "이용약관의 " + titleFieldName + "은 필수 입력 대상입니다. " + titleFieldName + "을 입력해주세요.";
+		String apiDocsDir = "terms/save/terms-contents-is-empty/ko";
+		ResultMatcher resultMatcher = status().isBadRequest();
+		
+		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * TermsDto에 내용(contents)이 없는 경우 오류 테스트<br/>
+	 * - 저장할 이용약관 정보 중 내용(contents)이 비어있는 경우, 이용약관 내용(contents)을 입력하라는 메시지가 출력되는지 테스트<br/>
+	 * - 저장할 이용약관 정보의 제목이 입력되지 않았을 경우 400 에러 발생<br/>
+	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testTermsContentsIsEmptyWithLocalEnUs() throws Exception {
+		TermsDto termsDto = new TermsDto();
+		termsDto.setTitle("사이트 이용 약관");
+		
+		String titleFieldName = this._messageSource.getMessage("contents", null, _LOCALE_EN_US);
+		String statusCode = "400";
+		String status = "SAVE ERROR[TERMS CONTENTS IS EMPTY]";
+		String resultMessage = "The " + titleFieldName + " of the Terms of Use is required. Please enter a " + titleFieldName + ".";
+		String apiDocsDir = "terms/save/terms-contents-is-empty/en";
+		ResultMatcher resultMatcher = status().isBadRequest();
+		
+		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
 	 * 이용약관 정보 저장 오류 테스트<br/>
 	 * 
 	 * @param termsDto : 저장할 이용약관 정보
