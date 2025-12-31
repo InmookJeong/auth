@@ -62,6 +62,12 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 			responseDto.setStatusCode(RestfulApiStatusUtil.BAD_REQUEST_CODE_STRING);
 			responseDto.setResultType(ResponseTypeEnum.STRING);
 			responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-data-is-empty", new String[] {fieldName}, null, locale));
+		} else if(termsDto.getContents() == null || "".equals(termsDto.getContents())) {
+			String fieldName = this._messageSource.getMessage("contents", null, locale);
+			responseDto.setStatus("SAVE ERROR[TERMS CONTENTS IS EMPTY]");
+			responseDto.setStatusCode(RestfulApiStatusUtil.BAD_REQUEST_CODE_STRING);
+			responseDto.setResultType(ResponseTypeEnum.STRING);
+			responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-data-is-empty", new String[] {fieldName}, null, locale));
 		}
 		
 		return responseDto;
