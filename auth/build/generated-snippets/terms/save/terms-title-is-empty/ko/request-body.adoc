@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"termsNo":null,"useYn":false,"requireYn":false,"orderNo":0,"title":null,"contents":null,"createId":0,"createDate":null,"updateId":null,"updateDate":null,"contentsEmpty":true,"titleEmpty":true}
+----

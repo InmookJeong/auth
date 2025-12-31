@@ -1,0 +1,8 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/terms' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept-Language: ko-KR' \
+    -H 'Accept: application/json' \
+    -d '{"termsNo":null,"useYn":false,"requireYn":false,"orderNo":0,"title":null,"contents":null,"createId":0,"createDate":null,"updateId":null,"updateDate":null,"contentsEmpty":true,"titleEmpty":true}'
+----

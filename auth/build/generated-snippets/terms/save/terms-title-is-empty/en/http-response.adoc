@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 179
+
+{"statusCode":"400","status":"SAVE ERROR[TERMS TITLE IS EMPTY]","resultType":"STRING","result":"The title of the Terms of Use is required. Please enter a title.","locale":"en_US"}
+----
