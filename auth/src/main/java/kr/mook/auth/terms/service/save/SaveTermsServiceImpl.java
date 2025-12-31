@@ -52,24 +52,45 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 		
 		// 전달된 termsDto가 Null인 경우
 		if(termsDto == null) {
-			responseDto.setStatus("SAVE[DATA IS NULL]");
-			responseDto.setStatusCode(RestfulApiStatusUtil.BAD_REQUEST_CODE_STRING);
-			responseDto.setResultType(ResponseTypeEnum.STRING);
-			responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-is-empty", null, locale));
+			responseDto = this._setStatusByNullError(responseDto, locale);
 		} else if(termsDto.getTitle() == null || "".equals(termsDto.getTitle())) {
-			String fieldName = this._messageSource.getMessage("title", null, locale);
-			responseDto.setStatus("SAVE ERROR[TERMS TITLE IS EMPTY]");
-			responseDto.setStatusCode(RestfulApiStatusUtil.BAD_REQUEST_CODE_STRING);
-			responseDto.setResultType(ResponseTypeEnum.STRING);
-			responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-data-is-empty", new String[] {fieldName}, null, locale));
+			responseDto = this._setStatusByNoDataError(responseDto, "title", locale);
 		} else if(termsDto.getContents() == null || "".equals(termsDto.getContents())) {
-			String fieldName = this._messageSource.getMessage("contents", null, locale);
-			responseDto.setStatus("SAVE ERROR[TERMS CONTENTS IS EMPTY]");
-			responseDto.setStatusCode(RestfulApiStatusUtil.BAD_REQUEST_CODE_STRING);
-			responseDto.setResultType(ResponseTypeEnum.STRING);
-			responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-data-is-empty", new String[] {fieldName}, null, locale));
+			responseDto = this._setStatusByNoDataError(responseDto, "contents", locale);
 		}
 		
+		return responseDto;
+	}
+	
+	/**
+	 * 저장할 이용약관 정보의 오류가 Null인 경우 ResponseDto에 상태 저장
+	 * 
+	 * @param responseDto
+	 * @param locale
+	 * @return
+	 */
+	private ResponseDto _setStatusByNullError(ResponseDto responseDto, Locale locale) {
+		responseDto.setStatus("SAVE[DATA IS NULL]");
+		responseDto.setStatusCode(RestfulApiStatusUtil.BAD_REQUEST_CODE_STRING);
+		responseDto.setResultType(ResponseTypeEnum.STRING);
+		responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-is-empty", null, locale));
+		return responseDto;
+	}
+	
+	/**
+	 * 저장할 이용약관 정보 중 title, contents 등과 같은 필수 입력 항목의 값이 없는 경우 ResponseDto에 상태 저장
+	 * 
+	 * @param responseDto
+	 * @param targetFieldName 값을 검증할 항목 이름
+	 * @param locale
+	 * @return
+	 */
+	private ResponseDto _setStatusByNoDataError(ResponseDto responseDto, String targetFieldName, Locale locale) {
+		String fieldName = this._messageSource.getMessage(targetFieldName, null, locale);
+		responseDto.setStatus("SAVE ERROR[TERMS " + targetFieldName.toUpperCase() + " IS EMPTY]");
+		responseDto.setStatusCode(RestfulApiStatusUtil.BAD_REQUEST_CODE_STRING);
+		responseDto.setResultType(ResponseTypeEnum.STRING);
+		responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-data-is-empty", new String[] {fieldName}, null, locale));
 		return responseDto;
 	}
 }
