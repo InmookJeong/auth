@@ -128,3 +128,18 @@ operation::terms/save/terms-title-is-empty/ko[snippets='http-request,http-respon
 [[이용약관-저장-API-2-다국어-영어-지원]]
 ===== *※ 다국어 영어 지원*
 operation::terms/save/terms-title-is-empty/en[snippets='http-request,http-response,response-fields']
+
+==== *(3) 저장할 이용약관 정보의 내용이 비어있거나 전달되지 않았을 경우*
+
+설명::
+- 이용약관을 저장할 때 이용약관의 내용(contents)이 비어있거나 전달되지 않을 경우 오류가 발생합니다.
+- 이 때 *HTTP Status Code* 중 잘못된 요청(Bad Request)을 의미하는 `*400*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[이용약관-저장-API-3-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::terms/save/terms-contents-is-empty/ko[snippets='http-request,http-response,response-fields']
+
+[[이용약관-저장-API-3-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::terms/save/terms-contents-is-empty/en[snippets='http-request,http-response,response-fields']
