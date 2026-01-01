@@ -30,7 +30,8 @@ public class HomeServiceImpl implements HomeService {
 		try {
 			return ResponseDto
 						.builder()
-						.statusCode("200")
+						.httpStatusCode("200")
+						.statusCode("HOM-ACC-001")
 						.status("HOME_ACCESS")
 						.resultType(ResponseTypeEnum.STRING)
 						.result(this._messageSource.getMessage("home.welcome", null, locale))
@@ -39,7 +40,8 @@ public class HomeServiceImpl implements HomeService {
 		} catch (Exception e) {
 			return ResponseDto
 					.builder()
-					.statusCode("400")
+					.httpStatusCode("400")
+					.statusCode("ERR-HOM-ACC-001")
 					.status("HOME_ACCESS_FAIL")
 					.resultType(ResponseTypeEnum.STRING)
 					.result(this._messageSource.getMessage("error.home.welcome", null, locale))
