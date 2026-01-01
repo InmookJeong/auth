@@ -29,7 +29,14 @@ public class HomeController {
 	 * - '/api/home'으로 API를 호출될 때 실행
 	 * 
 	 * @param locale : 다국어 처리를 위한 언어 정보. ex)ko-KR
-	 * @return
+	 * @return {<br/>
+					&emsp;"httpStatusCode":"200",<br/>
+	 * 				&emsp;"statusCode":"HOM-ACC-001",<br/>
+	 * 				&emsp;"status":"HOME_ACCESS",<br/>
+	 * 				&emsp;"resultType":"string",<br/>
+	 * 				&emsp;"result":"접속을 환영합니다.",<br/>
+	 * 				&emsp;"language":"ko-KR"<br/>
+				}
 	 * @since 2025. 08. 09
 	 * @version 0.1
 	 * @author Inmook, Jeong
