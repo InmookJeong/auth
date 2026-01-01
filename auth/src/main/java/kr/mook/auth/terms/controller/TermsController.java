@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.common.dto.ResponseDtoUtil;
+import kr.mook.auth.terms.dto.TermsDto;
 import kr.mook.auth.terms.service.save.SaveTermsService;
 import kr.mook.auth.terms.service.search.SearchTermsService;
-import kr.mook.auth.terms.terms.TermsDto;
 import lombok.RequiredArgsConstructor;
 
 /**

@@ -27,7 +27,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
-import kr.mook.auth.terms.terms.TermsDto;
+import kr.mook.auth.terms.dto.TermsDto;
 
 /**
  * 이용약관 저장 테스트

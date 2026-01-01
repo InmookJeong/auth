@@ -3,7 +3,7 @@ package kr.mook.auth.terms.service.save;
 import java.util.Locale;
 
 import kr.mook.auth.common.dto.ResponseDto;
-import kr.mook.auth.terms.terms.TermsDto;
+import kr.mook.auth.terms.dto.TermsDto;
 
 /**
  * 이용약관 저장을 위한 서비스 인터페이스<br/>

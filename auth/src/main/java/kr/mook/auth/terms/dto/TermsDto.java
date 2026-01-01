@@ -1,4 +1,4 @@
-package kr.mook.auth.terms.terms;
+package kr.mook.auth.terms.dto;
 
 import java.time.LocalDateTime;
 
