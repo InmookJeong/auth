@@ -62,7 +62,8 @@ public class HomeControllerTest {
 				.accept(MediaType.APPLICATION_JSON)
 				.header("Accept-Language", acceptLanguage))
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.statusCode").value("200"))
+				.andExpect(jsonPath("$.httpStatusCode").value("200"))
+				.andExpect(jsonPath("$.statusCode").value("HOM-ACC-001"))
 				.andExpect(jsonPath("$.status").value("HOME_ACCESS"))
 				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.STRING.name()))
 				.andExpect(jsonPath("$.result").value(resultMessage))
@@ -71,6 +72,7 @@ public class HomeControllerTest {
 				.andDo(document(
 						apiDocsDir,
 						responseFields(
+								fieldWithPath("httpStatusCode").description("반환된 HTTP 상태 코드"),
 								fieldWithPath("statusCode").description("결과 상태 코드"),
 								fieldWithPath("status").description("상태코드 명칭(설명)"),
 								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
