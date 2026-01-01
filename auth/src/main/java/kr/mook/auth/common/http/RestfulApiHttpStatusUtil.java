@@ -9,11 +9,11 @@ import org.springframework.http.HttpStatus;
  * @version 0.1
  * @author Inmook, Jeong
  */
-public class RestfulApiStatusUtil {
+public class RestfulApiHttpStatusUtil {
 	
-	// #################################
-	// #####    2XX STATUS CODE    #####
-	// #################################
+	// ######################################
+	// #####    2XX HTTP STATUS CODE    #####
+	// ######################################
 	
 	/**
 	 * OK(HTTP STATUS CODE : 200)의 명칭
@@ -41,9 +41,9 @@ public class RestfulApiStatusUtil {
 	 */
 	public static int CREATE_CODE_NUMBER = HttpStatus.CREATED.value();
 	
-	// #################################
-	// #####    4XX STATUS CODE    #####
-	// #################################
+	// ######################################
+	// #####    4XX HTTP STATUS CODE    #####
+	// ######################################
 	
 	/**
 	 * BAD REQUEST(HTTP STATUS CODE : 400)의 명칭
