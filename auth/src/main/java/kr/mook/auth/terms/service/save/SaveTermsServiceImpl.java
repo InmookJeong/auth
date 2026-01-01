@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
-import kr.mook.auth.common.http.RestfulApiStatusUtil;
+import kr.mook.auth.common.http.RestfulApiHttpStatusUtil;
 import kr.mook.auth.terms.dto.TermsDto;
 import lombok.RequiredArgsConstructor;
 
@@ -97,7 +97,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 */
 	private ResponseDto _setStatusByNullError(ResponseDto responseDto, Locale locale) {
 		responseDto.setStatus("SAVE[DATA IS NULL]");
-		responseDto.setStatusCode(RestfulApiStatusUtil.BAD_REQUEST_CODE_STRING);
+		responseDto.setStatusCode(RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING);
 		responseDto.setResultType(ResponseTypeEnum.STRING);
 		responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-is-empty", null, locale));
 		return responseDto;
@@ -114,7 +114,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	private ResponseDto _setStatusByNoDataError(ResponseDto responseDto, String targetFieldName, Locale locale) {
 		String fieldName = this._messageSource.getMessage(targetFieldName, null, locale);
 		responseDto.setStatus("SAVE ERROR[TERMS " + targetFieldName.toUpperCase() + " IS EMPTY]");
-		responseDto.setStatusCode(RestfulApiStatusUtil.BAD_REQUEST_CODE_STRING);
+		responseDto.setStatusCode(RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING);
 		responseDto.setResultType(ResponseTypeEnum.STRING);
 		responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-data-is-empty", new String[] {fieldName}, null, locale));
 		return responseDto;
@@ -129,7 +129,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 */
 	private ResponseDto _setStatusByUnknownError(ResponseDto responseDto, Locale locale) {
 		responseDto.setStatus("SAVE ERROR[UNKNOWN]");
-		responseDto.setStatusCode(RestfulApiStatusUtil.BAD_REQUEST_CODE_STRING);
+		responseDto.setStatusCode(RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING);
 		responseDto.setResultType(ResponseTypeEnum.STRING);
 		responseDto.setResult(this._messageSource.getMessage("error.terms.save.unknown", null, locale));
 		return responseDto;

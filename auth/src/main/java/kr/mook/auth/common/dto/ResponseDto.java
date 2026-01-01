@@ -21,7 +21,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class ResponseDto {
 	
-	// 결과 상태코드(ex. 200)
+	// HTTP 상태 코드(ex. 200)
+	private String httpStatusCode;
+	
+	// 결과 상태코드(ex. TMS-SER-001)
 	private String statusCode;
 	
 	// 결과 상태코드명(ex. HOME_ACCESS)
