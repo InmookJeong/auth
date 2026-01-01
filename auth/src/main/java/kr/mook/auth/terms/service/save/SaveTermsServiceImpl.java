@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
 import kr.mook.auth.common.http.RestfulApiStatusUtil;
-import kr.mook.auth.terms.terms.TermsDto;
+import kr.mook.auth.terms.dto.TermsDto;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -36,30 +36,56 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 											.locale(locale)
 											.build();
 		
-		// 전달된 이용약관 정보의 값이 올바르지 않은지 확인
-		responseDto = _setResponseDtoStatus(responseDto, termsDto, locale);
+		// 전달된 이용약관 정보의 값이 올바르지 않으면 오류 메시지 반환
+		if(_isNotValid(termsDto))
+			return this._returnErrorResponseDto(responseDto, termsDto, locale);
+		
 		return responseDto;
 	}
 	
 	/**
-	 * 전달된 이용약관 정보의 값이 올바르지 않은지 확인<br/>
-	 * - 전달된 TermsDto가 Null인지 확인
+	 * 저장할 이용약관 정보에 오류가 있는지 검증<br/>
+	 * - 이용약관 정보가 Null인 경우<br/>
+	 * - 이용약관 정보 중 제목이 입력되지 않은 경우<br/>
+	 * - 이용약관 정보 중 내용이 입력되지 않은 경우<br/>
 	 * 
 	 * @param termsDto
 	 * @return
 	 */
-	private ResponseDto _setResponseDtoStatus(ResponseDto responseDto, TermsDto termsDto, Locale locale) {
+	public boolean _isNotValid(TermsDto termsDto) {
+		if(termsDto == null) return true;
+		if(termsDto.getTitle() == null || termsDto.getTitle().isBlank()) return true;
+		if(termsDto.getContents() == null || termsDto.getContents().isBlank()) return true;
+
+		// 저장할 Dto에 문제가 없으면 Validation 통과
+		return false;
+	}
+	
+	/**
+	 * 전달된 이용약관 정보의 값이 올바르지 않으면 오류 정보를 응답(Response) 정보에 저장<br/>
+	 * - 전달된 TermsDto가 Null인 경우 오류 메시지 반환<br/>
+	 * - 전달된 TermsDto의 제목이 입력되지 않은 경우 오류 메시지 반환<br/>
+	 * - 전달된 TermsDto의 내용이 입력되지 않은 경우 오류 메시지 반환
+	 * 
+	 * @param termsDto
+	 * @return
+	 */
+	private ResponseDto _returnErrorResponseDto(ResponseDto responseDto, TermsDto termsDto, Locale locale) {
 		
-		// 전달된 termsDto가 Null인 경우
-		if(termsDto == null) {
-			responseDto = this._setStatusByNullError(responseDto, locale);
-		} else if(termsDto.getTitle() == null || "".equals(termsDto.getTitle())) {
-			responseDto = this._setStatusByNoDataError(responseDto, "title", locale);
-		} else if(termsDto.getContents() == null || "".equals(termsDto.getContents())) {
-			responseDto = this._setStatusByNoDataError(responseDto, "contents", locale);
-		}
+		// 전달된 TermsDto가 Null인 경우
+		if(termsDto == null)
+			return this._setStatusByNullError(responseDto, locale);
 		
-		return responseDto;
+		// 전달된 TermsDto에 제목이 입력되지 않은 경우
+		if(termsDto.getTitle() == null || termsDto.getTitle().isBlank())
+			return this._setStatusByNoDataError(responseDto, "title", locale);
+		
+		// 전달된 TermsDto에 내용이 입력되지 않은 경우
+		if(termsDto.getContents() == null || termsDto.getContents().isBlank())
+			return this._setStatusByNoDataError(responseDto, "contents", locale);
+		
+		// 그 외 알 수 없는 오류가 발생한 경우
+		return this._setStatusByUnknownError(responseDto, locale);
 	}
 	
 	/**
@@ -91,6 +117,21 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 		responseDto.setStatusCode(RestfulApiStatusUtil.BAD_REQUEST_CODE_STRING);
 		responseDto.setResultType(ResponseTypeEnum.STRING);
 		responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-data-is-empty", new String[] {fieldName}, null, locale));
+		return responseDto;
+	}
+	
+	/**
+	 * 저장할 이용약관 정보에 오류가 발생하였으나 오류 원인을 알 수 없는 경우 ResponseDto에 상태 저장
+	 * 
+	 * @param responseDto
+	 * @param locale
+	 * @return
+	 */
+	private ResponseDto _setStatusByUnknownError(ResponseDto responseDto, Locale locale) {
+		responseDto.setStatus("SAVE ERROR[UNKNOWN]");
+		responseDto.setStatusCode(RestfulApiStatusUtil.BAD_REQUEST_CODE_STRING);
+		responseDto.setResultType(ResponseTypeEnum.STRING);
+		responseDto.setResult(this._messageSource.getMessage("error.terms.save.unknown", null, locale));
 		return responseDto;
 	}
 }
