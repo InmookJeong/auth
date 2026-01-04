@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 110
+Content-Length: 141
 
-{"statusCode":"200","status":"HOME_ACCESS","resultType":"STRING","result":"Welcome to auth.","locale":"en_US"}
+{"httpStatusCode":"200","statusCode":"HOM-ACC-001","status":"HOME_ACCESS","resultType":"STRING","result":"Welcome to auth.","locale":"en_US"}
 ----

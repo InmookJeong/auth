@@ -1,6 +1,10 @@
 |===
 |Path|Type|Description
 
+|`+httpStatusCode+`
+|`+String+`
+|반환된 HTTP 상태 코드
+
 |`+statusCode+`
 |`+String+`
 |결과 상태 코드

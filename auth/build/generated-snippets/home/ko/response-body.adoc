@@ -1,4 +1,4 @@
 [source,json,options="nowrap"]
 ----
-{"statusCode":"200","status":"HOME_ACCESS","resultType":"STRING","result":"�젒�냽�쓣 �솚�쁺�빀�땲�떎.","locale":"ko_KR"}
+{"httpStatusCode":"200","statusCode":"HOM-ACC-001","status":"HOME_ACCESS","resultType":"STRING","result":"�젒�냽�쓣 �솚�쁺�빀�땲�떎.","locale":"ko_KR"}
 ----

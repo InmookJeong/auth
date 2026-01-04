@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 120
+Content-Length: 151
 
-{"statusCode":"200","status":"HOME_ACCESS","resultType":"STRING","result":"접속을 환영합니다.","locale":"ko_KR"}
+{"httpStatusCode":"200","statusCode":"HOM-ACC-001","status":"HOME_ACCESS","resultType":"STRING","result":"접속을 환영합니다.","locale":"ko_KR"}
 ----
