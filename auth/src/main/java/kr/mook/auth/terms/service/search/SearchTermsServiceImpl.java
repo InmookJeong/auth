@@ -58,14 +58,20 @@ public class SearchTermsServiceImpl implements SearchTermsService {
 	 * 이용약관 번호(TermsNo)를 1 이상의 숫자로 전달하지 않을 경우 잘못된 요청을 하였음을 반환하도록 DTO 작성
 	 * 
 	 * @param responseDto
-	 * @return
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "400",<br/>
+	 * 				&emsp; "statusCode" : "ERR-TMS-SER-001",<br/>
+	 * 				&emsp; "staus" : "SEARCH ERROR",<br/>
+	 * 				&emsp; "resultType" : "string",<br/>
+	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
+	 * 			}
 	 */
 	private ResponseDto _getResponseDtoForBadRequest(ResponseDto responseDto, final Locale locale) {
-		responseDto.setStatusCode("400");
-		responseDto.setStatus("SEARCH[THE TERMS_NO IS GAREATER THAN ZERO]");
+		responseDto.setHttpStatusCode("400");
+		responseDto.setStatusCode("ERR-TMS-SER-001");
+		responseDto.setStatus("SEARCH ERROR");
 		responseDto.setResultType(ResponseTypeEnum.STRING);
 		responseDto.setResult(this._messageSource.getMessage("error.terms.search.terms-no-is-zero", null, locale));
-		responseDto.setLocale(locale);
 		return responseDto;
 	}
 	
@@ -73,14 +79,20 @@ public class SearchTermsServiceImpl implements SearchTermsService {
 	 * 이용약관 데이터를 찾을 수 없음을 반환하도록 DTO 작성
 	 * 
 	 * @param responseDto
-	 * @return
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "404",<br/>
+	 * 				&emsp; "statusCode" : "ERR-TMS-SER-002",<br/>
+	 * 				&emsp; "staus" : "SEARCH ERROR",<br/>
+	 * 				&emsp; "resultType" : "string",<br/>
+	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
+	 * 			}
 	 */
 	private ResponseDto _getResponseDtoForNotFound(ResponseDto responseDto, final Locale locale) {
-		responseDto.setStatusCode("404");
-		responseDto.setStatus("SEARCH[NOT FOUND TERMS]");
+		responseDto.setHttpStatusCode("404");
+		responseDto.setStatusCode("ERR-TMS-SER-002");
+		responseDto.setStatus("SEARCH ERROR");
 		responseDto.setResultType(ResponseTypeEnum.STRING);
 		responseDto.setResult(this._messageSource.getMessage("error.terms.search.terms-not-found", null, locale));
-		responseDto.setLocale(locale);
 		return responseDto;
 	}
 	
@@ -89,14 +101,31 @@ public class SearchTermsServiceImpl implements SearchTermsService {
 	 * 
 	 * @param responseDto
 	 * @param termsVo
-	 * @return
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "200",<br/>
+	 * 				&emsp; "statusCode" : "TMS-SER-001",<br/>
+	 * 				&emsp; "staus" : "SEARCH",<br/>
+	 * 				&emsp; "resultType" : "object",<br/>
+	 * 				&emsp; "result" : {<br/>
+	 * 					&emsp;&emsp; "termsNo" : 1,<br/>
+	 * 					&emsp;&emsp; "useYn" : true,<br/>
+	 * 					&emsp;&emsp; "requireYn" : true,<br/>
+	 * 					&emsp;&emsp; "orderNo" : 1,<br/>
+	 * 					&emsp;&emsp; "title" : "사이트 이용 약관",<br/>
+	 * 					&emsp;&emsp; "contents" : "회원 모듈(Auth, 이하 서비스)는 애플리케이션 목적에 맞게 사용해야 하며...",<br/>
+	 * 					&emsp;&emsp; "createId" : 120,<br/>
+	 * 					&emsp;&emsp; "createDate" : "2026-01-01 13:43:21.071",<br/>
+	 * 					&emsp;&emsp; "updateId" : NULL,<br/>
+	 * 					&emsp;&emsp; "updateDate" : NULL<br/>
+	 * 				&emsp; }<br/>
+	 * 			}
 	 */
 	private ResponseDto _getResponseDtoForSuccess(ResponseDto responseDto, final TermsVo termsVo, final Locale locale) {
-		responseDto.setStatusCode("200");
-		responseDto.setStatus("SEARCH[TERMS]");
+		responseDto.setHttpStatusCode("200");
+		responseDto.setStatusCode("TMS-SER-001");
+		responseDto.setStatus("SEARCH");
 		responseDto.setResultType(ResponseTypeEnum.OBJECT);
 		responseDto.setResult(termsVo);
-		responseDto.setLocale(locale);
 		return responseDto;
 	}
 }

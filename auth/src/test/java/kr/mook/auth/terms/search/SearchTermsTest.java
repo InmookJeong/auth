@@ -97,13 +97,14 @@ class SearchTermsTest {
 	@Test
 	void testSearchByUnvaildTermsNoWithLocaleKoKr() throws Exception {
 		long termsNo = 0L;
-		String statusCode = "400";
-		String status = "SEARCH[THE TERMS_NO IS GAREATER THAN ZERO]";
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-SER-001";
+		String status = "SEARCH ERROR";
 		String resultMessage = "이용약관 번호가 올바르지 않습니다. 이용약관 번호는 1이상의 숫자를 입력해주세요.";
 		String apiDocsDir = "terms/search/one/search-by-unvaild-terms-no/ko";
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
-		this._testSearchByNotValidData(termsNo, this._LOCALE_KO_KR, this._ACCEPT_LANGUAGE_KO_KR, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		this._testSearchByNotValidData(termsNo, this._LOCALE_KO_KR, this._ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -117,13 +118,14 @@ class SearchTermsTest {
 	@Test
 	void testSearchByUnvaildTermsNoWithLocaleEnUs() throws Exception {
 		long termsNo = 0L;
-		String statusCode = "400";
-		String status = "SEARCH[THE TERMS_NO IS GAREATER THAN ZERO]";
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-SER-001";
+		String status = "SEARCH ERROR";
 		String resultMessage = "The Terms of Use number is incorrect. Please enter a number greater than 1.";
 		String apiDocsDir = "terms/search/one/search-by-unvaild-terms-no/en";
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
-		this._testSearchByNotValidData(termsNo, this._LOCALE_EN_US, this._ACCEPT_LANGUAGE_EN_US, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		this._testSearchByNotValidData(termsNo, this._LOCALE_EN_US, this._ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -136,13 +138,14 @@ class SearchTermsTest {
 	@Test
 	void testTermsNotFoundWithLocaleKoKr() throws Exception {
 		long termsNo = 10L;
-		String statusCode = "404";
-		String status = "SEARCH[NOT FOUND TERMS]";
+		String httpStatusCode = "404";
+		String statusCode = "ERR-TMS-SER-002";
+		String status = "SEARCH ERROR";
 		String resultMessage = "이용약관 정보를 찾을 수 없습니다. 이용약관 번호를 다시 확인해주세요.";
 		String apiDocsDir = "terms/search/one/terms-not-found/ko";
 		ResultMatcher resultMatcher = status().isNotFound();
 		
-		this._testSearchByNotValidData(termsNo, this._LOCALE_KO_KR, this._ACCEPT_LANGUAGE_KO_KR, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		this._testSearchByNotValidData(termsNo, this._LOCALE_KO_KR, this._ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -155,13 +158,14 @@ class SearchTermsTest {
 	@Test
 	void testTermsNotFoundWithLocaleEnUs() throws Exception {
 		long termsNo = 10L;
-		String statusCode = "404";
-		String status = "SEARCH[NOT FOUND TERMS]";
+		String httpStatusCode = "404";
+		String statusCode = "ERR-TMS-SER-002";
+		String status = "SEARCH ERROR";
 		String resultMessage = "We couldn't find the Terms of Use information. Please check the Terms of Use number again.";
 		String apiDocsDir = "terms/search/one/terms-not-found/en";
 		ResultMatcher resultMatcher = status().isNotFound();
 		
-		this._testSearchByNotValidData(termsNo, this._LOCALE_EN_US, this._ACCEPT_LANGUAGE_EN_US, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		this._testSearchByNotValidData(termsNo, this._LOCALE_EN_US, this._ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -178,11 +182,12 @@ class SearchTermsTest {
 	 * @param resultMatcher : 예상되는 HTTP 상태
 	 * @throws Exception
 	 */
-	private void _testSearchByNotValidData(Long termsNo, Locale locale, String acceptLanguage, String statusCode, String status, String resultMessage, String apiDocsDir, ResultMatcher resultMatcher) throws Exception {
+	private void _testSearchByNotValidData(Long termsNo, Locale locale, String acceptLanguage, String httpStatusCode, String statusCode, String status, String resultMessage, String apiDocsDir, ResultMatcher resultMatcher) throws Exception {
 		mockMvc.perform(get("/api/terms/{termsNo}", termsNo)
 				.header("Accept-Language", acceptLanguage)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(resultMatcher)
+				.andExpect(jsonPath("$.httpStatusCode").value(httpStatusCode))
 				.andExpect(jsonPath("$.statusCode").value(statusCode))
 				.andExpect(jsonPath("$.status").value(status))
 				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.STRING.name()))
@@ -192,6 +197,7 @@ class SearchTermsTest {
 				.andDo(document(
 						apiDocsDir,
 						responseFields(
+								fieldWithPath("httpStatusCode").description("HTTP 응답 상태 코드"),
 								fieldWithPath("statusCode").description("결과 상태 코드"),
 								fieldWithPath("status").description("상태코드 명칭(설명)"),
 								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
@@ -216,8 +222,9 @@ class SearchTermsTest {
 				.header("Accept-Language", this._ACCEPT_LANGUAGE_KO_KR)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.statusCode").value("200"))
-				.andExpect(jsonPath("$.status").value("SEARCH[TERMS]"))
+				.andExpect(jsonPath("$.httpStatusCode").value("200"))
+				.andExpect(jsonPath("$.statusCode").value("TMS-SER-001"))
+				.andExpect(jsonPath("$.status").value("SEARCH"))
 				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.OBJECT.name()))
 				.andExpect(jsonPath("$.locale").value(this._LOCALE_KO_KR.toString()))
 				.andExpect(jsonPath("$.result.termsNo").value(1L))
@@ -234,6 +241,7 @@ class SearchTermsTest {
 				.andDo(document(
 						"terms/search/one/search-terms",
 						responseFields(
+								fieldWithPath("httpStatusCode").description("HTTP 응답 상태 코드"),
 								fieldWithPath("statusCode").description("결과 상태 코드"),
 								fieldWithPath("status").description("상태코드 명칭(설명)"),
 								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),

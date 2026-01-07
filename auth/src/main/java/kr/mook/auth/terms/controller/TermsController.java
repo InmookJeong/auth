@@ -39,7 +39,8 @@ public class TermsController {
 	 * 
 	 * @param termsNo : 이용약관 번호
 	 * @return {<br/>
-					&emsp; "statusCode" : 200,<br/>
+					&emsp; "httpStatusCode" : 200,<br/>
+					&emsp; "statusCode" : TMS-SER-001,<br/>
 					&emsp; "status" : "SEARCH[TERMS_OF_USE]",<br/>
 					&emsp; "resultType" : "object",<br/>
 					&emsp; "result" : {<br/>
@@ -62,12 +63,12 @@ public class TermsController {
 		ResponseDto responseDto = this._serchTermsService.searchByTermsNo(termsNo, locale);
 		
 		// 잘못된 TermsNo가 전달된 경우
-		if("400".equals(responseDto.getStatusCode())) {
+		if("400".equals(responseDto.getHttpStatusCode())) {
 			return ResponseEntity.badRequest().body(responseDto);
 		}
 		
 		// 올바른 TermsNo가 전달되었지만 데이터가 없는 경우
-		if("404".equals(responseDto.getStatusCode())) {
+		if("404".equals(responseDto.getHttpStatusCode())) {
 			return ResponseEntity.status(404).body(responseDto);
 		}
 		
