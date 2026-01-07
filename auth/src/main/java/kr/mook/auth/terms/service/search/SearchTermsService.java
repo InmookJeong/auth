@@ -20,7 +20,25 @@ public interface SearchTermsService {
 	 * 
 	 * @param termsNo : 이용약관 번호
 	 * @param locale : 다국어 처리를 위한 언어 정보
-	 * @return {"statusCode":"200","status":"SEARCH[TERMS]","resultType":"object","result":{"termsNo":1, "useYn": "Y", "requireYn": "Y", "orderNo":1, "title": "테스트 - 사이트 이용 약관", "contents": "사이트에 대한 설명과 이용 규칙 및 규정, 광고, 서비스 오류 사항, 운영 정책 등에 대한 내용이 작성됩니다.", "createId": 0, "createDate":"20250928 21:50:08", "updateId":null, "updateDate":""},"language":"ko-KR"}
+	 * @return {<br/>
+	 * 				&emsp; "httpStatusCode" : "200",<br/>
+	 * 				&emsp; "statusCode" : "TMS-SER-001",<br/>
+	 * 				&emsp; "status" : "SEARCH",<br/>
+	 * 				&emsp; "resultType" : "object",<br/>
+	 * 				&emsp; "result" : {<br/>
+	 * 					&emsp;&emsp; "termsNo" : 1,<br/>
+	 * 					&emsp;&emsp; "useYn" : true,<br/>
+	 * 					&emsp;&emsp; "requireYn" : true,<br/>
+	 * 					&emsp;&emsp; "orderNo" : 1,<br/>
+	 * 					&emsp;&emsp; "title" : "테스트 - 사이트 이용 약관",<br/>
+	 * 					&emsp;&emsp; "contents" : "사이트에 대한 설명과 이용 규칙 및 규정, 광고, 서비스 오류 사항, 운영 정책 등에 대한 내용이 작성됩니다.",<br/>
+	 * 					&emsp;&emsp; "createId" : 0,<br/>
+	 * 					&emsp;&emsp; "createDate" : "2025-09-28 21:50:08.071",<br/>
+	 * 					&emsp;&emsp; "updateId" : NULL,<br/>
+	 * 					&emsp;&emsp; "updateDate" : NULL<br/>
+	 * 				&emsp; },<br/>
+	 * 				&emsp; "language" : "ko-KR"<br/>
+	 * 			}
 	 */
 	public ResponseDto searchByTermsNo(final long termsNo, final Locale locale);
 
