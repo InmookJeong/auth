@@ -38,10 +38,10 @@ public class TermsController {
 	 * 이용약관 번호(Terms No)를 통해 이용약관 정보 조회
 	 * 
 	 * @param termsNo : 이용약관 번호
-	 * @return {<br/>
+	 * @return responseDto = {<br/>
 					&emsp; "httpStatusCode" : 200,<br/>
 					&emsp; "statusCode" : TMS-SER-001,<br/>
-					&emsp; "status" : "SEARCH[TERMS_OF_USE]",<br/>
+					&emsp; "status" : "SEARCH",<br/>
 					&emsp; "resultType" : "object",<br/>
 					&emsp; "result" : {<br/>
 						&emsp;&emsp; "termsNo" : 1,<br/>

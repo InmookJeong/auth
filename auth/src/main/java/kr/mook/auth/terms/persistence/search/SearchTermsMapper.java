@@ -18,7 +18,7 @@ public interface SearchTermsMapper {
 	 * 이용약관 번호(termsNo)를 이용하여 약관정보 상세 조회<br/>
 	 * 
 	 * @param termsNo : 이용약관 번호
-	 * @return
+	 * @return 이용약관 상세 정보
 	 */
 	public TermsVo findByTermsNo(final long termsNo);
 	

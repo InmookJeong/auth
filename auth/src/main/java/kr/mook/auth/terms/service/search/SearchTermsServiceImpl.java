@@ -29,12 +29,12 @@ public class SearchTermsServiceImpl implements SearchTermsService {
 	private final SearchTermsMapper _searchTermsMapper;
 	
 	/**
-	 * 이용약관 번호(Terms NO)를 통해 이용약관 상세 검색
+	 * 이용약관 번호(Terms NO)를 통해 이용약관 정보 상세 검색
 	 * 
 	 * @since 2025. 10. 24.
 	 * @param termsNo : 이용약관 번호
 	 * @param locale : 다국어 처리를 위한 언어 정보
-	 * @Return 이용약관 결과 데이터
+	 * @Return 이용약관 정보 상세 조회 결과 데이터
 	 */
 	@Override
 	public ResponseDto searchByTermsNo(final long termsNo, final Locale locale) {

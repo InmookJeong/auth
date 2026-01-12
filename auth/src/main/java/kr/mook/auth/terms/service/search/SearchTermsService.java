@@ -20,7 +20,7 @@ public interface SearchTermsService {
 	 * 
 	 * @param termsNo : 이용약관 번호
 	 * @param locale : 다국어 처리를 위한 언어 정보
-	 * @return {<br/>
+	 * @return responseDto = {<br/>
 	 * 				&emsp; "httpStatusCode" : "200",<br/>
 	 * 				&emsp; "statusCode" : "TMS-SER-001",<br/>
 	 * 				&emsp; "status" : "SEARCH",<br/>
