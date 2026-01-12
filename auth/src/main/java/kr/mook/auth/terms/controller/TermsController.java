@@ -39,24 +39,24 @@ public class TermsController {
 	 * 
 	 * @param termsNo : 이용약관 번호
 	 * @return responseDto = {<br/>
-					&emsp; "httpStatusCode" : 200,<br/>
-					&emsp; "statusCode" : TMS-SER-001,<br/>
-					&emsp; "status" : "SEARCH",<br/>
-					&emsp; "resultType" : "object",<br/>
-					&emsp; "result" : {<br/>
-						&emsp;&emsp; "termsNo" : 1,<br/>
-						&emsp;&emsp; "requireYn" : 1,<br/>
-						&emsp;&emsp; "useYn" : 1,<br/>
-						&emsp;&emsp; "orderNo" : 1,<br/>
-						&emsp;&emsp; "title" : "사이트 이용 약관",<br/>
-						&emsp;&emsp; "content" : "사이트 이용 약관에 대한 상세 설명입니다.",<br/>
-						&emsp;&emsp; "createId" : 0<br/>
-						&emsp;&emsp; "createDate" : "20250101 12:00:00"<br/>
-						&emsp;&emsp; "updateId" : null<br/>
-						&emsp;&emsp; "updateDate" : null<br/>
-					&emsp; },<br/>
-					&emsp; "language" : "ko-KR"<br/>
-				}
+	 * 				&emsp; "httpStatusCode" : 200,<br/>
+	 * 				&emsp; "statusCode" : TMS-SER-001,<br/>
+	 * 				&emsp; "status" : "SEARCH",<br/>
+	 * 				&emsp; "resultType" : "object",<br/>
+	 * 				&emsp; "result" : {<br/>
+	 * 					&emsp;&emsp; "termsNo" : 1,<br/>
+	 * 					&emsp;&emsp; "requireYn" : 1,<br/>
+	 * 					&emsp;&emsp; "useYn" : 1,<br/>
+	 * 					&emsp;&emsp; "orderNo" : 1,<br/>
+	 * 					&emsp;&emsp; "title" : "사이트 이용 약관",<br/>
+	 * 					&emsp;&emsp; "content" : "사이트 이용 약관에 대한 상세 설명입니다.",<br/>
+	 * 					&emsp;&emsp; "createId" : 0<br/>
+	 * 					&emsp;&emsp; "createDate" : "20250101 12:00:00"<br/>
+	 * 					&emsp;&emsp; "updateId" : null<br/>
+	 * 					&emsp;&emsp; "updateDate" : null<br/>
+	 * 				&emsp; },<br/>
+	 * 				&emsp; "language" : "ko-KR"<br/>
+	 * 			}
 	 */
 	@GetMapping("/{termsNo}")
 	public ResponseEntity<ResponseDto> searchByTermsNo(@PathVariable(value = "termsNo") final long termsNo, final Locale locale) {
@@ -81,7 +81,17 @@ public class TermsController {
 	 * 
 	 * @param termsDto : 저장할 이용약관 정보
 	 * @param locale
-	 * @return
+	 * @return responseDto = {<br/>{<br/>
+	 * 				&emsp; "httpStatusCode" : 200,<br/>
+	 * 				&emsp; "statusCode" : TMS-SAV-001,<br/>
+	 * 				&emsp; "status" : "SAVE",<br/>
+	 * 				&emsp; "resultType" : "object",<br/>
+	 * 				&emsp; "result" : {<br/>
+	 * 					&emsp;&emsp; "message" : "이용약관 정보가 저장되었습니다.",<br/>
+	 * 					&emsp;&emsp; "termsNo" : 1<br/>
+	 * 				&emsp; },<br/>
+	 * 				&emsp; "language" : "ko-KR"<br/>
+	 * 			}
 	 */
 	@PostMapping
 	public ResponseEntity<ResponseDto> save(@RequestBody(required = false) TermsDto termsDto, final Locale locale) {

@@ -18,7 +18,17 @@ public interface SaveTermsService {
 	 * 이용약관 저장
 	 * 
 	 * @param termsDto : 저장할 이용약관 정보
-	 * @return
+	 * @return responseDto = {<br/>{<br/>
+	 * 				&emsp; "httpStatusCode" : 200,<br/>
+	 * 				&emsp; "statusCode" : TMS-SAV-001,<br/>
+	 * 				&emsp; "status" : "SAVE",<br/>
+	 * 				&emsp; "resultType" : "object",<br/>
+	 * 				&emsp; "result" : {<br/>
+	 * 					&emsp;&emsp; "message" : "이용약관 정보가 저장되었습니다.",<br/>
+	 * 					&emsp;&emsp; "termsNo" : 1<br/>
+	 * 				&emsp; },<br/>
+	 * 				&emsp; "language" : "ko-KR"<br/>
+	 * 			}
 	 */
 	public ResponseDto save(TermsDto termsDto, Locale locale);
 

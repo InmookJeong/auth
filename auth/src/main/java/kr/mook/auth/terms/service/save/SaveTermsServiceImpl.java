@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
-import kr.mook.auth.common.http.RestfulApiHttpStatusUtil;
 import kr.mook.auth.terms.dto.TermsDto;
 import lombok.RequiredArgsConstructor;
 
@@ -51,6 +50,8 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 
 	 * @param termsDto
 	 * @return
+	 * 		&emsp; true : 저장하기 위해 전달된 이용약관 정보에 문제가 있는 경우<br/>
+	 * 		&emsp; false : 저장하기 위해 전달된 이용약관 정보가 올바른 경우
 	 */
 	public boolean _isNotValid(TermsDto termsDto) {
 		if(termsDto == null) return true;
@@ -68,7 +69,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * - 전달된 TermsDto의 내용이 입력되지 않은 경우 오류 메시지 반환
 	 * 
 	 * @param termsDto
-	 * @return
+	 * @return 이용약관 정보 저장 오류 결과 데이터
 	 */
 	private ResponseDto _returnErrorResponseDto(ResponseDto responseDto, TermsDto termsDto, Locale locale) {
 		
@@ -93,11 +94,18 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 
 	 * @param responseDto
 	 * @param locale
-	 * @return
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "400",<br/>
+	 * 				&emsp; "statusCode" : "ERR-TMS-SAV-001",<br/>
+	 * 				&emsp; "staus" : "SAVE ERROR",<br/>
+	 * 				&emsp; "resultType" : "string",<br/>
+	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
+	 * 			}
 	 */
 	private ResponseDto _setStatusByNullError(ResponseDto responseDto, Locale locale) {
-		responseDto.setStatus("SAVE[DATA IS NULL]");
-		responseDto.setStatusCode(RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING);
+		responseDto.setHttpStatusCode("400");
+		responseDto.setStatusCode("ERR-TMS-SAV-001");
+		responseDto.setStatus("SAVE ERROR");
 		responseDto.setResultType(ResponseTypeEnum.STRING);
 		responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-is-empty", null, locale));
 		return responseDto;
@@ -109,12 +117,20 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * @param responseDto
 	 * @param targetFieldName 값을 검증할 항목 이름
 	 * @param locale
-	 * @return
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "400",<br/>
+	 * 				&emsp; "statusCode" : "ERR-TMS-SAV-002",<br/>
+	 * 				&emsp; "staus" : "SAVE ERROR",<br/>
+	 * 				&emsp; "resultType" : "string",<br/>
+	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
+	 * 			}
 	 */
 	private ResponseDto _setStatusByNoDataError(ResponseDto responseDto, String targetFieldName, Locale locale) {
 		String fieldName = this._messageSource.getMessage(targetFieldName, null, locale);
-		responseDto.setStatus("SAVE ERROR[TERMS " + targetFieldName.toUpperCase() + " IS EMPTY]");
-		responseDto.setStatusCode(RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING);
+		String errorMessageNo = targetFieldName.equalsIgnoreCase("title") ? "002" : "003";
+		responseDto.setHttpStatusCode("400");
+		responseDto.setStatusCode("ERR-TMS-SAV-" + errorMessageNo);
+		responseDto.setStatus("SAVE ERROR");
 		responseDto.setResultType(ResponseTypeEnum.STRING);
 		responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-data-is-empty", new String[] {fieldName}, null, locale));
 		return responseDto;
@@ -125,11 +141,18 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 
 	 * @param responseDto
 	 * @param locale
-	 * @return
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "400",<br/>
+	 * 				&emsp; "statusCode" : "ERR-TMS-SAV-004",<br/>
+	 * 				&emsp; "staus" : "SAVE ERROR",<br/>
+	 * 				&emsp; "resultType" : "string",<br/>
+	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
+	 * 			}
 	 */
 	private ResponseDto _setStatusByUnknownError(ResponseDto responseDto, Locale locale) {
-		responseDto.setStatus("SAVE ERROR[UNKNOWN]");
-		responseDto.setStatusCode(RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING);
+		responseDto.setHttpStatusCode("400");
+		responseDto.setStatusCode("ERR-TMS-SAV-004");
+		responseDto.setStatus("SAVE ERROR");
 		responseDto.setResultType(ResponseTypeEnum.STRING);
 		responseDto.setResult(this._messageSource.getMessage("error.terms.save.unknown", null, locale));
 		return responseDto;
