@@ -20,6 +20,6 @@ public interface SearchTermsMapper {
 	 * @param termsNo : 이용약관 번호
 	 * @return 이용약관 상세 정보
 	 */
-	public TermsVo findByTermsNo(final long termsNo);
+	public TermsVo findOne(final long termsNo);
 	
 }

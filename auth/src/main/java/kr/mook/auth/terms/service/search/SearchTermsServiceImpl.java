@@ -46,7 +46,7 @@ public class SearchTermsServiceImpl implements SearchTermsService {
 			return this._getResponseDtoForBadRequest(responseDto, locale);
 		}
 		
-		TermsVo termsVo = this._searchTermsMapper.findByTermsNo(termsNo);
+		TermsVo termsVo = this._searchTermsMapper.findOne(termsNo);
 		if(termsVo == null) {
 			return this._getResponseDtoForNotFound(responseDto, locale);
 		}

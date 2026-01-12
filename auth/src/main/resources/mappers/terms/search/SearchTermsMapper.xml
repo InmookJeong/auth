@@ -5,7 +5,7 @@
 
 <mapper namespace="kr.mook.auth.terms.persistence.search.SearchTermsMapper">
 	
-	<select id="findByTermsNo" parameterType="long" resultType="TermsVo">
+	<select id="findOne" parameterType="long" resultType="TermsVo">
 		/** SearchTermsMapper.findByTermsNo */
 		SELECT
 			T.TERMS_NO,
