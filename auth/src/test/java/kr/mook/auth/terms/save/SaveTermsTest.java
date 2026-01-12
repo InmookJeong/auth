@@ -104,13 +104,14 @@ public class SaveTermsTest {
 	@Test
 	void testTermsDtoIsNullWithLocalKoKr() throws Exception {
 		TermsDto termsDto = null;
-		String statusCode = "400";
-		String status = "SAVE[DATA IS NULL]";
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-SAV-001";
+		String status = "SAVE ERROR";
 		String resultMessage = "이용약관 정보가 비어있거나 전달되지 않았습니다. 저장하실 이용약관 정보를 다시 확인해주세요.";
 		String apiDocsDir = "terms/save/terms-is-null/ko";
 		ResultMatcher resultMatcher = status().isBadRequest();
 
-		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -124,13 +125,14 @@ public class SaveTermsTest {
 	@Test
 	void testTermsDtoIsNullWithLocalEnUs() throws Exception {
 		TermsDto termsDto = null;
-		String statusCode = "400";
-		String status = "SAVE[DATA IS NULL]";
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-SAV-001";
+		String status = "SAVE ERROR";
 		String resultMessage = "The Terms of Use information is empty or not provided. Please check the Terms of Use information you wish to save.";
 		String apiDocsDir = "terms/save/terms-is-null/en";
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
-		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -145,13 +147,14 @@ public class SaveTermsTest {
 	void testTermsTitleIsEmptyWithLocalKoKr() throws Exception {
 		TermsDto termsDto = new TermsDto();
 		String titleFieldName = this._messageSource.getMessage("title", null, _LOCALE_KO_KR);
-		String statusCode = "400";
-		String status = "SAVE ERROR[TERMS TITLE IS EMPTY]";
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-SAV-002";
+		String status = "SAVE ERROR";
 		String resultMessage = "이용약관의 " + titleFieldName + "은 필수 입력 대상입니다. " + titleFieldName + "을 입력해주세요.";
 		String apiDocsDir = "terms/save/terms-title-is-empty/ko";
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
-		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -166,13 +169,14 @@ public class SaveTermsTest {
 	void testTermsTitleIsEmptyWithLocalEnUs() throws Exception {
 		TermsDto termsDto = new TermsDto();
 		String titleFieldName = this._messageSource.getMessage("title", null, _LOCALE_EN_US);
-		String statusCode = "400";
-		String status = "SAVE ERROR[TERMS TITLE IS EMPTY]";
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-SAV-002";
+		String status = "SAVE ERROR";
 		String resultMessage = "The " + titleFieldName + " of the Terms of Use is required. Please enter a " + titleFieldName + ".";
 		String apiDocsDir = "terms/save/terms-title-is-empty/en";
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
-		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -189,13 +193,14 @@ public class SaveTermsTest {
 		termsDto.setTitle("사이트 이용 약관");
 		
 		String titleFieldName = this._messageSource.getMessage("contents", null, _LOCALE_KO_KR);
-		String statusCode = "400";
-		String status = "SAVE ERROR[TERMS CONTENTS IS EMPTY]";
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-SAV-003";
+		String status = "SAVE ERROR";
 		String resultMessage = "이용약관의 " + titleFieldName + "은 필수 입력 대상입니다. " + titleFieldName + "을 입력해주세요.";
 		String apiDocsDir = "terms/save/terms-contents-is-empty/ko";
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
-		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -212,13 +217,14 @@ public class SaveTermsTest {
 		termsDto.setTitle("사이트 이용 약관");
 		
 		String titleFieldName = this._messageSource.getMessage("contents", null, _LOCALE_EN_US);
-		String statusCode = "400";
-		String status = "SAVE ERROR[TERMS CONTENTS IS EMPTY]";
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-SAV-003";
+		String status = "SAVE ERROR";
 		String resultMessage = "The " + titleFieldName + " of the Terms of Use is required. Please enter a " + titleFieldName + ".";
 		String apiDocsDir = "terms/save/terms-contents-is-empty/en";
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
-		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -227,14 +233,15 @@ public class SaveTermsTest {
 	 * @param termsDto : 저장할 이용약관 정보
 	 * @param locale : 다국어
 	 * @param acceptLanguage : 다국어 정보(ex. ko-KR 또는 en-US)
-	 * @param statusCode : 처리 상태 코드(ex. 400, 404)
+	 * @param httpStatusCode : HTTP 처리 상태 코드(ex. 400, 404)
+	 * @param statusCode : 처리 상태 코드(ex. TRM-SAV-001, ERR-TRM-SAV-001)
 	 * @param status : 처리 결과 상태 구문
 	 * @param resultMessage : 처리 결과 메시지
 	 * @param apiDocsDir : API 문서 경로
 	 * @param resultMatcher : 예상되는 HTTP 상태
 	 * @throws Exception
 	 */
-	private void _testSaveByNotValidData(TermsDto termsDto, Locale locale, String acceptLanguage, String statusCode, String status, String resultMessage, String apiDocsDir, ResultMatcher resultMatcher) throws Exception{
+	private void _testSaveByNotValidData(TermsDto termsDto, Locale locale, String acceptLanguage, String httpStatusCode, String statusCode, String status, String resultMessage, String apiDocsDir, ResultMatcher resultMatcher) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();
 		String termsDtoValue = mapper.writeValueAsString(termsDto);
 		
@@ -244,6 +251,7 @@ public class SaveTermsTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(resultMatcher)
+				.andExpect(jsonPath("$.httpStatusCode").value(httpStatusCode))
 				.andExpect(jsonPath("$.statusCode").value(statusCode))
 				.andExpect(jsonPath("$.status").value(status))
 				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.STRING.name()))
@@ -253,6 +261,7 @@ public class SaveTermsTest {
 				.andDo(document(
 						apiDocsDir,
 						responseFields(
+								fieldWithPath("httpStatusCode").description("HTTP 응답 상태 코드"),
 								fieldWithPath("statusCode").description("결과 상태 코드"),
 								fieldWithPath("status").description("상태코드 명칭(설명)"),
 								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
