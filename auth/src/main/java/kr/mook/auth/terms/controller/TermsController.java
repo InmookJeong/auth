@@ -95,7 +95,7 @@ public class TermsController {
 	 */
 	@PostMapping
 	public ResponseEntity<ResponseDto> save(@RequestBody(required = false) TermsDto termsDto, final Locale locale) {
-		ResponseDto responseDto = this._saveTermsService.save(termsDto, locale);
+		ResponseDto responseDto = this._saveTermsService.saveHandler(termsDto, locale);
 		
 		if(ResponseDtoUtil.isStatusBadRequest(responseDto)) {
 			return ResponseEntity.badRequest().body(responseDto);

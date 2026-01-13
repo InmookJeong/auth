@@ -30,6 +30,6 @@ public interface SaveTermsService {
 	 * 				&emsp; "language" : "ko-KR"<br/>
 	 * 			}
 	 */
-	public ResponseDto save(TermsDto termsDto, Locale locale);
+	public ResponseDto saveHandler(TermsDto termsDto, Locale locale);
 
 }

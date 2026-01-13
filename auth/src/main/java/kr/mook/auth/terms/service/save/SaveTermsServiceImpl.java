@@ -30,7 +30,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * @return
 	 */
 	@Override
-	public ResponseDto save(TermsDto termsDto, Locale locale) {
+	public ResponseDto saveHandler(TermsDto termsDto, Locale locale) {
 		ResponseDto responseDto = ResponseDto.builder()
 											.locale(locale)
 											.build();
