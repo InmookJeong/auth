@@ -1,4 +1,4 @@
-package kr.mook.auth.terms.save.persistence;
+package kr.mook.auth.terms.search.persistence;
 
 import org.apache.ibatis.annotations.Mapper;
 
