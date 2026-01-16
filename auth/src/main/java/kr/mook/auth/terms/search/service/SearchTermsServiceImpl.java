@@ -1,4 +1,4 @@
-package kr.mook.auth.terms.service.search;
+package kr.mook.auth.terms.search.service;
 
 import java.util.Locale;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
-import kr.mook.auth.terms.persistence.search.SearchTermsMapper;
+import kr.mook.auth.terms.save.persistence.SearchTermsMapper;
 import kr.mook.auth.terms.vo.TermsVo;
 import lombok.RequiredArgsConstructor;
 

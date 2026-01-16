@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kr.mook.auth.terms.persistence.search.SearchTermsMapper">
+<mapper namespace="kr.mook.auth.terms.search.persistence.SearchTermsMapper">
 	
 	<select id="findOne" parameterType="long" resultType="TermsVo">
 		/** SearchTermsMapper.findByTermsNo */

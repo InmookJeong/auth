@@ -1,4 +1,4 @@
-package kr.mook.auth.terms.service.search;
+package kr.mook.auth.terms.search.service;
 
 import java.util.Locale;
 

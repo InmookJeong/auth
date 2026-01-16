@@ -1,4 +1,4 @@
-package kr.mook.auth.terms.service.save;
+package kr.mook.auth.terms.save.service;
 
 import java.util.Locale;
 
