@@ -64,7 +64,7 @@ public class HomeControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.httpStatusCode").value("200"))
 				.andExpect(jsonPath("$.statusCode").value("HOM-ACC-001"))
-				.andExpect(jsonPath("$.status").value("HOME_ACCESS"))
+				.andExpect(jsonPath("$.status").value("HOME ACCESS"))
 				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.STRING.name()))
 				.andExpect(jsonPath("$.result").value(resultMessage))
 				.andExpect(jsonPath("$.locale").value(locale.toString()))
