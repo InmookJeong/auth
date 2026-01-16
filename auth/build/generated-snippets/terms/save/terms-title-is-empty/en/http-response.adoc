@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 400 Bad Request
 Content-Type: application/json
-Content-Length: 179
+Content-Length: 192
 
-{"statusCode":"400","status":"SAVE ERROR[TERMS TITLE IS EMPTY]","resultType":"STRING","result":"The title of the Terms of Use is required. Please enter a title.","locale":"en_US"}
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SAV-002","status":"SAVE ERROR","resultType":"STRING","result":"The title of the Terms of Use is required. Please enter a title.","locale":"en_US"}
 ----

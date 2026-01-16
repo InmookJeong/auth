@@ -1,4 +1,4 @@
 [source,json,options="nowrap"]
 ----
-{"httpStatusCode":"200","statusCode":"HOM-ACC-001","status":"HOME_ACCESS","resultType":"STRING","result":"Welcome to auth.","locale":"en_US"}
+{"httpStatusCode":"200","statusCode":"HOM-ACC-001","status":"HOME ACCESS","resultType":"STRING","result":"Welcome to auth.","locale":"en_US"}
 ----

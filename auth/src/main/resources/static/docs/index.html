@@ -558,9 +558,9 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 120
+Content-Length: 151
 
-{"statusCode":"200","status":"HOME_ACCESS","resultType":"STRING","result":"접속을 환영합니다.","locale":"ko_KR"}</code></pre>
+{"httpStatusCode":"200","statusCode":"HOM-ACC-001","status":"HOME ACCESS","resultType":"STRING","result":"접속을 환영합니다.","locale":"ko_KR"}</code></pre>
 </div>
 </div>
 </div>
@@ -580,6 +580,11 @@ Content-Length: 120
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>httpStatusCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">반환된 HTTP 상태 코드</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>statusCode</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
@@ -628,9 +633,9 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 110
+Content-Length: 141
 
-{"statusCode":"200","status":"HOME_ACCESS","resultType":"STRING","result":"Welcome to auth.","locale":"en_US"}</code></pre>
+{"httpStatusCode":"200","statusCode":"HOM-ACC-001","status":"HOME ACCESS","resultType":"STRING","result":"Welcome to auth.","locale":"en_US"}</code></pre>
 </div>
 </div>
 </div>
@@ -650,6 +655,11 @@ Content-Length: 110
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>httpStatusCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">반환된 HTTP 상태 코드</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>statusCode</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
@@ -754,9 +764,9 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json
-Content-Length: 238
+Content-Length: 243
 
-{"statusCode":"400","status":"SEARCH[THE TERMS_NO IS GAREATER THAN ZERO]","resultType":"STRING","result":"이용약관 번호가 올바르지 않습니다. 이용약관 번호는 1이상의 숫자를 입력해주세요.","locale":"ko_KR"}</code></pre>
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SER-001","status":"SEARCH ERROR","resultType":"STRING","result":"이용약관 번호가 올바르지 않습니다. 이용약관 번호는 1이상의 숫자를 입력해주세요.","locale":"ko_KR"}</code></pre>
 </div>
 </div>
 </div>
@@ -776,6 +786,11 @@ Content-Length: 238
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>httpStatusCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 응답 상태 코드</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>statusCode</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
@@ -824,9 +839,9 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json
-Content-Length: 200
+Content-Length: 205
 
-{"statusCode":"400","status":"SEARCH[THE TERMS_NO IS GAREATER THAN ZERO]","resultType":"STRING","result":"The Terms of Use number is incorrect. Please enter a number greater than 1.","locale":"en_US"}</code></pre>
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SER-001","status":"SEARCH ERROR","resultType":"STRING","result":"The Terms of Use number is incorrect. Please enter a number greater than 1.","locale":"en_US"}</code></pre>
 </div>
 </div>
 </div>
@@ -846,6 +861,11 @@ Content-Length: 200
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>httpStatusCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 응답 상태 코드</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>statusCode</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
@@ -917,9 +937,9 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 404 Not Found
 Content-Type: application/json
-Content-Length: 203
+Content-Length: 227
 
-{"statusCode":"404","status":"SEARCH[NOT FOUND TERMS]","resultType":"STRING","result":"이용약관 정보를 찾을 수 없습니다. 이용약관 번호를 다시 확인해주세요.","locale":"ko_KR"}</code></pre>
+{"httpStatusCode":"404","statusCode":"ERR-TMS-SER-002","status":"SEARCH ERROR","resultType":"STRING","result":"이용약관 정보를 찾을 수 없습니다. 이용약관 번호를 다시 확인해주세요.","locale":"ko_KR"}</code></pre>
 </div>
 </div>
 </div>
@@ -939,6 +959,11 @@ Content-Length: 203
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>httpStatusCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 응답 상태 코드</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>statusCode</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
@@ -987,9 +1012,9 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 404 Not Found
 Content-Type: application/json
-Content-Length: 196
+Content-Length: 220
 
-{"statusCode":"404","status":"SEARCH[NOT FOUND TERMS]","resultType":"STRING","result":"We couldn't find the Terms of Use information. Please check the Terms of Use number again.","locale":"en_US"}</code></pre>
+{"httpStatusCode":"404","statusCode":"ERR-TMS-SER-002","status":"SEARCH ERROR","resultType":"STRING","result":"We couldn't find the Terms of Use information. Please check the Terms of Use number again.","locale":"en_US"}</code></pre>
 </div>
 </div>
 </div>
@@ -1009,6 +1034,11 @@ Content-Length: 196
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>httpStatusCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 응답 상태 코드</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>statusCode</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
@@ -1078,9 +1108,9 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 434
+Content-Length: 458
 
-{"statusCode":"200","status":"SEARCH[TERMS]","resultType":"OBJECT","result":{"termsNo":1,"useYn":true,"requireYn":true,"orderNo":1,"title":"테스트 - 사이트 이용 약관","contents":"사이트에 대한 설명과 이용 규칙 및 규정, 광고, 서비스 오류 사항, 운영 정책 등에 대한 내용이 작성됩니다.","createId":0,"createDate":"2025-10-20T22:07:49","updateId":null,"updateDate":null},"locale":"ko_KR"}</code></pre>
+{"httpStatusCode":"200","statusCode":"TMS-SER-001","status":"SEARCH","resultType":"OBJECT","result":{"termsNo":1,"useYn":true,"requireYn":true,"orderNo":1,"title":"테스트 - 사이트 이용 약관","contents":"사이트에 대한 설명과 이용 규칙 및 규정, 광고, 서비스 오류 사항, 운영 정책 등에 대한 내용이 작성됩니다.","createId":0,"createDate":"2025-10-20T22:07:49","updateId":null,"updateDate":null},"locale":"ko_KR"}</code></pre>
 </div>
 </div>
 </div>
@@ -1100,6 +1130,11 @@ Content-Length: 434
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>httpStatusCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 응답 상태 코드</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>statusCode</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
@@ -1222,9 +1257,9 @@ null</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json
-Content-Length: 232
+Content-Length: 259
 
-{"statusCode":"400","status":"SAVE[DATA IS NULL]","resultType":"STRING","result":"이용약관 정보가 비어있거나 전달되지 않았습니다. 저장하실 이용약관 정보를 다시 확인해주세요.","locale":"ko_KR"}</code></pre>
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SAV-001","status":"SAVE ERROR","resultType":"STRING","result":"이용약관 정보가 비어있거나 전달되지 않았습니다. 저장하실 이용약관 정보를 다시 확인해주세요.","locale":"ko_KR"}</code></pre>
 </div>
 </div>
 </div>
@@ -1244,6 +1279,11 @@ Content-Length: 232
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>httpStatusCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 응답 상태 코드</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>statusCode</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
@@ -1296,9 +1336,9 @@ null</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json
-Content-Length: 215
+Content-Length: 242
 
-{"statusCode":"400","status":"SAVE[DATA IS NULL]","resultType":"STRING","result":"The Terms of Use information is empty or not provided. Please check the Terms of Use information you wish to save.","locale":"en_US"}</code></pre>
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SAV-001","status":"SAVE ERROR","resultType":"STRING","result":"The Terms of Use information is empty or not provided. Please check the Terms of Use information you wish to save.","locale":"en_US"}</code></pre>
 </div>
 </div>
 </div>
@@ -1318,6 +1358,11 @@ Content-Length: 215
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>httpStatusCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 응답 상태 코드</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>statusCode</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
@@ -1383,7 +1428,7 @@ Accept: application/json
 Content-Length: 193
 Host: localhost:8080
 
-{"termsNo":null,"useYn":false,"requireYn":false,"orderNo":0,"title":null,"contents":null,"createId":0,"createDate":null,"updateId":null,"updateDate":null,"contentsEmpty":true,"titleEmpty":true}</code></pre>
+{"termsNo":null,"useYn":false,"requireYn":false,"orderNo":0,"title":null,"contents":null,"createId":0,"createDate":null,"updateId":null,"updateDate":null,"titleEmpty":true,"contentsEmpty":true}</code></pre>
 </div>
 </div>
 </div>
@@ -1393,9 +1438,9 @@ Host: localhost:8080
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json
-Content-Length: 201
+Content-Length: 214
 
-{"statusCode":"400","status":"SAVE ERROR[TERMS TITLE IS EMPTY]","resultType":"STRING","result":"이용약관의 제목은 필수 입력 대상입니다. 제목을 입력해주세요.","locale":"ko_KR"}</code></pre>
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SAV-002","status":"SAVE ERROR","resultType":"STRING","result":"이용약관의 제목은 필수 입력 대상입니다. 제목을 입력해주세요.","locale":"ko_KR"}</code></pre>
 </div>
 </div>
 </div>
@@ -1415,6 +1460,11 @@ Content-Length: 201
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>httpStatusCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 응답 상태 코드</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>statusCode</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
@@ -1457,7 +1507,7 @@ Accept: application/json
 Content-Length: 193
 Host: localhost:8080
 
-{"termsNo":null,"useYn":false,"requireYn":false,"orderNo":0,"title":null,"contents":null,"createId":0,"createDate":null,"updateId":null,"updateDate":null,"contentsEmpty":true,"titleEmpty":true}</code></pre>
+{"termsNo":null,"useYn":false,"requireYn":false,"orderNo":0,"title":null,"contents":null,"createId":0,"createDate":null,"updateId":null,"updateDate":null,"titleEmpty":true,"contentsEmpty":true}</code></pre>
 </div>
 </div>
 </div>
@@ -1467,9 +1517,9 @@ Host: localhost:8080
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json
-Content-Length: 179
+Content-Length: 192
 
-{"statusCode":"400","status":"SAVE ERROR[TERMS TITLE IS EMPTY]","resultType":"STRING","result":"The title of the Terms of Use is required. Please enter a title.","locale":"en_US"}</code></pre>
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SAV-002","status":"SAVE ERROR","resultType":"STRING","result":"The title of the Terms of Use is required. Please enter a title.","locale":"en_US"}</code></pre>
 </div>
 </div>
 </div>
@@ -1489,6 +1539,11 @@ Content-Length: 179
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>httpStatusCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 응답 상태 코드</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>statusCode</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
@@ -1554,7 +1609,7 @@ Accept: application/json
 Content-Length: 215
 Host: localhost:8080
 
-{"termsNo":null,"useYn":false,"requireYn":false,"orderNo":0,"title":"사이트 이용 약관","contents":null,"createId":0,"createDate":null,"updateId":null,"updateDate":null,"contentsEmpty":true,"titleEmpty":false}</code></pre>
+{"termsNo":null,"useYn":false,"requireYn":false,"orderNo":0,"title":"사이트 이용 약관","contents":null,"createId":0,"createDate":null,"updateId":null,"updateDate":null,"titleEmpty":false,"contentsEmpty":true}</code></pre>
 </div>
 </div>
 </div>
@@ -1564,9 +1619,9 @@ Host: localhost:8080
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json
-Content-Length: 204
+Content-Length: 214
 
-{"statusCode":"400","status":"SAVE ERROR[TERMS CONTENTS IS EMPTY]","resultType":"STRING","result":"이용약관의 내용은 필수 입력 대상입니다. 내용을 입력해주세요.","locale":"ko_KR"}</code></pre>
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SAV-003","status":"SAVE ERROR","resultType":"STRING","result":"이용약관의 내용은 필수 입력 대상입니다. 내용을 입력해주세요.","locale":"ko_KR"}</code></pre>
 </div>
 </div>
 </div>
@@ -1586,6 +1641,11 @@ Content-Length: 204
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>httpStatusCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 응답 상태 코드</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>statusCode</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
@@ -1628,7 +1688,7 @@ Accept: application/json
 Content-Length: 215
 Host: localhost:8080
 
-{"termsNo":null,"useYn":false,"requireYn":false,"orderNo":0,"title":"사이트 이용 약관","contents":null,"createId":0,"createDate":null,"updateId":null,"updateDate":null,"contentsEmpty":true,"titleEmpty":false}</code></pre>
+{"termsNo":null,"useYn":false,"requireYn":false,"orderNo":0,"title":"사이트 이용 약관","contents":null,"createId":0,"createDate":null,"updateId":null,"updateDate":null,"titleEmpty":false,"contentsEmpty":true}</code></pre>
 </div>
 </div>
 </div>
@@ -1638,9 +1698,9 @@ Host: localhost:8080
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 400 Bad Request
 Content-Type: application/json
-Content-Length: 188
+Content-Length: 198
 
-{"statusCode":"400","status":"SAVE ERROR[TERMS CONTENTS IS EMPTY]","resultType":"STRING","result":"The contents of the Terms of Use is required. Please enter a contents.","locale":"en_US"}</code></pre>
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SAV-003","status":"SAVE ERROR","resultType":"STRING","result":"The contents of the Terms of Use is required. Please enter a contents.","locale":"en_US"}</code></pre>
 </div>
 </div>
 </div>
@@ -1660,6 +1720,11 @@ Content-Length: 188
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>httpStatusCode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTP 응답 상태 코드</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>statusCode</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>

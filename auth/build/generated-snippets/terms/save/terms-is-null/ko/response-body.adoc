@@ -1,4 +1,4 @@
 [source,json,options="nowrap"]
 ----
-{"statusCode":"400","status":"SAVE[DATA IS NULL]","resultType":"STRING","result":"�씠�슜�빟愿� �젙蹂닿� 鍮꾩뼱�엳嫄곕굹 �쟾�떖�릺吏� �븡�븯�뒿�땲�떎. ���옣�븯�떎 �씠�슜�빟愿� �젙蹂대�� �떎�떆 �솗�씤�빐二쇱꽭�슂.","locale":"ko_KR"}
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SAV-001","status":"SAVE ERROR","resultType":"STRING","result":"�씠�슜�빟愿� �젙蹂닿� 鍮꾩뼱�엳嫄곕굹 �쟾�떖�릺吏� �븡�븯�뒿�땲�떎. ���옣�븯�떎 �씠�슜�빟愿� �젙蹂대�� �떎�떆 �솗�씤�빐二쇱꽭�슂.","locale":"ko_KR"}
 ----

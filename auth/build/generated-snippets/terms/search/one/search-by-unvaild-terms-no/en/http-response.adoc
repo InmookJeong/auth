@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 400 Bad Request
 Content-Type: application/json
-Content-Length: 200
+Content-Length: 205
 
-{"statusCode":"400","status":"SEARCH[THE TERMS_NO IS GAREATER THAN ZERO]","resultType":"STRING","result":"The Terms of Use number is incorrect. Please enter a number greater than 1.","locale":"en_US"}
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SER-001","status":"SEARCH ERROR","resultType":"STRING","result":"The Terms of Use number is incorrect. Please enter a number greater than 1.","locale":"en_US"}
 ----

@@ -1,4 +1,4 @@
 [source,json,options="nowrap"]
 ----
-{"statusCode":"400","status":"SAVE[DATA IS NULL]","resultType":"STRING","result":"The Terms of Use information is empty or not provided. Please check the Terms of Use information you wish to save.","locale":"en_US"}
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SAV-001","status":"SAVE ERROR","resultType":"STRING","result":"The Terms of Use information is empty or not provided. Please check the Terms of Use information you wish to save.","locale":"en_US"}
 ----

@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 400 Bad Request
 Content-Type: application/json
-Content-Length: 232
+Content-Length: 259
 
-{"statusCode":"400","status":"SAVE[DATA IS NULL]","resultType":"STRING","result":"이용약관 정보가 비어있거나 전달되지 않았습니다. 저장하실 이용약관 정보를 다시 확인해주세요.","locale":"ko_KR"}
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SAV-001","status":"SAVE ERROR","resultType":"STRING","result":"이용약관 정보가 비어있거나 전달되지 않았습니다. 저장하실 이용약관 정보를 다시 확인해주세요.","locale":"ko_KR"}
 ----

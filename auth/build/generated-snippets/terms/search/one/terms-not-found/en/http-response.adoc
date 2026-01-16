@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 404 Not Found
 Content-Type: application/json
-Content-Length: 196
+Content-Length: 220
 
-{"statusCode":"404","status":"SEARCH[NOT FOUND TERMS]","resultType":"STRING","result":"We couldn't find the Terms of Use information. Please check the Terms of Use number again.","locale":"en_US"}
+{"httpStatusCode":"404","statusCode":"ERR-TMS-SER-002","status":"SEARCH ERROR","resultType":"STRING","result":"We couldn't find the Terms of Use information. Please check the Terms of Use number again.","locale":"en_US"}
 ----

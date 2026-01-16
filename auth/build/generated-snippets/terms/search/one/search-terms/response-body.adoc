@@ -1,4 +1,4 @@
 [source,json,options="nowrap"]
 ----
-{"statusCode":"200","status":"SEARCH[TERMS]","resultType":"OBJECT","result":{"termsNo":1,"useYn":true,"requireYn":true,"orderNo":1,"title":"�뀒�뒪�듃 - �궗�씠�듃 �씠�슜 �빟愿�","contents":"�궗�씠�듃�뿉 ���븳 �꽕紐낃낵 �씠�슜 洹쒖튃 諛� 洹쒖젙, 愿묎퀬, �꽌鍮꾩뒪 �삤瑜� �궗�빆, �슫�쁺 �젙梨� �벑�뿉 ���븳 �궡�슜�씠 �옉�꽦�맗�땲�떎.","createId":0,"createDate":"2025-10-20T22:07:49","updateId":null,"updateDate":null},"locale":"ko_KR"}
+{"httpStatusCode":"200","statusCode":"TMS-SER-001","status":"SEARCH","resultType":"OBJECT","result":{"termsNo":1,"useYn":true,"requireYn":true,"orderNo":1,"title":"�뀒�뒪�듃 - �궗�씠�듃 �씠�슜 �빟愿�","contents":"�궗�씠�듃�뿉 ���븳 �꽕紐낃낵 �씠�슜 洹쒖튃 諛� 洹쒖젙, 愿묎퀬, �꽌鍮꾩뒪 �삤瑜� �궗�빆, �슫�쁺 �젙梨� �벑�뿉 ���븳 �궡�슜�씠 �옉�꽦�맗�땲�떎.","createId":0,"createDate":"2025-10-20T22:07:49","updateId":null,"updateDate":null},"locale":"ko_KR"}
 ----

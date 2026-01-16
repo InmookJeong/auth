@@ -1,4 +1,4 @@
 [source,json,options="nowrap"]
 ----
-{"statusCode":"400","status":"SAVE ERROR[TERMS TITLE IS EMPTY]","resultType":"STRING","result":"�씠�슜�빟愿��쓽 �젣紐⑹� �븘�닔 �엯�젰 ���긽�엯�땲�떎. �젣紐⑹쓣 �엯�젰�빐二쇱꽭�슂.","locale":"ko_KR"}
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SAV-002","status":"SAVE ERROR","resultType":"STRING","result":"�씠�슜�빟愿��쓽 �젣紐⑹� �븘�닔 �엯�젰 ���긽�엯�땲�떎. �젣紐⑹쓣 �엯�젰�빐二쇱꽭�슂.","locale":"ko_KR"}
 ----

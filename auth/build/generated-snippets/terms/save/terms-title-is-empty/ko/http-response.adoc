@@ -2,7 +2,7 @@
 ----
 HTTP/1.1 400 Bad Request
 Content-Type: application/json
-Content-Length: 201
+Content-Length: 214
 
-{"statusCode":"400","status":"SAVE ERROR[TERMS TITLE IS EMPTY]","resultType":"STRING","result":"이용약관의 제목은 필수 입력 대상입니다. 제목을 입력해주세요.","locale":"ko_KR"}
+{"httpStatusCode":"400","statusCode":"ERR-TMS-SAV-002","status":"SAVE ERROR","resultType":"STRING","result":"이용약관의 제목은 필수 입력 대상입니다. 제목을 입력해주세요.","locale":"ko_KR"}
 ----
