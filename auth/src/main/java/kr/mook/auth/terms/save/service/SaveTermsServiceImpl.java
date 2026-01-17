@@ -48,7 +48,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * - 이용약관 정보 중 제목이 입력되지 않은 경우<br/>
 	 * - 이용약관 정보 중 내용이 입력되지 않은 경우<br/>
 	 * 
-	 * @param termsDto
+	 * @param termsDto : 저장할 이용약관 정보
 	 * @return
 	 * 		&emsp; true : 저장하기 위해 전달된 이용약관 정보에 문제가 있는 경우<br/>
 	 * 		&emsp; false : 저장하기 위해 전달된 이용약관 정보가 올바른 경우
@@ -68,7 +68,9 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * - 전달된 TermsDto의 제목이 입력되지 않은 경우 오류 메시지 반환<br/>
 	 * - 전달된 TermsDto의 내용이 입력되지 않은 경우 오류 메시지 반환
 	 * 
-	 * @param termsDto
+	 * @param responseDto : 저장 결과에 대한 응답 정보
+	 * @param termsDto : 저장할 이용약관 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보
 	 * @return 이용약관 정보 저장 오류 결과 데이터
 	 */
 	private ResponseDto _returnErrorResponseDto(ResponseDto responseDto, final TermsDto termsDto, final Locale locale) {
@@ -92,8 +94,8 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	/**
 	 * 저장할 이용약관 정보의 오류가 Null인 경우 ResponseDto에 상태 저장
 	 * 
-	 * @param responseDto
-	 * @param locale
+	 * @param responseDto : 저장 결과에 대한 응답 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보
 	 * @return responseDto = {<br/>
 	 * 				&emsp; "httpStatusCode" : "400",<br/>
 	 * 				&emsp; "statusCode" : "ERR-TMS-SAV-001",<br/>
@@ -114,9 +116,9 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	/**
 	 * 저장할 이용약관 정보 중 title, contents 등과 같은 필수 입력 항목의 값이 없는 경우 ResponseDto에 상태 저장
 	 * 
-	 * @param responseDto
-	 * @param targetFieldName 값을 검증할 항목 이름
-	 * @param locale
+	 * @param responseDto : 저장 결과에 대한 응답 정보
+	 * @param targetFieldName : 값을 검증할 항목 이름
+	 * @param locale : 다국어 처리를 위한 언어 정보
 	 * @return responseDto = {<br/>
 	 * 				&emsp; "httpStatusCode" : "400",<br/>
 	 * 				&emsp; "statusCode" : "ERR-TMS-SAV-002",<br/>
@@ -139,8 +141,8 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	/**
 	 * 저장할 이용약관 정보에 오류가 발생하였으나 오류 원인을 알 수 없는 경우 ResponseDto에 상태 저장
 	 * 
-	 * @param responseDto
-	 * @param locale
+	 * @param responseDto : 저장 결과에 대한 응답 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보
 	 * @return responseDto = {<br/>
 	 * 				&emsp; "httpStatusCode" : "400",<br/>
 	 * 				&emsp; "statusCode" : "ERR-TMS-SAV-004",<br/>
