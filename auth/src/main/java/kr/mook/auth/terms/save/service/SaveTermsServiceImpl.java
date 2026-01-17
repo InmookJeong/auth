@@ -30,7 +30,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * @return
 	 */
 	@Override
-	public ResponseDto saveHandler(TermsDto termsDto, Locale locale) {
+	public ResponseDto saveHandler(final TermsDto termsDto, final Locale locale) {
 		ResponseDto responseDto = ResponseDto.builder()
 											.locale(locale)
 											.build();
@@ -53,7 +53,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 		&emsp; true : 저장하기 위해 전달된 이용약관 정보에 문제가 있는 경우<br/>
 	 * 		&emsp; false : 저장하기 위해 전달된 이용약관 정보가 올바른 경우
 	 */
-	public boolean _isNotValid(TermsDto termsDto) {
+	public boolean _isNotValid(final TermsDto termsDto) {
 		if(termsDto == null) return true;
 		if(termsDto.getTitle() == null || termsDto.getTitle().isBlank()) return true;
 		if(termsDto.getContents() == null || termsDto.getContents().isBlank()) return true;
@@ -71,7 +71,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * @param termsDto
 	 * @return 이용약관 정보 저장 오류 결과 데이터
 	 */
-	private ResponseDto _returnErrorResponseDto(ResponseDto responseDto, TermsDto termsDto, Locale locale) {
+	private ResponseDto _returnErrorResponseDto(ResponseDto responseDto, final TermsDto termsDto, final Locale locale) {
 		
 		// 전달된 TermsDto가 Null인 경우
 		if(termsDto == null)
@@ -102,7 +102,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
 	 * 			}
 	 */
-	private ResponseDto _setStatusByNullError(ResponseDto responseDto, Locale locale) {
+	private ResponseDto _setStatusByNullError(ResponseDto responseDto, final Locale locale) {
 		responseDto.setHttpStatusCode("400");
 		responseDto.setStatusCode("ERR-TMS-SAV-001");
 		responseDto.setStatus("SAVE ERROR");
@@ -125,7 +125,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
 	 * 			}
 	 */
-	private ResponseDto _setStatusByNoDataError(ResponseDto responseDto, String targetFieldName, Locale locale) {
+	private ResponseDto _setStatusByNoDataError(ResponseDto responseDto, final String targetFieldName, final Locale locale) {
 		String fieldName = this._messageSource.getMessage(targetFieldName, null, locale);
 		String errorMessageNo = targetFieldName.equalsIgnoreCase("title") ? "002" : "003";
 		responseDto.setHttpStatusCode("400");
@@ -149,7 +149,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
 	 * 			}
 	 */
-	private ResponseDto _setStatusByUnknownError(ResponseDto responseDto, Locale locale) {
+	private ResponseDto _setStatusByUnknownError(ResponseDto responseDto, final Locale locale) {
 		responseDto.setHttpStatusCode("400");
 		responseDto.setStatusCode("ERR-TMS-SAV-004");
 		responseDto.setStatus("SAVE ERROR");

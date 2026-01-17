@@ -18,6 +18,7 @@ public interface SaveTermsService {
 	 * 이용약관 저장
 	 * 
 	 * @param termsDto : 저장할 이용약관 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보
 	 * @return responseDto = {<br/>{<br/>
 	 * 				&emsp; "httpStatusCode" : 200,<br/>
 	 * 				&emsp; "statusCode" : TMS-SAV-001,<br/>
@@ -30,6 +31,6 @@ public interface SaveTermsService {
 	 * 				&emsp; "language" : "ko-KR"<br/>
 	 * 			}
 	 */
-	public ResponseDto saveHandler(TermsDto termsDto, Locale locale);
+	public ResponseDto saveHandler(final TermsDto termsDto, final Locale locale);
 
 }
