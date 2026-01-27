@@ -1,5 +1,6 @@
 package kr.mook.auth.terms.save;
 
+import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
@@ -28,6 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
 import kr.mook.auth.terms.dto.TermsDto;
+import kr.mook.auth.terms.save.persistence.SaveTermsMapper;
 
 /**
  * 이용약관 저장 테스트
@@ -52,6 +55,9 @@ public class SaveTermsTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
+	
+	@MockBean
+	private SaveTermsMapper _saveTermsMapper;
 	
 	/**
 	 * 각 테스트 코드 수행 전 테이블 생성 및 테스트 데이터 저장
@@ -228,6 +234,52 @@ public class SaveTermsTest {
 	}
 	
 	/**
+	 * TermsDto를 저장하는 과정에서 이용약관 번호가 발급되지 않는 경우<br/>
+	 * - 이용약관 정보를 저장하기 위해 이용약관 번호를 발급하는 과정에서 오류가 발생할 경우, 이용약관 번호를 발급할 수 없다는 메시지가 출력되는지 테스트<br/>
+	 * - 이용약관 번호가 발급되지 않을 경우 400에러 발생<br/>
+	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testNextTermsNoErrorWithLocalKoKr() throws Exception {
+		given(_saveTermsMapper.nextTermsNo()).willThrow(new RuntimeException("Sequence Error"));
+		TermsDto termsDto = this._getTermsDto();
+		
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-SAV-005";
+		String status = "SAVE ERROR";
+		String resultMessage = "이용약관 일련번호를 발급할 수 없습니다. 관리자에게 문의해주세요.";
+		String apiDocsDir = "terms/save/next-terms-no-error/kr";
+		ResultMatcher resultMatcher = status().isBadRequest();
+		
+		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * TermsDto를 저장하는 과정에서 이용약관 번호가 발급되지 않는 경우<br/>
+	 * - 이용약관 정보를 저장하기 위해 이용약관 번호를 발급하는 과정에서 오류가 발생할 경우, 이용약관 번호를 발급할 수 없다는 메시지가 출력되는지 테스트<br/>
+	 * - 이용약관 번호가 발급되지 않을 경우 400에러 발생<br/>
+	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testNextTermsNoErrorWithLocalEnUs() throws Exception {
+		given(this._saveTermsMapper.nextTermsNo()).willThrow(new RuntimeException("Sequence Error"));
+		TermsDto termsDto = this._getTermsDto();
+		
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-SAV-005";
+		String status = "SAVE ERROR";
+		String resultMessage = "Unable to generate Terms of Use number. Please contact your administrator.";
+		String apiDocsDir = "terms/save/next-terms-no-error/en";
+		ResultMatcher resultMatcher = status().isBadRequest();
+		
+		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
 	 * 이용약관 정보 저장 오류 테스트<br/>
 	 * 
 	 * @param termsDto : 저장할 이용약관 정보
@@ -269,6 +321,32 @@ public class SaveTermsTest {
 								fieldWithPath("locale").description("사용 언어")
 								)
 						));
+	}
+	
+	/**
+	 * 저장 기능을 테스트할 이용약관 정보 샘플
+	 * @return 저장할 이용약관 데이터<br/>
+	 * termsDto = {<br/>
+	 * 		&emsp;"useYn": true,<br/>
+	 * 		&emsp;"requireYn": true,<br/>
+	 * 		&emsp;"orderNo": 1,<br/>
+	 * 		&emsp;"title": "사이트 이용 약관",<br/>
+	 * 		&emsp;"contents": "사이트 소개, 이용 방법, 주의 사항과 관련된 안내 정보 및 관련 법률을 작성합니다.",<br/>
+	 * 		&emsp;"createId": 1,<br/>
+	 * 		&emsp;"createDate": "2026-01-26T21:39:36.722938700"<br/>
+	 * }
+	 */
+	private TermsDto _getTermsDto() {
+		TermsDto termsDto = new TermsDto();
+		termsDto.setTermsNo(0L);
+		termsDto.setUseYn(true);
+		termsDto.setRequireYn(true);
+		termsDto.setOrderNo(1L);
+		termsDto.setTitle("사이트 이용 약관");
+		termsDto.setContents("사이트 소개, 이용 방법, 주의 사항과 관련된 안내 정보 및 관련 법률을 작성합니다.");
+		termsDto.setCreateId(1L);
+		
+		return termsDto;
 	}
 
 }
