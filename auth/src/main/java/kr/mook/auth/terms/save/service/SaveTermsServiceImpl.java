@@ -208,7 +208,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * @param responseDto : 저장 결과에 대한 응답 정보
 	 * @param locale : 다국어 처리를 위한 언어 정보
 	 * @return responseDto = {<br/>
-	 * 				&emsp; "httpStatusCode" : "400",<br/>
+	 * 				&emsp; "httpStatusCode" : "500",<br/>
 	 * 				&emsp; "statusCode" : "ERR-TMS-SAV-005",<br/>
 	 * 				&emsp; "staus" : "SAVE ERROR",<br/>
 	 * 				&emsp; "resultType" : "string",<br/>
@@ -216,7 +216,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 			}
 	 */
 	private ResponseDto _createTermsNoError(ResponseDto responseDto, final Locale locale) {
-		responseDto.setHttpStatusCode("400");
+		responseDto.setHttpStatusCode("500");
 		responseDto.setStatusCode("ERR-TMS-SAV-005");
 		responseDto.setStatus("SAVE ERROR");
 		responseDto.setResultType(ResponseTypeEnum.STRING);

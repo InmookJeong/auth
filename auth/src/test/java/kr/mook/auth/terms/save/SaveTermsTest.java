@@ -236,7 +236,7 @@ public class SaveTermsTest {
 	/**
 	 * TermsDto를 저장하는 과정에서 이용약관 번호가 발급되지 않는 경우<br/>
 	 * - 이용약관 정보를 저장하기 위해 이용약관 번호를 발급하는 과정에서 오류가 발생할 경우, 이용약관 번호를 발급할 수 없다는 메시지가 출력되는지 테스트<br/>
-	 * - 이용약관 번호가 발급되지 않을 경우 400에러 발생<br/>
+	 * - 이용약관 번호가 발급되지 않을 경우 500에러 발생<br/>
 	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
 	 * 
 	 * @throws Exception
@@ -246,12 +246,12 @@ public class SaveTermsTest {
 		given(_saveTermsMapper.nextTermsNo()).willThrow(new RuntimeException("Sequence Error"));
 		TermsDto termsDto = this._getTermsDto();
 		
-		String httpStatusCode = "400";
+		String httpStatusCode = "500";
 		String statusCode = "ERR-TMS-SAV-005";
 		String status = "SAVE ERROR";
 		String resultMessage = "이용약관 일련번호를 발급할 수 없습니다. 관리자에게 문의해주세요.";
 		String apiDocsDir = "terms/save/next-terms-no-error/kr";
-		ResultMatcher resultMatcher = status().isBadRequest();
+		ResultMatcher resultMatcher = status().is5xxServerError();
 		
 		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
@@ -259,7 +259,7 @@ public class SaveTermsTest {
 	/**
 	 * TermsDto를 저장하는 과정에서 이용약관 번호가 발급되지 않는 경우<br/>
 	 * - 이용약관 정보를 저장하기 위해 이용약관 번호를 발급하는 과정에서 오류가 발생할 경우, 이용약관 번호를 발급할 수 없다는 메시지가 출력되는지 테스트<br/>
-	 * - 이용약관 번호가 발급되지 않을 경우 400에러 발생<br/>
+	 * - 이용약관 번호가 발급되지 않을 경우 500에러 발생<br/>
 	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
 	 * 
 	 * @throws Exception
@@ -269,12 +269,12 @@ public class SaveTermsTest {
 		given(this._saveTermsMapper.nextTermsNo()).willThrow(new RuntimeException("Sequence Error"));
 		TermsDto termsDto = this._getTermsDto();
 		
-		String httpStatusCode = "400";
+		String httpStatusCode = "500";
 		String statusCode = "ERR-TMS-SAV-005";
 		String status = "SAVE ERROR";
 		String resultMessage = "Unable to generate Terms of Use number. Please contact your administrator.";
 		String apiDocsDir = "terms/save/next-terms-no-error/en";
-		ResultMatcher resultMatcher = status().isBadRequest();
+		ResultMatcher resultMatcher = status().is5xxServerError();
 		
 		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
