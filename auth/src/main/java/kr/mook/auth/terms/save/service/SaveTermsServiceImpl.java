@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
 import kr.mook.auth.terms.dto.TermsDto;
+import kr.mook.auth.terms.save.persistence.SaveTermsMapper;
+import kr.mook.auth.terms.vo.TermsVo;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -23,12 +25,10 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	
 	/* 다국어 처리를 위한 MessageSource */
 	private final MessageSource _messageSource;
+	
+	/* Mapper */
+	private final SaveTermsMapper _saveTermsMapper;
 
-	/**
-	 * 이용약관 정보 저장
-	 * 
-	 * @return
-	 */
 	@Override
 	public ResponseDto saveHandler(final TermsDto termsDto, final Locale locale) {
 		ResponseDto responseDto = ResponseDto.builder()
@@ -39,7 +39,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 		if(_isNotValid(termsDto))
 			return this._returnErrorResponseDto(responseDto, termsDto, locale);
 		
-		return responseDto;
+		return _save(responseDto, termsDto, locale);
 	}
 	
 	/**
@@ -157,6 +157,70 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 		responseDto.setStatus("SAVE ERROR");
 		responseDto.setResultType(ResponseTypeEnum.STRING);
 		responseDto.setResult(this._messageSource.getMessage("error.terms.save.unknown", null, locale));
+		return responseDto;
+	}
+	
+	/**
+	 * 이용약관 정보 저장
+	 * 
+	 * @param responseDto : 저장 결과에 대한 응답 정보
+	 * @param termsDto : 저장할 이용약관 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @return
+	 */
+	private ResponseDto _save(ResponseDto responseDto, final TermsDto termsDto, final Locale locale) {
+		
+		// TermsDto의 값을 TermsVo로 복사
+		TermsVo termsVo = TermsVo.builder().build();
+		termsVo.fromTermsDto(termsDto);
+		
+		try {
+			// create TermsNo
+			long termsNo = this._createTermsNo();
+			termsVo.setTermsNo(termsNo);
+		} catch (Exception e) {
+			// 이용약관번호를 발급하는 과정에서 오류가 발생한 경우
+			responseDto = this._createTermsNoError(responseDto, locale);
+			return responseDto;
+		}
+		
+		// 실제 save / 정상적이면 200 반환, 비정상적인 4xx 반환
+		
+		responseDto.setHttpStatusCode("200");
+		responseDto.setStatusCode("TMS-SAV-001");
+		responseDto.setStatus("SAVE");
+		responseDto.setResultType(ResponseTypeEnum.OBJECT);
+		return responseDto;
+	}
+	
+	/**
+	 * 신규 이용약관번호 생성
+	 * 
+	 * @return 이용약관번호
+	 */
+	private long _createTermsNo() {
+		return this._saveTermsMapper.nextTermsNo();
+	}
+	
+	/**
+	 * 신규 이용약관번호 생성 과정에서 오류가 발생할 경우 반환 정보 전달
+	 * 
+	 * @param responseDto : 저장 결과에 대한 응답 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "400",<br/>
+	 * 				&emsp; "statusCode" : "ERR-TMS-SAV-005",<br/>
+	 * 				&emsp; "staus" : "SAVE ERROR",<br/>
+	 * 				&emsp; "resultType" : "string",<br/>
+	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
+	 * 			}
+	 */
+	private ResponseDto _createTermsNoError(ResponseDto responseDto, final Locale locale) {
+		responseDto.setHttpStatusCode("400");
+		responseDto.setStatusCode("ERR-TMS-SAV-005");
+		responseDto.setStatus("SAVE ERROR");
+		responseDto.setResultType(ResponseTypeEnum.STRING);
+		responseDto.setResult(this._messageSource.getMessage("error.terms.save.create-terms-no", null, locale));
 		return responseDto;
 	}
 }
