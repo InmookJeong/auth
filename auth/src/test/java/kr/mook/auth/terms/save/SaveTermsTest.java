@@ -250,7 +250,7 @@ public class SaveTermsTest {
 		String statusCode = "ERR-TMS-SAV-005";
 		String status = "SAVE ERROR";
 		String resultMessage = "이용약관 일련번호를 발급할 수 없습니다. 관리자에게 문의해주세요.";
-		String apiDocsDir = "terms/save/next-terms-no-error/kr";
+		String apiDocsDir = "terms/save/next-terms-no-error/ko";
 		ResultMatcher resultMatcher = status().is5xxServerError();
 		
 		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
