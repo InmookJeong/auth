@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"500","statusCode":"ERR-TMS-SAV-005","status":"SAVE ERROR","resultType":"STRING","result":"Unable to generate Terms of Use number. Please contact your administrator.","locale":"en_US"}
+----
