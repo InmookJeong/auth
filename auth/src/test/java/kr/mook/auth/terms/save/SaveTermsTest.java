@@ -108,7 +108,7 @@ public class SaveTermsTest {
 	 * @throws Exception
 	 */
 	@Test
-	void testTermsDtoIsNullWithLocalKoKr() throws Exception {
+	void testTermsDtoIsNullWithLocaleKoKr() throws Exception {
 		TermsDto termsDto = null;
 		String httpStatusCode = "400";
 		String statusCode = "ERR-TMS-SAV-001";
@@ -129,7 +129,7 @@ public class SaveTermsTest {
 	 * @throws Exception
 	 */
 	@Test
-	void testTermsDtoIsNullWithLocalEnUs() throws Exception {
+	void testTermsDtoIsNullWithLocaleEnUs() throws Exception {
 		TermsDto termsDto = null;
 		String httpStatusCode = "400";
 		String statusCode = "ERR-TMS-SAV-001";
@@ -150,7 +150,7 @@ public class SaveTermsTest {
 	 * @throws Exception
 	 */
 	@Test
-	void testTermsTitleIsEmptyWithLocalKoKr() throws Exception {
+	void testTermsTitleIsEmptyWithLocaleKoKr() throws Exception {
 		TermsDto termsDto = new TermsDto();
 		String titleFieldName = this._messageSource.getMessage("title", null, _LOCALE_KO_KR);
 		String httpStatusCode = "400";
@@ -172,7 +172,7 @@ public class SaveTermsTest {
 	 * @throws Exception
 	 */
 	@Test
-	void testTermsTitleIsEmptyWithLocalEnUs() throws Exception {
+	void testTermsTitleIsEmptyWithLocaleEnUs() throws Exception {
 		TermsDto termsDto = new TermsDto();
 		String titleFieldName = this._messageSource.getMessage("title", null, _LOCALE_EN_US);
 		String httpStatusCode = "400";
@@ -194,7 +194,7 @@ public class SaveTermsTest {
 	 * @throws Exception
 	 */
 	@Test
-	void testTermsContentsIsEmptyWithLocalKoKr() throws Exception {
+	void testTermsContentsIsEmptyWithLocaleKoKr() throws Exception {
 		TermsDto termsDto = new TermsDto();
 		termsDto.setTitle("사이트 이용 약관");
 		
@@ -218,7 +218,7 @@ public class SaveTermsTest {
 	 * @throws Exception
 	 */
 	@Test
-	void testTermsContentsIsEmptyWithLocalEnUs() throws Exception {
+	void testTermsContentsIsEmptyWithLocaleEnUs() throws Exception {
 		TermsDto termsDto = new TermsDto();
 		termsDto.setTitle("사이트 이용 약관");
 		
@@ -242,7 +242,7 @@ public class SaveTermsTest {
 	 * @throws Exception
 	 */
 	@Test
-	void testNextTermsNoErrorWithLocalKoKr() throws Exception {
+	void testNextTermsNoErrorWithLocaleKoKr() throws Exception {
 		given(_saveTermsMapper.nextTermsNo()).willThrow(new RuntimeException("Sequence Error"));
 		TermsDto termsDto = this._getTermsDto();
 		
@@ -265,7 +265,7 @@ public class SaveTermsTest {
 	 * @throws Exception
 	 */
 	@Test
-	void testNextTermsNoErrorWithLocalEnUs() throws Exception {
+	void testNextTermsNoErrorWithLocaleEnUs() throws Exception {
 		given(this._saveTermsMapper.nextTermsNo()).willThrow(new RuntimeException("Sequence Error"));
 		TermsDto termsDto = this._getTermsDto();
 		
