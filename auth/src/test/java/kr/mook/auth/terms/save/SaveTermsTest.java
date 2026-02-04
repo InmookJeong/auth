@@ -31,6 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
 import kr.mook.auth.terms.dto.TermsDto;
 import kr.mook.auth.terms.save.persistence.SaveTermsMapper;
+import kr.mook.auth.terms.vo.TermsVo;
 
 /**
  * 이용약관 저장 테스트
@@ -274,6 +275,60 @@ public class SaveTermsTest {
 		String status = "SAVE ERROR";
 		String resultMessage = "Unable to generate Terms of Use number. Please contact your administrator.";
 		String apiDocsDir = "terms/save/next-terms-no-error/en";
+		ResultMatcher resultMatcher = status().is5xxServerError();
+		
+		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * TermsDto를 저장하는 과정에서 오류가 발생한 경우<br/>
+	 * - 이용약관 정보를 최종적으로 저장하는 과정에서 오류가 발생할 경우, 이용약관 정보를 저장할 수 없다는 메시지가 출력되는지 테스트<br/>
+	 * - 이용약관 정보가 저장되지 않을 경우 500에러 발생<br/>
+	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testSaveErrorWithLocaleKoKr() throws Exception {
+		TermsDto termsDto = this._getTermsDto();
+		TermsVo termsVo = new TermsVo();
+		termsVo.fromTermsDto(termsDto);
+		
+		// 이용약관 정보를 저장하는 과정에서 오류가 발생할 경우
+		given(this._saveTermsMapper.save(termsVo)).willThrow(new RuntimeException("Sequence Error"));
+		
+		String httpStatusCode = "500";
+		String statusCode = "ERR-TMS-SAV-006";
+		String status = "SAVE ERROR";
+		String resultMessage = "이용약관 정보를 저장할 수 없습니다. 관리자에게 문의해주세요.";
+		String apiDocsDir = "terms/save/save-error/ko";
+		ResultMatcher resultMatcher = status().is5xxServerError();
+		
+		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * TermsDto를 저장하는 과정에서 오류가 발생한 경우<br/>
+	 * - 이용약관 정보를 최종적으로 저장하는 과정에서 오류가 발생할 경우, 이용약관 정보를 저장할 수 없다는 메시지가 출력되는지 테스트<br/>
+	 * - 이용약관 정보가 저장되지 않을 경우 500에러 발생<br/>
+	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testSaveErrorWithLocaleEnUs() throws Exception {
+		TermsDto termsDto = this._getTermsDto();
+		TermsVo termsVo = new TermsVo();
+		termsVo.fromTermsDto(termsDto);
+		
+		// 이용약관 정보를 저장하는 과정에서 오류가 발생할 경우
+		given(this._saveTermsMapper.save(termsVo)).willThrow(new RuntimeException("Sequence Error"));
+		
+		String httpStatusCode = "500";
+		String statusCode = "ERR-TMS-SAV-006";
+		String status = "SAVE ERROR";
+		String resultMessage = "The Terms of Use content cannot be saved. Please contact your administrator.";
+		String apiDocsDir = "terms/save/save-error/en";
 		ResultMatcher resultMatcher = status().is5xxServerError();
 		
 		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
