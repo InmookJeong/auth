@@ -185,11 +185,13 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 		}
 		
 		// 실제 save / 정상적이면 200 반환, 비정상적인 4xx 반환
+		try {
+			// TODO 저장 로직 구현
+		} catch (Exception e) {
+			responseDto = this._saveError(responseDto, locale);
+			return responseDto;
+		}
 		
-		responseDto.setHttpStatusCode("200");
-		responseDto.setStatusCode("TMS-SAV-001");
-		responseDto.setStatus("SAVE");
-		responseDto.setResultType(ResponseTypeEnum.OBJECT);
 		return responseDto;
 	}
 	
@@ -221,6 +223,28 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 		responseDto.setStatus("SAVE ERROR");
 		responseDto.setResultType(ResponseTypeEnum.STRING);
 		responseDto.setResult(this._messageSource.getMessage("error.terms.save.create-terms-no", null, locale));
+		return responseDto;
+	}
+	
+	/**
+	 * 이용약관 정보를 저장하는 과정에서 오류가 발생할 경우 반환 정보 전달
+	 * 
+	 * @param responseDto : 저장 결과에 대한 응답 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "500",<br/>
+	 * 				&emsp; "statusCode" : "ERR-TMS-SAV-005",<br/>
+	 * 				&emsp; "staus" : "SAVE ERROR",<br/>
+	 * 				&emsp; "resultType" : "string",<br/>
+	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
+	 * 			}
+	 */
+	private ResponseDto _saveError(ResponseDto responseDto, final Locale locale) {
+		responseDto.setHttpStatusCode("500");
+		responseDto.setStatusCode("ERR-TMS-SAV-006");
+		responseDto.setStatus("SAVE ERROR");
+		responseDto.setResultType(ResponseTypeEnum.STRING);
+		responseDto.setResult(this._messageSource.getMessage("error.terms.save", null, locale));
 		return responseDto;
 	}
 }
