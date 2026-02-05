@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 214
+
+{"httpStatusCode":"500","statusCode":"ERR-TMS-SAV-006","status":"SAVE ERROR","resultType":"STRING","result":"이용약관 정보를 저장할 수 없습니다. 관리자에게 문의해주세요.","locale":"ko_KR"}
+----

@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"500","statusCode":"ERR-TMS-SAV-006","status":"SAVE ERROR","resultType":"STRING","result":"�씠�슜�빟愿� �젙蹂대�� ���옣�븷 �닔 �뾾�뒿�땲�떎. 愿�由ъ옄�뿉寃� 臾몄쓽�빐二쇱꽭�슂.","locale":"ko_KR"}
+----

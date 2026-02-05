@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 204
+
+{"httpStatusCode":"500","statusCode":"ERR-TMS-SAV-006","status":"SAVE ERROR","resultType":"STRING","result":"The Terms of Use content cannot be saved. Please contact your administrator.","locale":"en_US"}
+----
