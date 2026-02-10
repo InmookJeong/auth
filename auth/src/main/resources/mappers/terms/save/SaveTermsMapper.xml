@@ -20,4 +20,27 @@
 		FROM
 			DUAL
 	</select>
+	
+	<insert id="save" parameterType="TermsVo">
+		/** SaveTermsMapper.save */
+		INSERT INTO TERMS (
+			TERMS_NO,
+			USE_YN,
+			REQUIRE_YN,
+			ORDER_YN,
+			TITLE,
+			CONTENTS,
+			CREATE_ID,
+			CREATE_DATE
+		) VALUES (
+			#{termsNo},
+			#{useYn},
+			#{requireYn},
+			#{orderNo},
+			#{title},
+			#{contents},
+			#{createId},
+			#{createDate}
+		)
+	</insert>
 </mapper>
