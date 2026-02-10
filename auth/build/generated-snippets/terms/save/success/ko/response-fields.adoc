@@ -1,0 +1,32 @@
+|===
+|Path|Type|Description
+
+|`+httpStatusCode+`
+|`+String+`
+|HTTP 응답 상태 코드
+
+|`+statusCode+`
+|`+String+`
+|결과 상태 코드
+
+|`+status+`
+|`+String+`
+|상태코드 명칭(설명)
+
+|`+resultType+`
+|`+String+`
+|결과 타입(ex. Number, String)
+
+|`+result.termsNo+`
+|`+Number+`
+|발급된 이용약관 번호
+
+|`+result.message+`
+|`+String+`
+|결과 메시지
+
+|`+locale+`
+|`+String+`
+|사용 언어
+
+|===

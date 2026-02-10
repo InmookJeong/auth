@@ -1,0 +1,7 @@
+[source,bash]
+----
+$ echo '{"termsNo":1,"useYn":true,"requireYn":true,"orderNo":1,"title":"사이트 이용 약관","contents":"사이트 소개, 이용 방법, 주의 사항과 관련된 안내 정보 및 관련 법률을 작성합니다.","createId":1,"createDate":null,"updateId":null,"updateDate":null,"titleEmpty":false,"contentsEmpty":false}' | http POST 'http://localhost:8080/api/terms' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Accept-Language:en-US' \
+    'Accept:application/json'
+----

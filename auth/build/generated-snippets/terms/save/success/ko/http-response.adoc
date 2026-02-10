@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 187
+
+{"httpStatusCode":"200","statusCode":"TMS-SAV-001","status":"SAVE","resultType":"OBJECT","result":{"termsNo":1,"message":"이용약관 정보가 저장되었습니다."},"locale":"ko_KR"}
+----

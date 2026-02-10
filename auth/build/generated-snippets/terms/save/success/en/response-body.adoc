@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"200","statusCode":"TMS-SAV-001","status":"SAVE","resultType":"OBJECT","result":{"termsNo":1,"message":"Your Terms of Use information has been saved."},"locale":"en_US"}
+----

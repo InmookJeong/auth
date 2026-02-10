@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"200","statusCode":"TMS-SAV-001","status":"SAVE","resultType":"OBJECT","result":{"termsNo":1,"message":"�씠�슜�빟愿� �젙蹂닿� ���옣�릺�뿀�뒿�땲�떎."},"locale":"ko_KR"}
+----
