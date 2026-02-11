@@ -6,8 +6,9 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import kr.mook.auth.common.dto.ResponseDto;
-import kr.mook.auth.common.enumeration.ResponseTypeEnum;
+import kr.mook.auth.common.http.RestfulApiHttpStatusUtil;
 import kr.mook.auth.terms.search.persistence.SearchTermsMapper;
+import kr.mook.auth.terms.util.TermsUtil;
 import kr.mook.auth.terms.vo.TermsVo;
 import lombok.RequiredArgsConstructor;
 
@@ -67,12 +68,13 @@ public class SearchTermsServiceImpl implements SearchTermsService {
 	 * 			}
 	 */
 	private ResponseDto _getResponseDtoForBadRequest(ResponseDto responseDto, final Locale locale) {
-		responseDto.setHttpStatusCode("400");
-		responseDto.setStatusCode("ERR-TMS-SER-001");
-		responseDto.setStatus("SEARCH ERROR");
-		responseDto.setResultType(ResponseTypeEnum.STRING);
-		responseDto.setResult(this._messageSource.getMessage("error.terms.search.terms-no-is-zero", null, locale));
-		return responseDto;
+		return TermsUtil.getResponseDtoByErrorMessage(
+					responseDto,
+					RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
+					"ERR-TMS-SER-001",
+					"SEARCH ERROR",
+					this._messageSource.getMessage("error.terms.search.terms-no-is-zero", null, locale)
+				);
 	}
 	
 	/**
@@ -88,12 +90,13 @@ public class SearchTermsServiceImpl implements SearchTermsService {
 	 * 			}
 	 */
 	private ResponseDto _getResponseDtoForNotFound(ResponseDto responseDto, final Locale locale) {
-		responseDto.setHttpStatusCode("404");
-		responseDto.setStatusCode("ERR-TMS-SER-002");
-		responseDto.setStatus("SEARCH ERROR");
-		responseDto.setResultType(ResponseTypeEnum.STRING);
-		responseDto.setResult(this._messageSource.getMessage("error.terms.search.terms-not-found", null, locale));
-		return responseDto;
+		return TermsUtil.getResponseDtoByErrorMessage(
+					responseDto,
+					RestfulApiHttpStatusUtil.NOT_FOUND_CODE_STRING,
+					"ERR-TMS-SER-002",
+					"SEARCH ERROR",
+					this._messageSource.getMessage("error.terms.search.terms-not-found", null, locale)
+				);
 	}
 	
 	/**
@@ -121,11 +124,12 @@ public class SearchTermsServiceImpl implements SearchTermsService {
 	 * 			}
 	 */
 	private ResponseDto _getResponseDtoForSuccess(ResponseDto responseDto, final TermsVo termsVo, final Locale locale) {
-		responseDto.setHttpStatusCode("200");
-		responseDto.setStatusCode("TMS-SER-001");
-		responseDto.setStatus("SEARCH");
-		responseDto.setResultType(ResponseTypeEnum.OBJECT);
-		responseDto.setResult(termsVo);
-		return responseDto;
+		return TermsUtil.getResponseDtoByResultObject(
+					responseDto,
+					RestfulApiHttpStatusUtil.OK_CODE_STRING,
+					"TMS-SER-001",
+					"SEARCH",
+					termsVo
+				);
 	}
 }
