@@ -14,7 +14,7 @@ import kr.mook.auth.terms.vo.TermsVo;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 이용약관 저장을 위한 서비스 구현<br/>
+ * 이용약관 정보 저장을 위한 서비스 구현<br/>
  * 
  * @since 2025. 11. 21.
  * @version 0.1
@@ -167,7 +167,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * @param responseDto : 저장 결과에 대한 응답 정보
 	 * @param termsDto : 저장할 이용약관 정보
 	 * @param locale : 다국어 처리를 위한 언어 정보
-	 * @return
+	 * @return 이용약관 정보 저장 결과 데이터
 	 */
 	private ResponseDto _save(ResponseDto responseDto, final TermsDto termsDto, final Locale locale) {
 		
@@ -256,7 +256,16 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * @param responseDto : 저장 결과에 대한 응답 정보
 	 * @param termsVo : 저장된 이용약관 정보
 	 * @param locale : 다국어 처리를 위한 언어 정보
-	 * @return
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "200",<br/>
+	 * 				&emsp; "statusCode" : "TMS-SAV-001",<br/>
+	 * 				&emsp; "staus" : "SAVE",<br/>
+	 * 				&emsp; "resultType" : "object",<br/>
+	 * 				&emsp; "result" : {<br/>
+	 * 				&emsp;&emsp; "termsNo" : ${발급된 이용약관번호}<br/>
+	 * 				&emsp;&emsp; "message" : "${locale에 따른 에러 메시지}"<br/>
+	 * 				&emsp; }<br/>
+	 * 			}
 	 */
 	private ResponseDto _saveResponse(ResponseDto responseDto, final TermsVo termsVo, final Locale locale) {
 		responseDto.setHttpStatusCode("200");

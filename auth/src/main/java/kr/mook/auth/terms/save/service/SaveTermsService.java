@@ -15,7 +15,7 @@ import kr.mook.auth.terms.dto.TermsDto;
 public interface SaveTermsService {
 	
 	/**
-	 * 이용약관 저장
+	 * 이용약관 정보 저장
 	 * 
 	 * @param termsDto : 저장할 이용약관 정보
 	 * @param locale : 다국어 처리를 위한 언어 정보
