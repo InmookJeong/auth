@@ -6,10 +6,10 @@ import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.terms.dto.TermsDto;
 
 /**
- * 이용약관 저장을 위한 서비스 인터페이스<br/>
+ * 이용약관 정보를 저장하기 위한 서비스 인터페이스<br/>
  * 
  * @since 2025. 11. 21.
- * @version
+ * @version 0.1
  * @author Inmook, Jeong
  */
 public interface SaveTermsService {
