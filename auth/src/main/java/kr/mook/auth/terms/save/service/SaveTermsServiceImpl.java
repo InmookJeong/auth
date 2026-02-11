@@ -235,7 +235,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * @param locale : 다국어 처리를 위한 언어 정보
 	 * @return responseDto = {<br/>
 	 * 				&emsp; "httpStatusCode" : "500",<br/>
-	 * 				&emsp; "statusCode" : "ERR-TMS-SAV-005",<br/>
+	 * 				&emsp; "statusCode" : "ERR-TMS-SAV-006",<br/>
 	 * 				&emsp; "staus" : "SAVE ERROR",<br/>
 	 * 				&emsp; "resultType" : "string",<br/>
 	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>

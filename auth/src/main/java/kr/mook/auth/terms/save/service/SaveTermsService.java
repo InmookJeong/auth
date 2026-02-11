@@ -21,7 +21,7 @@ public interface SaveTermsService {
 	 * @param locale : 다국어 처리를 위한 언어 정보
 	 * @return responseDto = {<br/>
 	 * 				&emsp; "httpStatusCode" : 200,<br/>
-	 * 				&emsp; "statusCode" : TMS-SAV-001,<br/>
+	 * 				&emsp; "statusCode" : "TMS-SAV-001",<br/>
 	 * 				&emsp; "status" : "SAVE",<br/>
 	 * 				&emsp; "resultType" : "object",<br/>
 	 * 				&emsp; "result" : {<br/>
