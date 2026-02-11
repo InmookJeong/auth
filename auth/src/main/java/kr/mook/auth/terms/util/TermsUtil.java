@@ -1,10 +1,7 @@
 package kr.mook.auth.terms.util;
 
-import java.util.Locale;
-
 import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
-import kr.mook.auth.common.http.RestfulApiHttpStatusUtil;
 import kr.mook.auth.terms.dto.TermsDto;
 
 /**

@@ -6,10 +6,11 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import kr.mook.auth.common.dto.ResponseDto;
-import kr.mook.auth.common.enumeration.ResponseTypeEnum;
+import kr.mook.auth.common.http.RestfulApiHttpStatusUtil;
 import kr.mook.auth.terms.dto.TermsDto;
 import kr.mook.auth.terms.save.dto.SaveResultDto;
 import kr.mook.auth.terms.save.persistence.SaveTermsMapper;
+import kr.mook.auth.terms.util.TermsUtil;
 import kr.mook.auth.terms.vo.TermsVo;
 import lombok.RequiredArgsConstructor;
 
@@ -37,30 +38,10 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 											.build();
 		
 		// 전달된 이용약관 정보의 값이 올바르지 않으면 오류 메시지 반환
-		if(_isNotValid(termsDto))
+		if(TermsUtil.isNotValid(termsDto))
 			return this._returnErrorResponseDto(responseDto, termsDto, locale);
 		
 		return _save(responseDto, termsDto, locale);
-	}
-	
-	/**
-	 * 저장할 이용약관 정보에 오류가 있는지 검증<br/>
-	 * - 이용약관 정보가 Null인 경우<br/>
-	 * - 이용약관 정보 중 제목이 입력되지 않은 경우<br/>
-	 * - 이용약관 정보 중 내용이 입력되지 않은 경우<br/>
-	 * 
-	 * @param termsDto : 저장할 이용약관 정보
-	 * @return
-	 * 		&emsp; true : 저장하기 위해 전달된 이용약관 정보에 문제가 있는 경우<br/>
-	 * 		&emsp; false : 저장하기 위해 전달된 이용약관 정보가 올바른 경우
-	 */
-	public boolean _isNotValid(final TermsDto termsDto) {
-		if(termsDto == null) return true;
-		if(termsDto.getTitle() == null || termsDto.getTitle().isBlank()) return true;
-		if(termsDto.getContents() == null || termsDto.getContents().isBlank()) return true;
-
-		// 저장할 Dto에 문제가 없으면 Validation 통과
-		return false;
 	}
 	
 	/**
@@ -106,12 +87,13 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 			}
 	 */
 	private ResponseDto _setStatusByNullError(ResponseDto responseDto, final Locale locale) {
-		responseDto.setHttpStatusCode("400");
-		responseDto.setStatusCode("ERR-TMS-SAV-001");
-		responseDto.setStatus("SAVE ERROR");
-		responseDto.setResultType(ResponseTypeEnum.STRING);
-		responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-is-empty", null, locale));
-		return responseDto;
+		return TermsUtil.getResponseDtoByErrorMessage(
+					responseDto,
+					RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
+					"ERR-TMS-SAV-001",
+					"SAVE ERROR",
+					this._messageSource.getMessage("error.terms.save.terms-is-empty", null, locale)
+				);
 	}
 	
 	/**
@@ -131,12 +113,13 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	private ResponseDto _setStatusByNoDataError(ResponseDto responseDto, final String targetFieldName, final Locale locale) {
 		String fieldName = this._messageSource.getMessage(targetFieldName, null, locale);
 		String errorMessageNo = targetFieldName.equalsIgnoreCase("title") ? "002" : "003";
-		responseDto.setHttpStatusCode("400");
-		responseDto.setStatusCode("ERR-TMS-SAV-" + errorMessageNo);
-		responseDto.setStatus("SAVE ERROR");
-		responseDto.setResultType(ResponseTypeEnum.STRING);
-		responseDto.setResult(this._messageSource.getMessage("error.terms.save.terms-data-is-empty", new String[] {fieldName}, null, locale));
-		return responseDto;
+		return TermsUtil.getResponseDtoByErrorMessage(
+					responseDto,
+					RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
+					"ERR-TMS-SAV-" + errorMessageNo,
+					"SAVE ERROR",
+					this._messageSource.getMessage("error.terms.save.terms-data-is-empty", new String[] {fieldName}, null, locale)
+				);
 	}
 	
 	/**
@@ -153,12 +136,13 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 			}
 	 */
 	private ResponseDto _setStatusByUnknownError(ResponseDto responseDto, final Locale locale) {
-		responseDto.setHttpStatusCode("400");
-		responseDto.setStatusCode("ERR-TMS-SAV-004");
-		responseDto.setStatus("SAVE ERROR");
-		responseDto.setResultType(ResponseTypeEnum.STRING);
-		responseDto.setResult(this._messageSource.getMessage("error.terms.save.unknown", null, locale));
-		return responseDto;
+		return TermsUtil.getResponseDtoByErrorMessage(
+					responseDto,
+					RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
+					"ERR-TMS-SAV-004",
+					"SAVE ERROR",
+					this._messageSource.getMessage("error.terms.save.unknown", null, locale)
+				);
 	}
 	
 	/**
@@ -220,12 +204,13 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 			}
 	 */
 	private ResponseDto _createTermsNoError(ResponseDto responseDto, final Locale locale) {
-		responseDto.setHttpStatusCode("500");
-		responseDto.setStatusCode("ERR-TMS-SAV-005");
-		responseDto.setStatus("SAVE ERROR");
-		responseDto.setResultType(ResponseTypeEnum.STRING);
-		responseDto.setResult(this._messageSource.getMessage("error.terms.save.create-terms-no", null, locale));
-		return responseDto;
+		return TermsUtil.getResponseDtoByErrorMessage(
+					responseDto,
+					RestfulApiHttpStatusUtil.INTERNAL_SERVER_ERROR_CODE_STRING,
+					"ERR-TMS-SAV-005",
+					"SAVE ERROR",
+					this._messageSource.getMessage("error.terms.save.create-terms-no", null, locale)
+				);
 	}
 	
 	/**
@@ -242,12 +227,13 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 			}
 	 */
 	private ResponseDto _saveError(ResponseDto responseDto, final Locale locale) {
-		responseDto.setHttpStatusCode("500");
-		responseDto.setStatusCode("ERR-TMS-SAV-006");
-		responseDto.setStatus("SAVE ERROR");
-		responseDto.setResultType(ResponseTypeEnum.STRING);
-		responseDto.setResult(this._messageSource.getMessage("error.terms.save", null, locale));
-		return responseDto;
+		return TermsUtil.getResponseDtoByErrorMessage(
+					responseDto,
+					RestfulApiHttpStatusUtil.INTERNAL_SERVER_ERROR_CODE_STRING,
+					"ERR-TMS-SAV-006",
+					"SAVE ERROR",
+					this._messageSource.getMessage("error.terms.save", null, locale)
+				);
 	}
 	
 	/**
@@ -268,13 +254,13 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 			}
 	 */
 	private ResponseDto _saveResponse(ResponseDto responseDto, final TermsVo termsVo, final Locale locale) {
-		responseDto.setHttpStatusCode("200");
-		responseDto.setStatusCode("TMS-SAV-001");
-		responseDto.setStatus("SAVE");
-		responseDto.setResultType(ResponseTypeEnum.OBJECT);
-		
 		String message = this._messageSource.getMessage("terms.save", null, locale);
-		responseDto.setResult(new SaveResultDto(termsVo.getTermsNo(), message));
-		return responseDto;
+		return TermsUtil.getResponseDtoByResultObject(
+					responseDto,
+					RestfulApiHttpStatusUtil.OK_CODE_STRING,
+					"TMS-SAV-001",
+					"SAVE",
+					new SaveResultDto(termsVo.getTermsNo(), message)
+				);
 	}
 }
