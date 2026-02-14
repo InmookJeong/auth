@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import kr.mook.auth.common.dto.ResponseDtoUtil;
 import kr.mook.auth.terms.dto.TermsDto;
 import kr.mook.auth.terms.save.service.SaveTermsService;
 import kr.mook.auth.terms.search.service.SearchTermsService;
+import kr.mook.auth.terms.update.service.UpdateTermsService;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -33,6 +35,7 @@ public class TermsController {
 	/* Service */
 	private final SearchTermsService _serchTermsService;
 	private final SaveTermsService _saveTermsService;
+	private final UpdateTermsService _updateTermsService;
 	
 	/**
 	 * 이용약관 번호(Terms No)를 통해 이용약관 정보 조회
@@ -80,7 +83,7 @@ public class TermsController {
 	 * 이용약관 정보 저장
 	 * 
 	 * @param termsDto : 저장할 이용약관 정보
-	 * @param locale
+	 * @param locale : 다국어 처리를 위한 언어 정보
 	 * @return responseDto = {<br/>{<br/>
 	 * 				&emsp; "httpStatusCode" : 200,<br/>
 	 * 				&emsp; "statusCode" : TMS-SAV-001,<br/>
@@ -109,5 +112,34 @@ public class TermsController {
 		
 		// 저장이 된 경우
 		return ResponseEntity.ok(responseDto);
+	}
+	
+	/**
+	 * 이용약관 정보 수정
+	 * 
+	 * @param termsDto : 저장할 이용약관 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @return responseDto = {<br/>{<br/>
+	 * 				&emsp; "httpStatusCode" : 200,<br/>
+	 * 				&emsp; "statusCode" : TMS-SAV-001,<br/>
+	 * 				&emsp; "status" : "SAVE",<br/>
+	 * 				&emsp; "resultType" : "object",<br/>
+	 * 				&emsp; "result" : {<br/>
+	 * 					&emsp;&emsp; "message" : "이용약관 정보가 저장되었습니다.",<br/>
+	 * 					&emsp;&emsp; "termsNo" : 1<br/>
+	 * 				&emsp; },<br/>
+	 * 				&emsp; "language" : "ko-KR"<br/>
+	 * 			}
+	 */
+	@PutMapping
+	public ResponseEntity<ResponseDto> update(@RequestBody(required = false) final TermsDto termsDto, final Locale locale) {
+		ResponseDto responseDto = this._updateTermsService.updateHandler(termsDto, locale); 
+		
+		// 수정을 위한 이용약관 정보의 데이터 중 잘못된 값이 있는 경우
+		if(ResponseDtoUtil.isStatusBadRequest(responseDto)) {
+			return ResponseEntity.badRequest().body(responseDto);
+		}
+		
+		return null;
 	}
 }
