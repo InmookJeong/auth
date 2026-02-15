@@ -1,5 +1,6 @@
 package kr.mook.auth.terms.update;
 
+import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
@@ -28,6 +30,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.mook.auth.common.enumeration.ResponseTypeEnum;
 import kr.mook.auth.terms.dto.TermsDto;
+import kr.mook.auth.terms.update.persistence.UpdateTermsMapper;
+import kr.mook.auth.terms.vo.TermsVo;
 
 /**
  * 이용약관 저장 테스트
@@ -52,6 +56,9 @@ public class UpdateTermsTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
+	
+	@MockBean
+	private UpdateTermsMapper _updateTermsMapper;
 	
 	/**
 	 * 각 테스트 코드 수행 전 테이블 생성 및 테스트 데이터 저장
@@ -271,6 +278,88 @@ public class UpdateTermsTest {
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
 		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * TermsDto를 수정하는 과정에서 오류가 발생한 경우<br/>
+	 * - 이용약관 정보를 최종적으로 수정하는 과정에서 오류가 발생할 경우, 이용약관 정보를 수정할 수 없다는 메시지가 출력되는지 테스트<br/>
+	 * - 이용약관 정보가 수정되지 않을 경우 500에러 발생<br/>
+	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testUpdateErrorWithLocaleKoKr() throws Exception {
+		TermsDto termsDto = this._getTermsDto();
+		TermsVo termsVo = new TermsVo();
+		termsVo.fromTermsDto(termsDto);
+		
+		// 이용약관 정보를 저장하는 과정에서 오류가 발생할 경우
+		given(this._updateTermsMapper.update(termsVo)).willThrow(new RuntimeException("Terms Update Error"));
+		
+		String httpStatusCode = "500";
+		String statusCode = "ERR-TMS-UPD-006";
+		String status = "UPDATE ERROR";
+		String resultMessage = "이용약관 정보를 수정할 수 없습니다. 관리자에게 문의해주세요.";
+		String apiDocsDir = "terms/update/update-error/ko";
+		ResultMatcher resultMatcher = status().is5xxServerError();
+		
+		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * TermsDto를 수정하는 과정에서 오류가 발생한 경우<br/>
+	 * - 이용약관 정보를 최종적으로 수정하는 과정에서 오류가 발생할 경우, 이용약관 수정를 저장할 수 없다는 메시지가 출력되는지 테스트<br/>
+	 * - 이용약관 정보가 수정되지 않을 경우 500에러 발생<br/>
+	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testUpdateErrorWithLocaleEnUs() throws Exception {
+		TermsDto termsDto = this._getTermsDto();
+		TermsVo termsVo = new TermsVo();
+		termsVo.fromTermsDto(termsDto);
+		
+		// 이용약관 정보를 저장하는 과정에서 오류가 발생할 경우
+		given(this._updateTermsMapper.update(termsVo)).willThrow(new RuntimeException("Sequence Error"));
+		
+		String httpStatusCode = "500";
+		String statusCode = "ERR-TMS-UPD-006";
+		String status = "UPDATE ERROR";
+		String resultMessage = "You cannot edit your Terms of Use information. Please contact the administrator.";
+		String apiDocsDir = "terms/update/update-error/en";
+		ResultMatcher resultMatcher = status().is5xxServerError();
+		
+		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * 수정 기능을 테스트할 이용약관 정보 샘플
+	 * @return 수정할 이용약관 데이터<br/>
+	 * termsDto = {<br/>
+	 * 		&emsp;"termsNo": 1,<br/>
+	 * 		&emsp;"useYn": true,<br/>
+	 * 		&emsp;"requireYn": true,<br/>
+	 * 		&emsp;"orderNo": 1,<br/>
+	 * 		&emsp;"title": "(수정) 사이트 이용 약관",<br/>
+	 * 		&emsp;"contents": "(수정) 사이트 소개, 이용 방법, 주의 사항과 관련된 안내 정보 및 관련 법률을 작성합니다.",<br/>
+	 * 		&emsp;"createId": 1,<br/>
+	 * 		&emsp;"updateId": 2<br/>
+	 * }
+	 */
+	private TermsDto _getTermsDto() {
+		TermsDto termsDto = new TermsDto();
+		termsDto.setTermsNo(1L);
+		termsDto.setUseYn(true);
+		termsDto.setRequireYn(true);
+		termsDto.setOrderNo(1L);
+		termsDto.setTitle("(수정) 사이트 이용 약관");
+		termsDto.setContents("(수정) 사이트 소개, 이용 방법, 주의 사항과 관련된 안내 정보 및 관련 법률을 작성합니다.");
+		termsDto.setCreateId(1L);
+		termsDto.setUpdateId(2L);
+		
+		return termsDto;
 	}
 	
 	/**
