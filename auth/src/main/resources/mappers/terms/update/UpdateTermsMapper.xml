@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.mook.auth.terms.update.persistence.UpdateTermsMapper">
+	
+	<update id="update" parameterType="TermsVo">
+		/** UpdateTermsMapper.update */
+		UPDATE TERMS
+		SET
+			TITLE = ${title},
+			CONTENTS = ${contents},
+			UPDATE_ID = ${updateId},
+			UPDATE_DATE = ${updateDate}
+		WHERE
+			TERMS_NO = ${termsNo}
+	</update>
+	
+	<insert id="save" parameterType="TermsVo">
+		/** SaveTermsMapper.save */
+		INSERT INTO TERMS (
+			TERMS_NO,
+			USE_YN,
+			REQUIRE_YN,
+			ORDER_YN,
+			TITLE,
+			CONTENTS,
+			CREATE_ID,
+			CREATE_DATE
+		) VALUES (
+			#{termsNo},
+			#{useYn},
+			#{requireYn},
+			#{orderNo},
+			#{title},
+			#{contents},
+			#{createId},
+			#{createDate}
+		)
+	</insert>
+</mapper>
