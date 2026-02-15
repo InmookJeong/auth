@@ -190,8 +190,11 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 		
 		// 실제 update / 정상적이면 200 반환, 비정상적인 경우 500 반환
 		try {
-			this._updateTermsMapper.update(termsVo);
-			responseDto = this._updateResponse(responseDto, termsVo, locale);
+			int updateCount = this._updateTermsMapper.update(termsVo);
+			if(updateCount == 1)
+				responseDto = this._updateResponse(responseDto, termsVo, locale);
+			else
+				this._updateNoCount(responseDto, locale);
 		} catch (Exception e) {
 			responseDto = this._updateError(responseDto, locale);
 		}
@@ -219,6 +222,29 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 					"ERR-TMS-UPD-006",
 					"UPDATE ERROR",
 					this._messageSource.getMessage("error.terms.update", null, locale)
+				);
+	}
+	
+	/**
+	 * 이용약관 정보 수정을 실행하였지만 실제 수정된 데이터가 없는 경우<br/>
+	 * 
+	 * @param responseDto : 수정 결과에 대한 응답 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "404",<br/>
+	 * 				&emsp; "statusCode" : "ERR-TMS-UPD-007",<br/>
+	 * 				&emsp; "staus" : "UPDATE ERROR",<br/>
+	 * 				&emsp; "resultType" : "string",<br/>
+	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
+	 * 			}
+	 */
+	private ResponseDto _updateNoCount(ResponseDto responseDto, final Locale locale) {
+		return TermsUtil.getResponseDtoByErrorMessage(
+					responseDto,
+					RestfulApiHttpStatusUtil.NOT_FOUND_CODE_STRING,
+					"ERR-TMS-UPD-007",
+					"UPDATE ERROR",
+					this._messageSource.getMessage("error.terms.update.terms-not-found", null, locale)
 				);
 	}
 	

@@ -3,6 +3,7 @@ package kr.mook.auth.terms.controller;
 import java.util.Locale;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -138,6 +139,11 @@ public class TermsController {
 		// 수정을 위한 이용약관 정보의 데이터 중 잘못된 값이 있는 경우
 		if(ResponseDtoUtil.isStatusBadRequest(responseDto)) {
 			return ResponseEntity.badRequest().body(responseDto);
+		}
+		
+		// 수정할 이용약관 정보를 찾을 수 없는 경우
+		if(ResponseDtoUtil.isStatusNotFound(responseDto)) {
+			return ResponseEntity.status(404).body(responseDto);
 		}
 		
 		// 서버에 오류가 발생한 경우
