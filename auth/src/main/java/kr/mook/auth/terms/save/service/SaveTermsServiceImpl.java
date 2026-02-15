@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.common.http.RestfulApiHttpStatusUtil;
+import kr.mook.auth.terms.dto.TermsCommandResponseDto;
 import kr.mook.auth.terms.dto.TermsDto;
-import kr.mook.auth.terms.save.dto.SaveResultDto;
 import kr.mook.auth.terms.save.persistence.SaveTermsMapper;
 import kr.mook.auth.terms.util.TermsUtil;
 import kr.mook.auth.terms.vo.TermsVo;
@@ -259,7 +259,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 					RestfulApiHttpStatusUtil.OK_CODE_STRING,
 					"TMS-SAV-001",
 					"SAVE",
-					new SaveResultDto(termsVo.getTermsNo(), message)
+					new TermsCommandResponseDto(termsVo.getTermsNo(), message)
 				);
 	}
 }
