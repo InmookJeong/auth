@@ -141,7 +141,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 					RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
 					"ERR-TMS-SAV-004",
 					"SAVE ERROR",
-					this._messageSource.getMessage("error.terms.save.unknown", null, locale)
+					this._messageSource.getMessage("error.terms.save", null, locale)
 				);
 	}
 	
