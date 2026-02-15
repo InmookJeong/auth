@@ -169,13 +169,12 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 			return responseDto;
 		}
 		
-		// 실제 save / 정상적이면 200 반환, 비정상적인 4xx 반환
+		// 실제 save / 정상적이면 200 반환, 비정상적인 경우 500 반환
 		try {
 			this._saveTermsMapper.save(termsVo);
 			responseDto = this._saveResponse(responseDto, termsVo, locale);
 		} catch (Exception e) {
 			responseDto = this._saveError(responseDto, locale);
-			return responseDto;
 		}
 		
 		return responseDto;
