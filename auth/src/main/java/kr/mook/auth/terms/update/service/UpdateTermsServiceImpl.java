@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UpdateTermsServiceImpl implements UpdateTermsService {
-	
+
 	/* 다국어 처리를 위한 MessageSource */
 	private final MessageSource _messageSource;
 
@@ -58,6 +58,11 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 		if(termsDto == null)
 			return this._setStatusByNullError(responseDto, locale);
 		
+		// 전달된 TermsDto의 이용약관 번호(TermsNo)가 Null이거나 0 이하의 숫자인 경우
+		if(termsDto.getTermsNo() == null || termsDto.getTermsNo().compareTo(1L) == -1)
+			return this._setStatusByTermsNoError(responseDto, locale);
+			
+		
 		return null;
 	}
 	
@@ -82,5 +87,29 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 					"UPDATE ERROR",
 					this._messageSource.getMessage("error.terms.update.terms-is-empty", null, locale)
 				);
+	}
+	
+	/**
+	 * 수정할 이용약관 정보의 이용약관 번호(TermsNo)가 입력되지 않았거나 0 이하의 숫자가 입력된 경우 ResponseDto에 상태 저장
+	 * 
+	 * @param responseDto : 수정 결과에 대한 응답 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "400",<br/>
+	 * 				&emsp; "statusCode" : "ERR-TMS-UPD-002",<br/>
+	 * 				&emsp; "staus" : "UPDATE ERROR",<br/>
+	 * 				&emsp; "resultType" : "string",<br/>
+	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
+	 * 			}
+	 */
+	private ResponseDto _setStatusByTermsNoError(ResponseDto responseDto, final Locale locale) {
+		return TermsUtil.getResponseDtoByErrorMessage(
+				responseDto,
+				RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
+				"ERR-TMS-UPD-002",
+				"UPDATE ERROR",
+				this._messageSource.getMessage("error.terms.update.terms-no-less-than-or-equals-to-zero", null, locale)
+				);
+		
 	}
 }
