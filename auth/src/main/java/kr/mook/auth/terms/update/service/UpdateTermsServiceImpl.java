@@ -70,7 +70,8 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 		if(termsDto.getContents() == null || termsDto.getContents().isBlank())
 			return this._setStatusByNoDataError(responseDto, "contents", locale);
 		
-		return null;
+		// 그 외 알 수 없는 오류가 발생한 경우
+		return this._setStatusByUnknownError(responseDto, locale);
 	}
 	
 	/**
@@ -142,6 +143,29 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 					"ERR-TMS-UPD-" + errorMessageNo,
 					"UPDATE ERROR",
 					this._messageSource.getMessage("error.terms.update.terms-data-is-empty", new String[] {fieldName}, null, locale)
+				);
+	}
+	
+	/**
+	 * 수정할 이용약관 정보에 오류가 발생하였으나 오류 원인을 알 수 없는 경우 ResponseDto에 상태 저장
+	 * 
+	 * @param responseDto : 수정 결과에 대한 응답 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "400",<br/>
+	 * 				&emsp; "statusCode" : "ERR-TMS-UPD-005",<br/>
+	 * 				&emsp; "staus" : "UPDATE ERROR",<br/>
+	 * 				&emsp; "resultType" : "string",<br/>
+	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
+	 * 			}
+	 */
+	private ResponseDto _setStatusByUnknownError(ResponseDto responseDto, final Locale locale) {
+		return TermsUtil.getResponseDtoByErrorMessage(
+					responseDto,
+					RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
+					"ERR-TMS-UPD-005",
+					"UPDATE ERROR",
+					this._messageSource.getMessage("error.terms.save", null, locale)
 				);
 	}
 }
