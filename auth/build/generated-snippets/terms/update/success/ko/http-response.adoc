@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 189
+
+{"httpStatusCode":"200","statusCode":"TMS-UPD-001","status":"UPDATE","resultType":"OBJECT","result":{"termsNo":1,"message":"이용약관 정보가 수정되었습니다."},"locale":"ko_KR"}
+----

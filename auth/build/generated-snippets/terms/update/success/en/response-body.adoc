@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"200","statusCode":"TMS-UPD-001","status":"UPDATE","resultType":"OBJECT","result":{"termsNo":1,"message":"The Terms of Use information has changed."},"locale":"en_US"}
+----

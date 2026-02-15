@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 185
+
+{"httpStatusCode":"200","statusCode":"TMS-UPD-001","status":"UPDATE","resultType":"OBJECT","result":{"termsNo":1,"message":"The Terms of Use information has changed."},"locale":"en_US"}
+----
