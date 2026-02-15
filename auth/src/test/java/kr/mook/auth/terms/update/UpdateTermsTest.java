@@ -322,7 +322,7 @@ public class UpdateTermsTest {
 		termsVo.fromTermsDto(termsDto);
 		
 		// 이용약관 정보를 저장하는 과정에서 오류가 발생할 경우
-		given(this._updateTermsMapper.update(termsVo)).willThrow(new RuntimeException("Sequence Error"));
+		given(this._updateTermsMapper.update(termsVo)).willThrow(new RuntimeException("Terms Update Error"));
 		
 		String httpStatusCode = "500";
 		String statusCode = "ERR-TMS-UPD-006";
@@ -330,6 +330,56 @@ public class UpdateTermsTest {
 		String resultMessage = "You cannot edit your Terms of Use information. Please contact the administrator.";
 		String apiDocsDir = "terms/update/update-error/en";
 		ResultMatcher resultMatcher = status().is5xxServerError();
+		
+		_testUpdateByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * 수정할 이용약관 정보를 찾을 수 없는 경우<br/>
+	 * - 이용약관 정보를 최종적으로 수정하는 과정에서 데이터를 찾을 수 없는 경우, 이용약관 정보를 찾을 수 없다는 메시지가 출력되는지 테스트<br/>
+	 * - 수정할 이용약관 정보를 찾을 수 없는 경우 404에러 발생<br/>
+	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testUpdateNotFoundErrorWithLocaleKoKr() throws Exception {
+		TermsDto termsDto = this._getTermsDto();
+		termsDto.setTermsNo(5L);
+		TermsVo termsVo = new TermsVo();
+		termsVo.fromTermsDto(termsDto);
+		
+		String httpStatusCode = "404";
+		String statusCode = "ERR-TMS-UPD-007";
+		String status = "UPDATE ERROR";
+		String resultMessage = "이용약관 정보를 찾을 수 없습니다. 이용약관 번호를 다시 확인해주세요.";
+		String apiDocsDir = "terms/update/terms-not-found/ko";
+		ResultMatcher resultMatcher = status().isNotFound();
+		
+		_testUpdateByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * 수정할 이용약관 정보를 찾을 수 없는 경우<br/>
+	 * - 이용약관 정보를 최종적으로 수정하는 과정에서 데이터를 찾을 수 없는 경우, 이용약관 정보를 찾을 수 없다는 메시지가 출력되는지 테스트<br/>
+	 * - 수정할 이용약관 정보를 찾을 수 없는 경우 404에러 발생<br/>
+	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testUpdateNotFoundWithLocaleEnUs() throws Exception {
+		TermsDto termsDto = this._getTermsDto();
+		termsDto.setTermsNo(5L);
+		TermsVo termsVo = new TermsVo();
+		termsVo.fromTermsDto(termsDto);
+		
+		String httpStatusCode = "404";
+		String statusCode = "ERR-TMS-UPD-007";
+		String status = "UPDATE ERROR";
+		String resultMessage = "We couldn't find the Terms of Use information. Please check the Terms of Use number again.";
+		String apiDocsDir = "terms/update/terms-not-found/en";
+		ResultMatcher resultMatcher = status().isNotFound();
 		
 		_testUpdateByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
