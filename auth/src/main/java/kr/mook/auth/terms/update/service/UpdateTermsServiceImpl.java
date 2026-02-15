@@ -187,7 +187,7 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 		TermsVo termsVo = TermsVo.builder().build();
 		termsVo.fromTermsDto(termsDto);
 		
-		// 실제 update / 정상적이면 200 반환, 비정상적인 4xx 반환
+		// 실제 update / 정상적이면 200 반환, 비정상적인 경우 500 반환
 		try {
 			// TODO Update 로직 작성
 			this._updateTermsMapper.update(termsVo);
