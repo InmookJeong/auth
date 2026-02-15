@@ -322,7 +322,7 @@ public class SaveTermsTest {
 		termsVo.fromTermsDto(termsDto);
 		
 		// 이용약관 정보를 저장하는 과정에서 오류가 발생할 경우
-		given(this._saveTermsMapper.save(termsVo)).willThrow(new RuntimeException("Sequence Error"));
+		given(this._saveTermsMapper.save(termsVo)).willThrow(new RuntimeException("Terms Save Error"));
 		
 		String httpStatusCode = "500";
 		String statusCode = "ERR-TMS-SAV-006";
@@ -349,7 +349,7 @@ public class SaveTermsTest {
 		termsVo.fromTermsDto(termsDto);
 		
 		// 이용약관 정보를 저장하는 과정에서 오류가 발생할 경우
-		given(this._saveTermsMapper.save(termsVo)).willThrow(new RuntimeException("Sequence Error"));
+		given(this._saveTermsMapper.save(termsVo)).willThrow(new RuntimeException("Terms Save Error"));
 		
 		String httpStatusCode = "500";
 		String statusCode = "ERR-TMS-SAV-006";
