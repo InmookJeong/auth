@@ -68,5 +68,18 @@ public class ResponseDtoUtil {
 	public static boolean isStatusNotFound(ResponseDto responseDto) {
 		return RestfulApiHttpStatusUtil.NOT_FOUND_CODE_STRING.equalsIgnoreCase(responseDto.getHttpStatusCode());
 	}
-
+	
+	// ######################################
+	// #####    5XX HTTP STATUS CODE    #####
+	// ######################################
+	
+	/**
+	 * 응답을 위한 HTTP 상태코드가 INTERNAL SERVER ERROR(CODE:500)인지 확인
+	 * 
+	 * @param responseDto
+	 * @return 응답을 위한 HTTP 상태코드가 INTERNAL SERVER ERROR(CODE:500)이면 true, 아니면 false를 반환
+	 */
+	public static boolean isStatusInternalServerError(ResponseDto responseDto) {
+		return RestfulApiHttpStatusUtil.INTERNAL_SERVER_ERROR_CODE_STRING.equalsIgnoreCase(responseDto.getHttpStatusCode());
+	}
 }
