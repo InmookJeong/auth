@@ -145,6 +145,7 @@ public class TermsController {
 			return ResponseEntity.internalServerError().body(responseDto);
 		}
 		
+		// 수정된 경우
 		return ResponseEntity.ok(responseDto);
 	}
 }
