@@ -118,7 +118,7 @@ public class UpdateTermsTest {
 	 * TermsDto를 Null로 전달한 경우 오류 테스트<br/>
 	 * - 수정할 이용약관 정보가 비어있거나 전달되지 않았을 경우, 이용약관 정보를 확인하라는 메시지가 출력되는지 테스트<br/>
 	 * - 수정할 이용약관 정보가 비어있거나 전달되지 않았을 경우 400 에러 발생<br/>
-	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
+	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
 	 * 
 	 * @throws Exception
 	 */
@@ -132,6 +132,48 @@ public class UpdateTermsTest {
 		String apiDocsDir = "terms/update/terms-is-null/en";
 		ResultMatcher resultMatcher = status().isBadRequest();
 
+		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * 이용약관 번호(TermsNo)가 Null 또는 0 이하의 숫자로 전달된 경우 오류 테스트<br/>
+	 * - 수정할 이용약관 정보 중 이용약관 번호가 전달되지 않거나 0 이하의 숫자가 전달되었을 경우, 이용약관 정보를 확인하라는 메시지가 출력되는지 테스트<br/>
+	 * - 이용약관 번호가 전달되지 않거나 0 이하의 숫자가 전달되았을 경우 400 에러 발생<br/>
+	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testUpdateByUnvaildTermsNoWithLocaleKoKr() throws Exception {
+		TermsDto termsDto = new TermsDto();
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-UPD-002";
+		String status = "UPDATE ERROR";
+		String resultMessage = "수정할 이용약관 정보의 번호(TermsNo)는 0보다 커야합니다.";
+		String apiDocsDir = "terms/update/update-by-unvaild-terms-no/ko";
+		ResultMatcher resultMatcher = status().isBadRequest();
+		
+		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * 이용약관 번호(TermsNo)가 Null 또는 0 이하의 숫자로 전달된 경우 오류 테스트<br/>
+	 * - 수정할 이용약관 정보 중 이용약관 번호가 전달되지 않거나 0 이하의 숫자가 전달되었을 경우, 이용약관 정보를 확인하라는 메시지가 출력되는지 테스트<br/>
+	 * - 이용약관 번호가 전달되지 않거나 0 이하의 숫자가 전달되았을 경우 400 에러 발생<br/>
+	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testUpdateByUnvaildTermsNoWithLocaleEnUs() throws Exception {
+		TermsDto termsDto = new TermsDto();
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-UPD-002";
+		String status = "UPDATE ERROR";
+		String resultMessage = "The number (TermsNo) of the Terms of Use information to be modified must be greater than 0.";
+		String apiDocsDir = "terms/update/update-by-unvaild-terms-no/en";
+		ResultMatcher resultMatcher = status().isBadRequest();
+		
 		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
