@@ -178,6 +178,102 @@ public class UpdateTermsTest {
 	}
 	
 	/**
+	 * TermsDto에 제목(title)이 없는 경우 오류 테스트<br/>
+	 * - 수정할 이용약관 정보 중 제목(title)이 비어있는 경우, 이용약관 제목(title)을 입력하라는 메시지가 출력되는지 테스트<br/>
+	 * - 수정할 이용약관 정보의 제목이 입력되지 않았을 경우 400 에러 발생<br/>
+	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testTermsTitleIsEmptyWithLocaleKoKr() throws Exception {
+		TermsDto termsDto = new TermsDto();
+		termsDto.setTermsNo(1L);
+		String titleFieldName = this._messageSource.getMessage("title", null, _LOCALE_KO_KR);
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-UPD-003";
+		String status = "UPDATE ERROR";
+		String resultMessage = "이용약관의 " + titleFieldName + "은 필수 입력 대상입니다. " + titleFieldName + "을 입력해주세요.";
+		String apiDocsDir = "terms/update/terms-title-is-empty/ko";
+		ResultMatcher resultMatcher = status().isBadRequest();
+		
+		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * TermsDto에 제목(title)이 없는 경우 오류 테스트<br/>
+	 * - 저장할 이용약관 정보 중 제목(title)이 비어있는 경우, 이용약관 제목(title)을 입력하라는 메시지가 출력되는지 테스트<br/>
+	 * - 저장할 이용약관 정보의 제목이 입력되지 않았을 경우 400 에러 발생<br/>
+	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testTermsTitleIsEmptyWithLocaleEnUs() throws Exception {
+		TermsDto termsDto = new TermsDto();
+		termsDto.setTermsNo(1L);
+		String titleFieldName = this._messageSource.getMessage("title", null, _LOCALE_EN_US);
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-UPD-003";
+		String status = "UPDATE ERROR";
+		String resultMessage = "The " + titleFieldName + " of the Terms of Use is required. Please enter a " + titleFieldName + ".";
+		String apiDocsDir = "terms/update/terms-title-is-empty/en";
+		ResultMatcher resultMatcher = status().isBadRequest();
+		
+		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * TermsDto에 내용(contents)이 없는 경우 오류 테스트<br/>
+	 * - 수정할 이용약관 정보 중 내용(contents)이 비어있는 경우, 이용약관 내용(contents)을 입력하라는 메시지가 출력되는지 테스트<br/>
+	 * - 수정할 이용약관 정보의 제목이 입력되지 않았을 경우 400 에러 발생<br/>
+	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testTermsContentsIsEmptyWithLocaleKoKr() throws Exception {
+		TermsDto termsDto = new TermsDto();
+		termsDto.setTermsNo(1L);
+		termsDto.setTitle("사이트 이용 약관");
+		
+		String titleFieldName = this._messageSource.getMessage("contents", null, _LOCALE_KO_KR);
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-UPD-004";
+		String status = "UPDATE ERROR";
+		String resultMessage = "이용약관의 " + titleFieldName + "은 필수 입력 대상입니다. " + titleFieldName + "을 입력해주세요.";
+		String apiDocsDir = "terms/update/terms-contents-is-empty/ko";
+		ResultMatcher resultMatcher = status().isBadRequest();
+		
+		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * TermsDto에 내용(contents)이 없는 경우 오류 테스트<br/>
+	 * - 수정할 이용약관 정보 중 내용(contents)이 비어있는 경우, 이용약관 내용(contents)을 입력하라는 메시지가 출력되는지 테스트<br/>
+	 * - 수정할 이용약관 정보의 제목이 입력되지 않았을 경우 400 에러 발생<br/>
+	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testTermsContentsIsEmptyWithLocaleEnUs() throws Exception {
+		TermsDto termsDto = new TermsDto();
+		termsDto.setTermsNo(1L);
+		termsDto.setTitle("사이트 이용 약관");
+		
+		String titleFieldName = this._messageSource.getMessage("contents", null, _LOCALE_EN_US);
+		String httpStatusCode = "400";
+		String statusCode = "ERR-TMS-UPD-004";
+		String status = "UPDATE ERROR";
+		String resultMessage = "The " + titleFieldName + " of the Terms of Use is required. Please enter a " + titleFieldName + ".";
+		String apiDocsDir = "terms/update/terms-contents-is-empty/en";
+		ResultMatcher resultMatcher = status().isBadRequest();
+		
+		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
 	 * 이용약관 정보 저장 오류 테스트<br/>
 	 * 
 	 * @param termsDto : 저장할 이용약관 정보
