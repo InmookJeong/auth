@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"400","statusCode":"ERR-TMS-UPD-002","status":"UPDATE ERROR","resultType":"STRING","result":"�닔�젙�븷 �씠�슜�빟愿� �젙蹂댁쓽 踰덊샇(TermsNo)�뒗 0蹂대떎 而ㅼ빞�빀�땲�떎.","locale":"ko_KR"}
+----

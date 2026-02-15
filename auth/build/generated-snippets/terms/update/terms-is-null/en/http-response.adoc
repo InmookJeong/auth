@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 247
+
+{"httpStatusCode":"400","statusCode":"ERR-TMS-UPD-001","status":"UPDATE ERROR","resultType":"STRING","result":"The Terms of Use information is empty or not provided. Please review the Terms of Use information you wish to modify.","locale":"en_US"}
+----

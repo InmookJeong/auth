@@ -1,0 +1,7 @@
+[source,bash]
+----
+$ echo '{"termsNo":1,"useYn":false,"requireYn":false,"orderNo":0,"title":"사이트 이용 약관","contents":null,"createId":0,"createDate":null,"updateId":null,"updateDate":null,"titleEmpty":false,"contentsEmpty":true}' | http PUT 'http://localhost:8080/api/terms' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Accept-Language:ko-KR' \
+    'Accept:application/json'
+----

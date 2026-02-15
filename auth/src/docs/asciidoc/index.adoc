@@ -97,6 +97,7 @@ operation::terms/search/one/terms-not-found/en[snippets='http-request,http-respo
 
 operation::terms/search/one/search-terms[snippets='http-request,http-response,response-fields']
 
+[[이용약관-정보-저장]]
 === *2) 이용약관 정보 저장*
 
 ==== *(1) 저장할 이용약관 정보가 비어있거나 전달되지 않았을 경우*
@@ -188,3 +189,81 @@ operation::terms/save/success/ko[snippets='http-request,http-response,response-f
 [[이용약관-저장-API-6-다국어-영어-지원]]
 ===== *※ 다국어 영어 지원*
 operation::terms/save/success/en[snippets='http-request,http-response,response-fields']
+
+[[이용약관-정보-수정]]
+=== *3) 이용약관 정보 수정*
+
+==== *(1) 수정할 이용약관 정보가 비어있거나 전달되지 않았을 경우*
+
+설명::
+- 이용약관 정보를 수정할 때 이용약관 정보가 비어있거나 전달되지 않을 경우 오류가 발생합니다.
+- 이 때 *HTTP Status Code* 중 잘못된 요청(Bad Request)을 의미하는 `*400*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[이용약관-수정-API-1-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::terms/update/terms-is-null/ko[snippets='http-request,http-response,response-fields']
+
+[[이용약관-수정-API-1-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::terms/update/terms-is-null/en[snippets='http-request,http-response,response-fields']
+
+==== *(2) 수정할 이용약관 정보의 이용약관 번호(TermsNo)가 전달되지 않았거나 0 이하의 숫자가 전달된 경우*
+
+설명::
+- 이용약관 정보를 수정할 때 이용약관 번호(TermsNo)가 전달되지 않았거나 0 이하의 숫자가 전달된 경우 오류가 발생합니다.
+- 이 때 *HTTP Status Code* 중 잘못된 요청(Bad Request)을 의미하는 `*400*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[이용약관-수정-API-2-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::terms/update/update-by-unvaild-terms-no/ko[snippets='http-request,http-response,response-fields']
+
+[[이용약관-수정-API-2-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::terms/update/update-by-unvaild-terms-no/en[snippets='http-request,http-response,response-fields']
+
+==== *(3) 수정할 이용약관 정보의 제목이 비어있거나 전달되지 않았을 경우*
+
+설명::
+- 이용약관 정보를 수정할 때 이용약관의 제목(title)이 비어있거나 전달되지 않을 경우 오류가 발생합니다.
+- 이 때 *HTTP Status Code* 중 잘못된 요청(Bad Request)을 의미하는 `*400*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[이용약관-수정-API-3-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::terms/update/terms-title-is-empty/ko[snippets='http-request,http-response,response-fields']
+
+[[이용약관-수정-API-3-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::terms/update/terms-title-is-empty/en[snippets='http-request,http-response,response-fields']
+
+==== *(4) 수정할 이용약관 정보의 내용이 비어있거나 전달되지 않았을 경우*
+
+설명::
+- 이용약관 정보를 수정할 때 이용약관의 내용(contents)이 비어있거나 전달되지 않을 경우 오류가 발생합니다.
+- 이 때 *HTTP Status Code* 중 잘못된 요청(Bad Request)을 의미하는 `*400*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[이용약관-수정-API-4-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::terms/update/terms-contents-is-empty/ko[snippets='http-request,http-response,response-fields']
+
+[[이용약관-수정-API-4-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::terms/update/terms-contents-is-empty/en[snippets='http-request,http-response,response-fields']
+
+==== *(5) 이용약관 정보를 최종적으로 수정하는 과정에서 오류가 발생할 경우*
+
+설명::
+- 이용약관 정보을 최종적으로 수정하는 과정에서 시스템(서버, 데이터베이스 등)의 문제로 오류가 발생할 수 있습니다.
+- 이 때 *HTTP Status Code* 중 서버의 처리 오류를 의미하는 `*500*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[이용약관-수정-API-5-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::terms/update/update-error/ko[snippets='http-request,http-response,response-fields']
+
+[[이용약관-수정-API-5-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::terms/update/update-error/en[snippets='http-request,http-response,response-fields']
