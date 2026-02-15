@@ -61,7 +61,14 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 		// 전달된 TermsDto의 이용약관 번호(TermsNo)가 Null이거나 0 이하의 숫자인 경우
 		if(termsDto.getTermsNo() == null || termsDto.getTermsNo().compareTo(1L) == -1)
 			return this._setStatusByTermsNoError(responseDto, locale);
-			
+		
+		// 전달된 TermsDto에 제목이 입력되지 않은 경우
+		if(termsDto.getTitle() == null || termsDto.getTitle().isBlank())
+			return this._setStatusByNoDataError(responseDto, "title", locale);
+		
+		// 전달된 TermsDto에 내용이 입력되지 않은 경우
+		if(termsDto.getContents() == null || termsDto.getContents().isBlank())
+			return this._setStatusByNoDataError(responseDto, "contents", locale);
 		
 		return null;
 	}
@@ -110,6 +117,31 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 				"UPDATE ERROR",
 				this._messageSource.getMessage("error.terms.update.terms-no-less-than-or-equals-to-zero", null, locale)
 				);
-		
+	}
+	
+	/**
+	 * 수정할 이용약관 정보 중 title, contents 등과 같은 필수 입력 항목의 값이 없는 경우 ResponseDto에 상태 저장
+	 * 
+	 * @param responseDto : 수정 결과에 대한 응답 정보
+	 * @param targetFieldName : 값을 검증할 항목 이름
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "400",<br/>
+	 * 				&emsp; "statusCode" : "ERR-TMS-UPD-003",<br/>
+	 * 				&emsp; "staus" : "UPDATE ERROR",<br/>
+	 * 				&emsp; "resultType" : "string",<br/>
+	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
+	 * 			}
+	 */
+	private ResponseDto _setStatusByNoDataError(ResponseDto responseDto, final String targetFieldName, final Locale locale) {
+		String fieldName = this._messageSource.getMessage(targetFieldName, null, locale);
+		String errorMessageNo = targetFieldName.equalsIgnoreCase("title") ? "003" : "004";
+		return TermsUtil.getResponseDtoByErrorMessage(
+					responseDto,
+					RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
+					"ERR-TMS-UPD-" + errorMessageNo,
+					"UPDATE ERROR",
+					this._messageSource.getMessage("error.terms.update.terms-data-is-empty", new String[] {fieldName}, null, locale)
+				);
 	}
 }
