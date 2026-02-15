@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.common.http.RestfulApiHttpStatusUtil;
 import kr.mook.auth.terms.dto.TermsDto;
+import kr.mook.auth.terms.update.persistence.UpdateTermsMapper;
 import kr.mook.auth.terms.util.TermsUtil;
+import kr.mook.auth.terms.vo.TermsVo;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -24,7 +26,9 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 
 	/* 다국어 처리를 위한 MessageSource */
 	private final MessageSource _messageSource;
-
+	
+	/* Mapper */
+	private final UpdateTermsMapper _updateTermsMapper;
 	
 	@Override
 	public ResponseDto updateHandler(final TermsDto termsDto, final Locale locale) {
@@ -37,7 +41,7 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 			return this._returnErrorResponseDto(responseDto, termsDto, locale);
 		}
 		
-		return responseDto;
+		return this._update(responseDto, termsDto, locale);
 	}
 	
 	/**
@@ -166,6 +170,54 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 					"ERR-TMS-UPD-005",
 					"UPDATE ERROR",
 					this._messageSource.getMessage("error.terms.save", null, locale)
+				);
+	}
+	
+	/**
+	 * 이용약관 정보 수정
+	 * 
+	 * @param responseDto : 수정 결과에 대한 응답 정보
+	 * @param termsDto : 수정할 이용약관 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @return 이용약관 정보 수정 결과 데이터
+	 */
+	private ResponseDto _update(ResponseDto responseDto, final TermsDto termsDto, final Locale locale) {
+		
+		// TermsDto의 값을 TermsVo로 복사
+		TermsVo termsVo = TermsVo.builder().build();
+		termsVo.fromTermsDto(termsDto);
+		
+		// 실제 update / 정상적이면 200 반환, 비정상적인 4xx 반환
+		try {
+			// TODO Update 로직 작성
+			this._updateTermsMapper.update(termsVo);
+		} catch (Exception e) {
+			responseDto = this._updateError(responseDto, locale);
+		}
+		
+		return responseDto;
+	}
+	
+	/**
+	 * 이용약관 정보를 수정하는 과정에서 오류가 발생할 경우 반환 정보 전달
+	 * 
+	 * @param responseDto : 수정 결과에 대한 응답 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "500",<br/>
+	 * 				&emsp; "statusCode" : "ERR-TMS-UPD-006",<br/>
+	 * 				&emsp; "staus" : "UPDATE ERROR",<br/>
+	 * 				&emsp; "resultType" : "string",<br/>
+	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
+	 * 			}
+	 */
+	private ResponseDto _updateError(ResponseDto responseDto, final Locale locale) {
+		return TermsUtil.getResponseDtoByErrorMessage(
+					responseDto,
+					RestfulApiHttpStatusUtil.INTERNAL_SERVER_ERROR_CODE_STRING,
+					"ERR-TMS-UPD-006",
+					"UPDATE ERROR",
+					this._messageSource.getMessage("error.terms.update", null, locale)
 				);
 	}
 }

@@ -106,8 +106,8 @@ public class TermsController {
 		}
 		
 		// 서버에서 오류가 발생한 경우
-		if("500".equals(responseDto.getHttpStatusCode())) {
-			return ResponseEntity.status(500).body(responseDto);
+		if(ResponseDtoUtil.isStatusInternalServerError(responseDto)) {
+			return ResponseEntity.internalServerError().body(responseDto);
 		}
 		
 		// 저장이 된 경우
@@ -138,6 +138,11 @@ public class TermsController {
 		// 수정을 위한 이용약관 정보의 데이터 중 잘못된 값이 있는 경우
 		if(ResponseDtoUtil.isStatusBadRequest(responseDto)) {
 			return ResponseEntity.badRequest().body(responseDto);
+		}
+		
+		// 서버에 오류가 발생한 경우
+		if(ResponseDtoUtil.isStatusInternalServerError(responseDto)) {
+			return ResponseEntity.internalServerError().body(responseDto);
 		}
 		
 		return null;
