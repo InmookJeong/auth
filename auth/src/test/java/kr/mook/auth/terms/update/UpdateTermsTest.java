@@ -118,7 +118,7 @@ public class UpdateTermsTest {
 		String apiDocsDir = "terms/update/terms-is-null/ko";
 		ResultMatcher resultMatcher = status().isBadRequest();
 
-		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testUpdateByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -139,7 +139,7 @@ public class UpdateTermsTest {
 		String apiDocsDir = "terms/update/terms-is-null/en";
 		ResultMatcher resultMatcher = status().isBadRequest();
 
-		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testUpdateByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -160,7 +160,7 @@ public class UpdateTermsTest {
 		String apiDocsDir = "terms/update/update-by-unvaild-terms-no/ko";
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
-		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testUpdateByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -181,7 +181,7 @@ public class UpdateTermsTest {
 		String apiDocsDir = "terms/update/update-by-unvaild-terms-no/en";
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
-		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testUpdateByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -204,7 +204,7 @@ public class UpdateTermsTest {
 		String apiDocsDir = "terms/update/terms-title-is-empty/ko";
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
-		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testUpdateByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -227,7 +227,7 @@ public class UpdateTermsTest {
 		String apiDocsDir = "terms/update/terms-title-is-empty/en";
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
-		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testUpdateByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -252,7 +252,7 @@ public class UpdateTermsTest {
 		String apiDocsDir = "terms/update/terms-contents-is-empty/ko";
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
-		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testUpdateByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -277,7 +277,7 @@ public class UpdateTermsTest {
 		String apiDocsDir = "terms/update/terms-contents-is-empty/en";
 		ResultMatcher resultMatcher = status().isBadRequest();
 		
-		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testUpdateByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -304,7 +304,7 @@ public class UpdateTermsTest {
 		String apiDocsDir = "terms/update/update-error/ko";
 		ResultMatcher resultMatcher = status().is5xxServerError();
 		
-		_testSaveByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testUpdateByNotValidData(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -331,7 +331,61 @@ public class UpdateTermsTest {
 		String apiDocsDir = "terms/update/update-error/en";
 		ResultMatcher resultMatcher = status().is5xxServerError();
 		
-		_testSaveByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+		_testUpdateByNotValidData(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * TermsDto 수정 성공하는 경우<br/>
+	 * - 이용약관 정보를 최종적으로 수정하는지 테스트<br/>
+	 * - 정상적으로 수정될 경우 저장 결과 메시지가 출력되는지 테스트<br/>
+	 * - 이용약관 정보가 수정될 경우 200 상태 코드 발생<br/>
+	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testUpdateWithLocaleKoKr() throws Exception {
+		
+		TermsDto termsDto = this._getTermsDto();
+		Long termsNo = 1L;
+		String message = "이용약관 정보가 수정되었습니다.";
+		termsDto.setTermsNo(termsNo);
+		
+		String httpStatusCode = "200";
+		String statusCode = "TMS-UPD-001";
+		String status = "UPDATE";
+		String resultMessage = message;
+		String apiDocsDir = "terms/update/success/ko";
+		ResultMatcher resultMatcher = status().isOk();
+		
+		_testUpdate(termsDto, _LOCALE_KO_KR, _ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * TermsDto 수정 성공하는 경우<br/>
+	 * - 이용약관 정보를 최종적으로 수정하는지 테스트<br/>
+	 * - 정상적으로 수정될 경우 저장 결과 메시지가 출력되는지 테스트<br/>
+	 * - 이용약관 정보가 수정될 경우 200 상태 코드 발생<br/>
+	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testUpdateWithLocaleEnUs() throws Exception {
+		
+		TermsDto termsDto = this._getTermsDto();
+		Long termsNo = 1L;
+		String message = "The Terms of Use information has changed.";
+		termsDto.setTermsNo(termsNo);
+		
+		String httpStatusCode = "200";
+		String statusCode = "TMS-UPD-001";
+		String status = "UPDATE";
+		String resultMessage = message;
+		String apiDocsDir = "terms/update/success/en";
+		ResultMatcher resultMatcher = status().isOk();
+		
+		_testUpdate(termsDto, _LOCALE_EN_US, _ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
 	}
 	
 	/**
@@ -363,20 +417,20 @@ public class UpdateTermsTest {
 	}
 	
 	/**
-	 * 이용약관 정보 저장 오류 테스트<br/>
+	 * 이용약관 정보 수정 오류 테스트<br/>
 	 * 
-	 * @param termsDto : 저장할 이용약관 정보
+	 * @param termsDto : 수정할 이용약관 정보
 	 * @param locale : 다국어
 	 * @param acceptLanguage : 다국어 정보(ex. ko-KR 또는 en-US)
 	 * @param httpStatusCode : HTTP 처리 상태 코드(ex. 400, 404)
-	 * @param statusCode : 처리 상태 코드(ex. TRM-SAV-001, ERR-TRM-SAV-001)
+	 * @param statusCode : 처리 상태 코드(ex. TRM-UPD-001, ERR-TRM-UPD-001)
 	 * @param status : 처리 결과 상태 구문
 	 * @param resultMessage : 처리 결과 메시지
 	 * @param apiDocsDir : API 문서 경로
 	 * @param resultMatcher : 예상되는 HTTP 상태
 	 * @throws Exception
 	 */
-	private void _testSaveByNotValidData(TermsDto termsDto, Locale locale, String acceptLanguage, String httpStatusCode, String statusCode, String status, String resultMessage, String apiDocsDir, ResultMatcher resultMatcher) throws Exception{
+	private void _testUpdateByNotValidData(TermsDto termsDto, Locale locale, String acceptLanguage, String httpStatusCode, String statusCode, String status, String resultMessage, String apiDocsDir, ResultMatcher resultMatcher) throws Exception{
 		ObjectMapper mapper = new ObjectMapper();
 		String termsDtoValue = mapper.writeValueAsString(termsDto);
 		
@@ -401,6 +455,52 @@ public class UpdateTermsTest {
 								fieldWithPath("status").description("상태코드 명칭(설명)"),
 								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
 								fieldWithPath("result").description("결과 메시지"),
+								fieldWithPath("locale").description("사용 언어")
+								)
+						));
+	}
+	
+	/**
+	 * 이용약관 정보 수정 테스트<br/>
+	 * 
+	 * @param termsDto : 수정할 이용약관 정보
+	 * @param locale : 다국어
+	 * @param acceptLanguage : 다국어 정보(ex. ko-KR 또는 en-US)
+	 * @param httpStatusCode : HTTP 처리 상태 코드(ex. 400, 404)
+	 * @param statusCode : 처리 상태 코드(ex. TMS-SAV-001, ERR-TMS-SAV-001)
+	 * @param status : 처리 결과 상태 구문
+	 * @param result : 정상적으로 수정되었을 때 반환되는 값(객체)
+	 * @param apiDocsDir : API 문서 경로
+	 * @param resultMatcher : 예상되는 HTTP 상태
+	 * @throws Exception
+	 */
+	private void _testUpdate(TermsDto termsDto, Locale locale, String acceptLanguage, String httpStatusCode, String statusCode, String status, Object result, String apiDocsDir, ResultMatcher resultMatcher) throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		String termsDtoValue = mapper.writeValueAsString(termsDto);
+		
+		mockMvc.perform(put("/api/terms")
+				.header("Accept-Language", acceptLanguage)
+				.content(termsDtoValue)
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(resultMatcher)
+				.andExpect(jsonPath("$.httpStatusCode").value(httpStatusCode))
+				.andExpect(jsonPath("$.statusCode").value(statusCode))
+				.andExpect(jsonPath("$.status").value(status))
+				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.OBJECT.name()))
+				.andExpect(jsonPath("$.result.termsNo").value(termsDto.getTermsNo()))
+				.andExpect(jsonPath("$.result.message").value(result))
+				.andExpect(jsonPath("$.locale").value(locale.toString()))
+				.andDo(print())
+				.andDo(document(
+						apiDocsDir,
+						responseFields(
+								fieldWithPath("httpStatusCode").description("HTTP 응답 상태 코드"),
+								fieldWithPath("statusCode").description("결과 상태 코드"),
+								fieldWithPath("status").description("상태코드 명칭(설명)"),
+								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
+								fieldWithPath("result.termsNo").description("발급된 이용약관 번호"),
+								fieldWithPath("result.message").description("결과 메시지"),
 								fieldWithPath("locale").description("사용 언어")
 								)
 						));
