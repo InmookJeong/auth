@@ -145,6 +145,6 @@ public class TermsController {
 			return ResponseEntity.internalServerError().body(responseDto);
 		}
 		
-		return null;
+		return ResponseEntity.ok(responseDto);
 	}
 }

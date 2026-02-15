@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.common.http.RestfulApiHttpStatusUtil;
+import kr.mook.auth.terms.dto.TermsCommandResponseDto;
 import kr.mook.auth.terms.dto.TermsDto;
 import kr.mook.auth.terms.update.persistence.UpdateTermsMapper;
 import kr.mook.auth.terms.util.TermsUtil;
@@ -189,8 +190,8 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 		
 		// 실제 update / 정상적이면 200 반환, 비정상적인 경우 500 반환
 		try {
-			// TODO Update 로직 작성
 			this._updateTermsMapper.update(termsVo);
+			responseDto = this._updateResponse(responseDto, termsVo, locale);
 		} catch (Exception e) {
 			responseDto = this._updateError(responseDto, locale);
 		}
@@ -218,6 +219,34 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 					"ERR-TMS-UPD-006",
 					"UPDATE ERROR",
 					this._messageSource.getMessage("error.terms.update", null, locale)
+				);
+	}
+	
+	/**
+	 * 이용약관 정보 수정 성공 시 반환 정보
+	 * 
+	 * @param responseDto : 수정 결과에 대한 응답 정보
+	 * @param termsVo : 수정된 이용약관 정보
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "200",<br/>
+	 * 				&emsp; "statusCode" : "TMS-UPD-001",<br/>
+	 * 				&emsp; "staus" : "UPDATE",<br/>
+	 * 				&emsp; "resultType" : "object",<br/>
+	 * 				&emsp; "result" : {<br/>
+	 * 				&emsp;&emsp; "termsNo" : ${수정한 이용약관번호}<br/>
+	 * 				&emsp;&emsp; "message" : "${locale에 따른 에러 메시지}"<br/>
+	 * 				&emsp; }<br/>
+	 * 			}
+	 */
+	private ResponseDto _updateResponse(ResponseDto responseDto, final TermsVo termsVo, final Locale locale) {
+		String message = this._messageSource.getMessage("terms.update", null, locale);
+		return TermsUtil.getResponseDtoByResultObject(
+					responseDto,
+					RestfulApiHttpStatusUtil.OK_CODE_STRING,
+					"TMS-UPD-001",
+					"UPDATE",
+					new TermsCommandResponseDto(termsVo.getTermsNo(), message)
 				);
 	}
 }
