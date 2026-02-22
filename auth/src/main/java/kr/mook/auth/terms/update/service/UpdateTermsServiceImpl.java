@@ -194,7 +194,7 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 			if(updateCount == 1)
 				responseDto = this._updateResponse(responseDto, termsVo, locale);
 			else
-				this._updateNoCount(responseDto, locale);
+				responseDto = this._updateNoCount(responseDto, locale);
 		} catch (Exception e) {
 			responseDto = this._updateError(responseDto, locale);
 		}
