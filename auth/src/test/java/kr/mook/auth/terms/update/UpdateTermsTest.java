@@ -294,7 +294,7 @@ public class UpdateTermsTest {
 		TermsVo termsVo = new TermsVo();
 		termsVo.fromTermsDto(termsDto);
 		
-		// 이용약관 정보를 저장하는 과정에서 오류가 발생할 경우
+		// 이용약관 정보를 수정하는 과정에서 오류가 발생할 경우
 		given(this._updateTermsMapper.update(termsVo)).willThrow(new RuntimeException("Terms Update Error"));
 		
 		String httpStatusCode = "500";
@@ -321,7 +321,7 @@ public class UpdateTermsTest {
 		TermsVo termsVo = new TermsVo();
 		termsVo.fromTermsDto(termsDto);
 		
-		// 이용약관 정보를 저장하는 과정에서 오류가 발생할 경우
+		// 이용약관 정보를 수정하는 과정에서 오류가 발생할 경우
 		given(this._updateTermsMapper.update(termsVo)).willThrow(new RuntimeException("Terms Update Error"));
 		
 		String httpStatusCode = "500";
@@ -344,10 +344,12 @@ public class UpdateTermsTest {
 	 */
 	@Test
 	void testUpdateNotFoundErrorWithLocaleKoKr() throws Exception {
-		TermsDto termsDto = this._getTermsDto();
-		termsDto.setTermsNo(5L);
+		TermsDto termsDto = this._getNotFoundTermsDto();
 		TermsVo termsVo = new TermsVo();
 		termsVo.fromTermsDto(termsDto);
+		
+		// 이용약관 정보를 수정할 데이터가 없는 경우
+		given(this._updateTermsMapper.update(termsVo)).willReturn(5);
 		
 		String httpStatusCode = "404";
 		String statusCode = "ERR-TMS-UPD-007";
@@ -369,10 +371,12 @@ public class UpdateTermsTest {
 	 */
 	@Test
 	void testUpdateNotFoundWithLocaleEnUs() throws Exception {
-		TermsDto termsDto = this._getTermsDto();
-		termsDto.setTermsNo(5L);
+		TermsDto termsDto = this._getNotFoundTermsDto();
 		TermsVo termsVo = new TermsVo();
 		termsVo.fromTermsDto(termsDto);
+		
+		// 이용약관 정보를 수정할 데이터가 없는 경우
+		given(this._updateTermsMapper.update(termsVo)).willReturn(0);
 		
 		String httpStatusCode = "404";
 		String statusCode = "ERR-TMS-UPD-007";
@@ -400,6 +404,11 @@ public class UpdateTermsTest {
 		Long termsNo = 1L;
 		String message = "이용약관 정보가 수정되었습니다.";
 		termsDto.setTermsNo(termsNo);
+		TermsVo termsVo = new TermsVo();
+		termsVo.fromTermsDto(termsDto);
+		
+		// 이용약관 정보를 수정
+		given(this._updateTermsMapper.update(termsVo)).willReturn(1);
 		
 		String httpStatusCode = "200";
 		String statusCode = "TMS-UPD-001";
@@ -427,6 +436,11 @@ public class UpdateTermsTest {
 		Long termsNo = 1L;
 		String message = "The Terms of Use information has changed.";
 		termsDto.setTermsNo(termsNo);
+		TermsVo termsVo = new TermsVo();
+		termsVo.fromTermsDto(termsDto);
+		
+		// 이용약관 정보를 수정
+		given(this._updateTermsMapper.update(termsVo)).willReturn(1);
 		
 		String httpStatusCode = "200";
 		String statusCode = "TMS-UPD-001";
@@ -460,6 +474,34 @@ public class UpdateTermsTest {
 		termsDto.setOrderNo(1L);
 		termsDto.setTitle("(수정) 사이트 이용 약관");
 		termsDto.setContents("(수정) 사이트 소개, 이용 방법, 주의 사항과 관련된 안내 정보 및 관련 법률을 작성합니다.");
+		termsDto.setCreateId(1L);
+		termsDto.setUpdateId(2L);
+		
+		return termsDto;
+	}
+	
+	/**
+	 * 수정 기능을 테스트할 이용약관 정보 샘플
+	 * @return 수정할 이용약관 데이터<br/>
+	 * termsDto = {<br/>
+	 * 		&emsp;"termsNo": 1,<br/>
+	 * 		&emsp;"useYn": true,<br/>
+	 * 		&emsp;"requireYn": true,<br/>
+	 * 		&emsp;"orderNo": 1,<br/>
+	 * 		&emsp;"title": "(수정) 사이트 이용 약관",<br/>
+	 * 		&emsp;"contents": "(수정) 사이트 소개, 이용 방법, 주의 사항과 관련된 안내 정보 및 관련 법률을 작성합니다.",<br/>
+	 * 		&emsp;"createId": 1,<br/>
+	 * 		&emsp;"updateId": 2<br/>
+	 * }
+	 */
+	private TermsDto _getNotFoundTermsDto() {
+		TermsDto termsDto = new TermsDto();
+		termsDto.setTermsNo(5L);
+		termsDto.setUseYn(true);
+		termsDto.setRequireYn(true);
+		termsDto.setOrderNo(1L);
+		termsDto.setTitle("개인정보 수집 및 이용약관");
+		termsDto.setContents("개인정보 수집 및 이용약관과 관련된 안내 정보와 관련 법률을 작성합니다.");
 		termsDto.setCreateId(1L);
 		termsDto.setUpdateId(2L);
 		
