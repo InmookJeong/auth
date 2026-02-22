@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+Content-Length: 220
+
+{"httpStatusCode":"404","statusCode":"ERR-TMS-UPD-007","status":"UPDATE ERROR","resultType":"STRING","result":"We couldn't find the Terms of Use information. Please check the Terms of Use number again.","locale":"en_US"}
+----

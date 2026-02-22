@@ -1,0 +1,11 @@
+[source,http,options="nowrap"]
+----
+PUT /api/terms HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept-Language: ko-KR
+Accept: application/json
+Content-Length: 319
+Host: localhost:8080
+
+{"termsNo":5,"useYn":true,"requireYn":true,"orderNo":1,"title":"개인정보 수집 및 이용약관","contents":"개인정보 수집 및 이용약관과 관련된 안내 정보와 관련 법률을 작성합니다.","createId":1,"createDate":null,"updateId":2,"updateDate":null,"titleEmpty":false,"contentsEmpty":false}
+----
