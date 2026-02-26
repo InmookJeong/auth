@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+DELETE /api/terms/5 HTTP/1.1
+Accept-Language: en-US
+Accept: application/json
+Host: localhost:8080
+
+----

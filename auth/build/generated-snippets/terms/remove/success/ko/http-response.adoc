@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 165
+
+{"httpStatusCode":"200","statusCode":"TMS-DEL-001","status":"DELETE","resultType":"STRING","result":"이용약관 정보가 삭제되었습니다.","locale":"ko_KR"}
+----

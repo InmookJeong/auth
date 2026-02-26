@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+Content-Length: 226
+
+{"httpStatusCode":"404","statusCode":"ERR-TMS-DEL-002","status":"DELETE ERROR","resultType":"STRING","result":"삭제할 이용약관 정보가 없습니다. 이용약관 번호를 다시 확인해주세요.","locale":"ko_KR"}
+----

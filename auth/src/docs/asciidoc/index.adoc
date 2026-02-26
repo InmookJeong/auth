@@ -297,3 +297,51 @@ operation::terms/update/success/ko[snippets='http-request,http-response,response
 [[이용약관-수정-API-7-다국어-영어-지원]]
 ===== *※ 다국어 영어 지원*
 operation::terms/update/success/en[snippets='http-request,http-response,response-fields']
+
+[[이용약관-정보-삭제]]
+=== *4) 이용약관 정보 삭제*
+
+==== (1) 잘못된 이용약관 번호(TermsNO)가 전달되었을 경우
+
+설명::
+- 이용약관 정보를 삭제할 때 잘못된 이용약관 번호(TermsNo), 즉 0 이하의 숫자가 전달되면 오류가 발생합니다.
+- 이 때 *HTTP Status Code* 중 잘못된 요청(Bad Request)을 의미하는 `*400*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[이용약관-삭제-API-1-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::terms/remove/remove-by-unvaild-terms-no/ko[snippets='http-request,http-response,response-fields']
+
+[[이용약관-삭제-API-1-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::terms/remove/remove-by-unvaild-terms-no/en[snippets='http-request,http-response,response-fields']
+
+==== *(2) 삭제할 이용약관 정보가 없는 경우*
+
+설명::
+- 삭제할 이용약관 정보의 이용약관 번호(TermsNo)가 DB에 저장되지 않아 삭제할 수 없는 경우 오류가 발생할 수 있습니다.
+- 이 때 *HTTP Status Code* 중 데이터를 찾을 수 없음을 의미하는 `*404*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[이용약관-삭제-API-2-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::terms/remove/terms-not-found/ko[snippets='http-request,http-response,response-fields']
+
+[[이용약관-삭제-API-2-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::terms/remove/terms-not-found/en[snippets='http-request,http-response,response-fields']
+
+==== *(3) 이용약관 정보 삭제 성공*
+
+설명::
+- 전달된 이용약관 번호에 문제가 없고, 시스템(서버, 데이터베이스 등)에 오류가 발생하지 않으면 이용약관 정보는 정상적으로 삭제됩니다.
+- 이 때 *HTTP Status Code* 중 정상적으로 처리되었음을 의미하는 `*200*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 수정 성공 메시지와 발급된 이용약관 번호를 반환합니다.
+
+[[이용약관-삭제-API-3-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::terms/remove/success/ko[snippets='http-request,http-response,response-fields']
+
+[[이용약관-삭제-API-3-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::terms/remove/success/en[snippets='http-request,http-response,response-fields']

@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+Content-Length: 205
+
+{"httpStatusCode":"400","statusCode":"ERR-TMS-DEL-001","status":"DELETE ERROR","resultType":"STRING","result":"The Terms of Use number is incorrect. Please enter a number greater than 1.","locale":"en_US"}
+----

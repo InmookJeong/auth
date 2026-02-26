@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"404","statusCode":"ERR-TMS-DEL-002","status":"DELETE ERROR","resultType":"STRING","result":"There are no Terms of Use information to delete. Please check the Terms of Use number again.","locale":"en_US"}
+----

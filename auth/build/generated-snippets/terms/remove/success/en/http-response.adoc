@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 161
+
+{"httpStatusCode":"200","statusCode":"TMS-DEL-001","status":"DELETE","resultType":"STRING","result":"The Terms of Use information has removed.","locale":"en_US"}
+----

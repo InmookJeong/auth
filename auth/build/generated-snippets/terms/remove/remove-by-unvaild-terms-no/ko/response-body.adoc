@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"400","statusCode":"ERR-TMS-DEL-001","status":"DELETE ERROR","resultType":"STRING","result":"�씠�슜�빟愿� 踰덊샇媛� �삱諛붾Ⅴ吏� �븡�뒿�땲�떎. �씠�슜�빟愿� 踰덊샇�뒗 1�씠�긽�쓽 �닽�옄瑜� �엯�젰�빐二쇱꽭�슂.","locale":"ko_KR"}
+----
