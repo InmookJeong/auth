@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kr.mook.auth.common.dto.ResponseDto;
 import kr.mook.auth.common.dto.ResponseDtoUtil;
 import kr.mook.auth.terms.dto.TermsDto;
+import kr.mook.auth.terms.remove.service.RemoveTermsService;
 import kr.mook.auth.terms.save.service.SaveTermsService;
 import kr.mook.auth.terms.search.service.SearchTermsService;
 import kr.mook.auth.terms.update.service.UpdateTermsService;
@@ -37,6 +38,7 @@ public class TermsController {
 	private final SearchTermsService _serchTermsService;
 	private final SaveTermsService _saveTermsService;
 	private final UpdateTermsService _updateTermsService;
+	private final RemoveTermsService _removeTermsService;
 	
 	/**
 	 * 이용약관 번호(Terms No)를 통해 이용약관 정보 조회
@@ -120,15 +122,12 @@ public class TermsController {
 	 * 
 	 * @param termsDto : 저장할 이용약관 정보
 	 * @param locale : 다국어 처리를 위한 언어 정보
-	 * @return responseDto = {<br/>{<br/>
+	 * @return responseDto = {<br/>
 	 * 				&emsp; "httpStatusCode" : 200,<br/>
-	 * 				&emsp; "statusCode" : TMS-SAV-001,<br/>
-	 * 				&emsp; "status" : "SAVE",<br/>
-	 * 				&emsp; "resultType" : "object",<br/>
-	 * 				&emsp; "result" : {<br/>
-	 * 					&emsp;&emsp; "message" : "이용약관 정보가 저장되었습니다.",<br/>
-	 * 					&emsp;&emsp; "termsNo" : 1<br/>
-	 * 				&emsp; },<br/>
+	 * 				&emsp; "statusCode" : "TMS-UPD-001",<br/>
+	 * 				&emsp; "status" : "UPDATE",<br/>
+	 * 				&emsp; "resultType" : "string",<br/>
+	 * 				&emsp; "result" : "이용약관 정보가 수정되었습니다.",<br/>
 	 * 				&emsp; "language" : "ko-KR"<br/>
 	 * 			}
 	 */
@@ -152,6 +151,37 @@ public class TermsController {
 		}
 		
 		// 수정된 경우
+		return ResponseEntity.ok(responseDto);
+	}
+	
+	/**
+	 * 이용약관 정보 삭제
+	 * 
+	 * @param termsNo : 삭제할 이용약관 번호
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @return responseDto = {<br/>
+	 * 				&emsp; "httpStatusCode" : "200",<br/>
+	 * 				&emsp; "statusCode" : "TMS-DEL-001",<br/>
+	 * 				&emsp; "staus" : "DELETE",<br/>
+	 * 				&emsp; "resultType" : "object",<br/>
+	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
+	 * 			}
+	 */
+	@DeleteMapping("/{termsNo}")
+	public ResponseEntity<ResponseDto> removeByTermsNo(@PathVariable(value = "termsNo") final long termsNo, final Locale locale) {
+		ResponseDto responseDto = this._removeTermsService.removeHandler(termsNo, locale);
+		
+		// 삭제를 위해 전달된 이용약관 번호가 잘못된 경우
+		if(ResponseDtoUtil.isStatusBadRequest(responseDto)) {
+			return ResponseEntity.badRequest().body(responseDto);
+		}
+		
+		// 삭제할 이용약관 정보를 찾을 수 없는 경우
+		if(ResponseDtoUtil.isStatusNotFound(responseDto)) {
+			return ResponseEntity.status(404).body(responseDto);
+		}
+		
+		// 삭제된 경우
 		return ResponseEntity.ok(responseDto);
 	}
 }
