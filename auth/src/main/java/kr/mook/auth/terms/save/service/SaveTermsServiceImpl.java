@@ -87,7 +87,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 			}
 	 */
 	private ResponseDto _setStatusByNullError(ResponseDto responseDto, final Locale locale) {
-		return TermsUtil.getResponseDtoByErrorMessage(
+		return TermsUtil.getResponseDtoByMessage(
 					responseDto,
 					RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
 					"ERR-TMS-SAV-001",
@@ -113,7 +113,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	private ResponseDto _setStatusByNoDataError(ResponseDto responseDto, final String targetFieldName, final Locale locale) {
 		String fieldName = this._messageSource.getMessage(targetFieldName, null, locale);
 		String errorMessageNo = targetFieldName.equalsIgnoreCase("title") ? "002" : "003";
-		return TermsUtil.getResponseDtoByErrorMessage(
+		return TermsUtil.getResponseDtoByMessage(
 					responseDto,
 					RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
 					"ERR-TMS-SAV-" + errorMessageNo,
@@ -136,7 +136,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 			}
 	 */
 	private ResponseDto _setStatusByUnknownError(ResponseDto responseDto, final Locale locale) {
-		return TermsUtil.getResponseDtoByErrorMessage(
+		return TermsUtil.getResponseDtoByMessage(
 					responseDto,
 					RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
 					"ERR-TMS-SAV-004",
@@ -203,7 +203,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 			}
 	 */
 	private ResponseDto _createTermsNoError(ResponseDto responseDto, final Locale locale) {
-		return TermsUtil.getResponseDtoByErrorMessage(
+		return TermsUtil.getResponseDtoByMessage(
 					responseDto,
 					RestfulApiHttpStatusUtil.INTERNAL_SERVER_ERROR_CODE_STRING,
 					"ERR-TMS-SAV-005",
@@ -226,7 +226,7 @@ public class SaveTermsServiceImpl implements SaveTermsService {
 	 * 			}
 	 */
 	private ResponseDto _saveError(ResponseDto responseDto, final Locale locale) {
-		return TermsUtil.getResponseDtoByErrorMessage(
+		return TermsUtil.getResponseDtoByMessage(
 					responseDto,
 					RestfulApiHttpStatusUtil.INTERNAL_SERVER_ERROR_CODE_STRING,
 					"ERR-TMS-SAV-006",

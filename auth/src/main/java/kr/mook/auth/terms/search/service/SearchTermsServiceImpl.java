@@ -68,7 +68,7 @@ public class SearchTermsServiceImpl implements SearchTermsService {
 	 * 			}
 	 */
 	private ResponseDto _getResponseDtoForBadRequest(ResponseDto responseDto, final Locale locale) {
-		return TermsUtil.getResponseDtoByErrorMessage(
+		return TermsUtil.getResponseDtoByMessage(
 					responseDto,
 					RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
 					"ERR-TMS-SER-001",
@@ -90,7 +90,7 @@ public class SearchTermsServiceImpl implements SearchTermsService {
 	 * 			}
 	 */
 	private ResponseDto _getResponseDtoForNotFound(ResponseDto responseDto, final Locale locale) {
-		return TermsUtil.getResponseDtoByErrorMessage(
+		return TermsUtil.getResponseDtoByMessage(
 					responseDto,
 					RestfulApiHttpStatusUtil.NOT_FOUND_CODE_STRING,
 					"ERR-TMS-SER-002",

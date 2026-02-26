@@ -7,7 +7,7 @@ import kr.mook.auth.terms.dto.TermsDto;
 /**
  * 이용약관 정보의 정합성을 확인하기 위한 Util<br/>
  * 
- * @since 2006. 02. 11.
+ * @since 2026. 02. 11.
  * @version 0.1
  * @author Inmook, Jeong
  */
@@ -62,8 +62,7 @@ public class TermsUtil {
 	 * 				&emsp; "result" : "${locale에 따른 에러 메시지}"<br/>
 	 * 			}
 	 */
-	public static ResponseDto getResponseDtoByErrorMessage(ResponseDto responseDto, final String httpStatus, final String statusCode, final String status, final String resultMessage) {
-		// 그 외 알 수 없는 오류가 발생한 경우
+	public static ResponseDto getResponseDtoByMessage(ResponseDto responseDto, final String httpStatus, final String statusCode, final String status, final String resultMessage) {
 		responseDto.setHttpStatusCode(httpStatus);
 		responseDto.setStatusCode(statusCode);
 		responseDto.setStatus(status);
@@ -73,7 +72,7 @@ public class TermsUtil {
 	}
 	
 	/**
-	 * 이용약관 정보를 조회, 저장, 수정, 삭제하는 과정에서 오류가 발생할 경우 적절한 응답(ResponseDto)을 반환<br/>
+	 * 이용약관 정보를 조회, 저장, 수정, 삭제하는 과정에서 오류가 발생하였거나 정상적으로 삭제된 경우 적절한 응답(ResponseDto)을 반환<br/>
 	 * 
 	 * @param responseDto : 이용약관 정보 데이터 처리 결과에 대한 응답 정보
 	 * @param httpStatus : HTTP 상태 코드
@@ -92,7 +91,6 @@ public class TermsUtil {
 	 * 			}
 	 */
 	public static ResponseDto getResponseDtoByResultObject(ResponseDto responseDto, final String httpStatus, final String statusCode, final String status, final Object resultData) {
-		// 그 외 알 수 없는 오류가 발생한 경우
 		responseDto.setHttpStatusCode(httpStatus);
 		responseDto.setStatusCode(statusCode);
 		responseDto.setStatus(status);

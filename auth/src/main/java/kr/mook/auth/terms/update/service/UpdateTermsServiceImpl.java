@@ -93,7 +93,7 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 	 * 			}
 	 */
 	private ResponseDto _setStatusByNullError(ResponseDto responseDto, final Locale locale) {
-		return TermsUtil.getResponseDtoByErrorMessage(
+		return TermsUtil.getResponseDtoByMessage(
 					responseDto,
 					RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
 					"ERR-TMS-UPD-001",
@@ -116,7 +116,7 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 	 * 			}
 	 */
 	private ResponseDto _setStatusByTermsNoError(ResponseDto responseDto, final Locale locale) {
-		return TermsUtil.getResponseDtoByErrorMessage(
+		return TermsUtil.getResponseDtoByMessage(
 				responseDto,
 				RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
 				"ERR-TMS-UPD-002",
@@ -142,7 +142,7 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 	private ResponseDto _setStatusByNoDataError(ResponseDto responseDto, final String targetFieldName, final Locale locale) {
 		String fieldName = this._messageSource.getMessage(targetFieldName, null, locale);
 		String errorMessageNo = targetFieldName.equalsIgnoreCase("title") ? "003" : "004";
-		return TermsUtil.getResponseDtoByErrorMessage(
+		return TermsUtil.getResponseDtoByMessage(
 					responseDto,
 					RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
 					"ERR-TMS-UPD-" + errorMessageNo,
@@ -165,7 +165,7 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 	 * 			}
 	 */
 	private ResponseDto _setStatusByUnknownError(ResponseDto responseDto, final Locale locale) {
-		return TermsUtil.getResponseDtoByErrorMessage(
+		return TermsUtil.getResponseDtoByMessage(
 					responseDto,
 					RestfulApiHttpStatusUtil.BAD_REQUEST_CODE_STRING,
 					"ERR-TMS-UPD-005",
@@ -216,7 +216,7 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 	 * 			}
 	 */
 	private ResponseDto _updateError(ResponseDto responseDto, final Locale locale) {
-		return TermsUtil.getResponseDtoByErrorMessage(
+		return TermsUtil.getResponseDtoByMessage(
 					responseDto,
 					RestfulApiHttpStatusUtil.INTERNAL_SERVER_ERROR_CODE_STRING,
 					"ERR-TMS-UPD-006",
@@ -239,7 +239,7 @@ public class UpdateTermsServiceImpl implements UpdateTermsService {
 	 * 			}
 	 */
 	private ResponseDto _updateNoCount(ResponseDto responseDto, final Locale locale) {
-		return TermsUtil.getResponseDtoByErrorMessage(
+		return TermsUtil.getResponseDtoByMessage(
 					responseDto,
 					RestfulApiHttpStatusUtil.NOT_FOUND_CODE_STRING,
 					"ERR-TMS-UPD-007",
