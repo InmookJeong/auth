@@ -345,3 +345,32 @@ operation::terms/remove/success/ko[snippets='http-request,http-response,response
 [[이용약관-삭제-API-3-다국어-영어-지원]]
 ===== *※ 다국어 영어 지원*
 operation::terms/remove/success/en[snippets='http-request,http-response,response-fields']
+
+
+[[회원]]
+== *3. 회원*
+
+설명::
+- 회원은 애플리케이션의 서비스를 이용하기 위해 가입한 사용자를 의미합니다.
+- 사용자가 직접 애플리케이션에 가입할 수 있고, 관리자를 통해 회원 정보를 생성할 수도 있습니다.
+- 가입된 회원은 애플리케이션의 모든 서비스를 이용할 수 있습니다.
+- 또한 사용자는 자신의 회원 정보를 추가·수정·삭제할 수 있으며,
+- 관리자는 모든 회원들의 정보를 조회·추가·수정·삭제습니다.
+
+[[회원-상세-조회]]
+=== *1) 계정을 통한 회원 정보 상세 조회*
+
+==== (1) 가입되어 있지 않은 계정을 통해 상세 조회를 시도할 경우
+
+설명::
+- 회원 정보를 상세 조회할 때 가입되어 있지 않은 계정을 통해 조회할 경우 오류가 발생합니다.
+- 이 때 *HTTP Status Code* 중 데이터를 찾을 수 없음을 의미하는 `*404*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[회원-정보-상세-조회-API-1-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::member/search/account/member-not-found/ko[snippets='http-request,http-response,response-fields']
+
+[[회원-정보-상세-조회-API-1-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::member/search/account/member-not-found/en[snippets='http-request,http-response,response-fields']

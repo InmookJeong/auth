@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+Content-Length: 201
+
+{"httpStatusCode":"404","statusCode":"ERR-MEM-SER-001","status":"SEARCH ERROR","resultType":"STRING","result":"Member information could not be found. Please check your account again.","locale":"en_US"}
+----

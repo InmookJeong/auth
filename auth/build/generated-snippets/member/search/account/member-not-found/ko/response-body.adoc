@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"404","statusCode":"ERR-MEM-SER-001","status":"SEARCH ERROR","resultType":"STRING","result":"�쉶�썝 �젙蹂대�� 李얠쓣 �닔 �뾾�뒿�땲�떎. 怨꾩젙�쓣(瑜�) �떎�떆 �솗�씤�빐二쇱꽭�슂.","locale":"ko_KR"}
+----

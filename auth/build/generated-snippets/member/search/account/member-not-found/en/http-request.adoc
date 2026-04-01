@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+GET /api/member/korean2026 HTTP/1.1
+Accept-Language: en-US
+Accept: application/json
+Host: localhost:8080
+
+----

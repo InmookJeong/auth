@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+Content-Length: 213
+
+{"httpStatusCode":"404","statusCode":"ERR-MEM-SER-001","status":"SEARCH ERROR","resultType":"STRING","result":"회원 정보를 찾을 수 없습니다. 계정을(를) 다시 확인해주세요.","locale":"ko_KR"}
+----
