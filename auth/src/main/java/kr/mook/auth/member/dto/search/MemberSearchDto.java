@@ -22,5 +22,5 @@ public class MemberSearchDto {
 	private Long memberId;
 	
 	// 회원 이름
-	private String userName;
+	private String name;
 }

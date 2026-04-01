@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.mook.auth.common.dto.ResponseDto;
+import kr.mook.auth.common.dto.ResponseDtoUtil;
 import kr.mook.auth.member.dto.search.MemberSearchDto;
+import kr.mook.auth.member.search.service.SearchMemberService;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -28,6 +30,9 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/api/member", name = "Member Search API")
 public class MemberSearchController {
 	
+	/* Service */
+	private final SearchMemberService _searchMemberService;
+	
 	/**
 	 * 회원 계정을 통해 회원 정보 조회<br/>
 	 * 
@@ -36,8 +41,14 @@ public class MemberSearchController {
 	 * @return
 	 */
 	@GetMapping("/{account}")
-	public ResponseEntity<ResponseDto> searchByAccount(@PathVariable(value = "account") final String account, final Locale locale) {
+	public ResponseEntity<ResponseDto> searchByAccount(@PathVariable(value = "account") final String account, final Locale locale) throws Exception {
+		ResponseDto responseDto = this._searchMemberService.searchByAccount(account, locale);
 		
+		// 계정으로 회원 정보를 찾을 수 없는 경우
+		if(ResponseDtoUtil.isStatusNotFound(responseDto)) {
+			return ResponseEntity.status(404).body(responseDto);
+		}
+				
 		return null;
 	}
 	
@@ -49,8 +60,7 @@ public class MemberSearchController {
 	 * @return
 	 */
 	@GetMapping("/id/{memberId}")
-	public ResponseEntity<ResponseDto> searchByMemberId(@PathVariable(value = "memberId") final long memberId, final Locale locale) {
-		
+	public ResponseEntity<ResponseDto> searchByMemberId(@PathVariable(value = "memberId") final long memberId, final Locale locale) throws Exception {
 		return null;
 	}
 	
@@ -63,7 +73,7 @@ public class MemberSearchController {
 	 * @return
 	 */
 	@PostMapping("/list")
-	public ResponseEntity<ResponseDto> members(@RequestBody MemberSearchDto memberSearchDto, final Locale locale) {
+	public ResponseEntity<ResponseDto> members(@RequestBody MemberSearchDto memberSearchDto, final Locale locale) throws Exception {
 		
 		return null;
 	}

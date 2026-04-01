@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.mook.auth.member.search.persistence.SearchMemberMapper">
+	
+	<select id="findByAccount" parameterType="String" resultType="MemberVo">
+		/** SearchMemberMapper.findByAccount */
+		SELECT
+			M.MEMBER_ID,
+			M.ACCOUNT,
+			M.PASSWORD,
+			M.ACTIVE,
+			M.NAME,
+			M.BIRTH,
+			M.GENDER,
+			M.EMAIL,
+			M.PHONE_NUMBER,
+			M.POST_NUMBER,
+			M.ADDRESS,
+			M.CREATE_ID,
+			M.CREATE_DATE,
+			M.UPDATE_ID,
+			M.UPDATE_DATE,
+			M.LOGIN_FAILED_COUNT,
+			M.LATEST_LOGOUT_DATE
+		FROM
+			MEMBER M
+		WHERE
+			M.ACCOUNT = #{account}
+	</select>
+</mapper>
