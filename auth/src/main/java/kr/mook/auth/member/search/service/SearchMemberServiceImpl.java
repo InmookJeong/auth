@@ -6,6 +6,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import kr.mook.auth.common.dto.ResponseDto;
+import kr.mook.auth.common.enumeration.ResponseTypeEnum;
 import kr.mook.auth.common.http.RestfulApiHttpStatusUtil;
 import kr.mook.auth.member.dto.search.MemberDto;
 import kr.mook.auth.member.search.persistence.SearchMemberMapper;
@@ -31,6 +32,14 @@ public class SearchMemberServiceImpl implements SearchMemberService {
 	/* Mapper */
 	private final SearchMemberMapper _searchMemberMapper;
 
+	/**
+	 * 계정을 통한 화원 정보 상세 조회<br/>
+	 * 
+	 *  @since 2026. 04. 05.
+	 * @param account : 회원 계정
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @Return 회원 정보 상세 조회 결과 데이터
+	 */
 	@Override
 	public ResponseDto searchByAccount(final String account, final Locale locale) throws Exception {
 		ResponseDto responseDto = ResponseDto.builder()
@@ -47,7 +56,13 @@ public class SearchMemberServiceImpl implements SearchMemberService {
 		MemberDto memberDto = MemberDto.builder().build();
 		memberDto.fromMemberVo(memberVo);
 		
-		return null;
+		responseDto.setHttpStatusCode(RestfulApiHttpStatusUtil.OK_CODE_STRING);
+		responseDto.setStatusCode("MEM-SER-001");
+		responseDto.setStatus("SEARCH");
+		responseDto.setResult(memberDto);
+		responseDto.setResultType(ResponseTypeEnum.OBJECT);
+		
+		return responseDto;
 	}
 	
 	/**
