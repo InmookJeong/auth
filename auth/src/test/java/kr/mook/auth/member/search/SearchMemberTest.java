@@ -175,5 +175,62 @@ public class SearchMemberTest {
 								)
 						));
 	}
+	
+	/**
+	 * 계정을 통한 회원 정보 조회 성공 테스트<br/>
+	 * - 전달된 계정을 통해 회원이 조회되었을 경우, 조회된 회원 정보가 정상적으로 전달되는지 테스트<br/>
+	 * - 다국어(한국어, 영어)에 관계없이 동일한 결과를 반환하므로 '한국어'에 대한 테스트만 진행
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testSearchMember() throws Exception {
+		String account = "kor2026";
+		String httpStatusCode = "200";
+		String statusCode = "MEM-SER-001";
+		String status = "SEARCH";
+		String apiDocsDir = "member/search/account/search-member";
+		
+		mockMvc.perform(get("/api/member/{account}", account)
+				.header("Accept-Language", this._ACCEPT_LANGUAGE_KO_KR)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.httpStatusCode").value(httpStatusCode))
+				.andExpect(jsonPath("$.statusCode").value(statusCode))
+				.andExpect(jsonPath("$.status").value(status))
+				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.OBJECT.name()))
+				.andExpect(jsonPath("$.locale").value(this._LOCALE_KO_KR.toString()))
+				.andExpect(jsonPath("$.result.memberId").value(1L))
+				.andExpect(jsonPath("$.result.account").value(account))
+				.andExpect(jsonPath("$.result.active").value("Y"))
+				.andExpect(jsonPath("$.result.name").value("한국인"))
+				.andExpect(jsonPath("$.result.birth").value("19901207"))
+				.andExpect(jsonPath("$.result.gender").value("M"))
+				.andExpect(jsonPath("$.result.email").value("kor2026@korea.co.kr"))
+				.andExpect(jsonPath("$.result.phoneNumber").value("01012345678"))
+				.andExpect(jsonPath("$.result.postNumber").value("01123"))
+				.andExpect(jsonPath("$.result.address").value("서울시 종로구 종로동 종로1가 1번지"))
+				.andDo(print())
+				.andDo(document(
+						apiDocsDir,
+						responseFields(
+								fieldWithPath("httpStatusCode").description("HTTP 응답 상태 코드"),
+								fieldWithPath("statusCode").description("결과 상태 코드"),
+								fieldWithPath("status").description("상태코드 명칭(설명)"),
+								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
+								fieldWithPath("locale").description("사용 언어"),
+								fieldWithPath("result.memberId").description("회원 아이디(형식 : 숫자)"),
+								fieldWithPath("result.account").description("회원 계정"),
+								fieldWithPath("result.active").description("활성화 여부(Y:활성화, N:비활성화)"),
+								fieldWithPath("result.name").description("회원 이름"),
+								fieldWithPath("result.birth").description("회원 생년월일(형식 : yyyyMMdd)"),
+								fieldWithPath("result.gender").description("성별(M:남성, W:여성)"),
+								fieldWithPath("result.email").description("이메일(ex. test@korea.co.kr)"),
+								fieldWithPath("result.phoneNumber").description("휴대전화 번호(ex. 01012345678)"),
+								fieldWithPath("result.postNumber").description("우편번호"),
+								fieldWithPath("result.address").description("주소")
+								)
+						));
+	}
 
 }
