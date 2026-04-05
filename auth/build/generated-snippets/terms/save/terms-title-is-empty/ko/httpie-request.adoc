@@ -1,6 +1,6 @@
 [source,bash]
 ----
-$ echo '{"termsNo":null,"useYn":false,"requireYn":false,"orderNo":0,"title":null,"contents":null,"createId":0,"createDate":null,"updateId":null,"updateDate":null,"titleEmpty":true,"contentsEmpty":true}' | http POST 'http://localhost:8080/api/terms' \
+$ echo '{"termsNo":null,"useYn":false,"requireYn":false,"orderNo":0,"title":null,"contents":null,"createId":0,"createDate":null,"updateId":null,"updateDate":null,"contentsEmpty":true,"titleEmpty":true}' | http POST 'http://localhost:8080/api/terms' \
     'Content-Type:application/json;charset=UTF-8' \
     'Accept-Language:ko-KR' \
     'Accept:application/json'
