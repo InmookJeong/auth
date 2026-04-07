@@ -88,7 +88,7 @@ public class SearchMemberServiceImpl implements SearchMemberService {
 					RestfulApiHttpStatusUtil.NOT_FOUND_CODE_STRING,
 					"ERR-MEM-SER-" + errorMessageNo,
 					"SEARCH ERROR",
-					this._messageSource.getMessage("error.member.search.terms-not-found", new String[] {fieldName}, locale)
+					this._messageSource.getMessage("error.member.search.member-not-found", new String[] {fieldName}, locale)
 				);
 	}
 }
