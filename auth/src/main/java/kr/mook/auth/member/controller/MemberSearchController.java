@@ -67,6 +67,11 @@ public class MemberSearchController {
 			return ResponseEntity.status(404).body(responseDto);
 		}
 		
+		// 서버 오류로 인해 회원 정보를 조회할 수 없는 경우
+		if(ResponseDtoUtil.isStatusInternalServerError(responseDto)) {
+			return ResponseEntity.internalServerError().body(responseDto);
+		}
+		
 		// 회원 조회 성공
 		return ResponseEntity.ok(responseDto);
 	}
