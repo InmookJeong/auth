@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 356
+
+{"httpStatusCode":"200","statusCode":"MEM-SER-002","status":"SEARCH","resultType":"OBJECT","result":{"memberId":1,"account":"kor2026","active":"Y","name":"한국인","birth":"19901207","gender":"M","email":"kor2026@korea.co.kr","phoneNumber":"01012345678","postNumber":"01123","address":"서울시 종로구 종로동 종로1가 1번지"},"locale":"ko_KR"}
+----

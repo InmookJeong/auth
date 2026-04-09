@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"200","statusCode":"MEM-SER-002","status":"SEARCH","resultType":"OBJECT","result":{"memberId":1,"account":"kor2026","active":"Y","name":"�븳援��씤","birth":"19901207","gender":"M","email":"kor2026@korea.co.kr","phoneNumber":"01012345678","postNumber":"01123","address":"�꽌�슱�떆 醫낅줈援� 醫낅줈�룞 醫낅줈1媛� 1踰덉�"},"locale":"ko_KR"}
+----

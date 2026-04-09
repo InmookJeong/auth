@@ -1,0 +1,64 @@
+|===
+|Path|Type|Description
+
+|`+httpStatusCode+`
+|`+String+`
+|HTTP 응답 상태 코드
+
+|`+statusCode+`
+|`+String+`
+|결과 상태 코드
+
+|`+status+`
+|`+String+`
+|상태코드 명칭(설명)
+
+|`+resultType+`
+|`+String+`
+|결과 타입(ex. Number, String)
+
+|`+locale+`
+|`+String+`
+|사용 언어
+
+|`+result.memberId+`
+|`+Number+`
+|회원 아이디(형식 : 숫자)
+
+|`+result.account+`
+|`+String+`
+|회원 계정
+
+|`+result.active+`
+|`+String+`
+|활성화 여부(Y:활성화, N:비활성화)
+
+|`+result.name+`
+|`+String+`
+|회원 이름
+
+|`+result.birth+`
+|`+String+`
+|회원 생년월일(형식 : yyyyMMdd)
+
+|`+result.gender+`
+|`+String+`
+|성별(M:남성, W:여성)
+
+|`+result.email+`
+|`+String+`
+|이메일(ex. test@korea.co.kr)
+
+|`+result.phoneNumber+`
+|`+String+`
+|휴대전화 번호(ex. 01012345678)
+
+|`+result.postNumber+`
+|`+String+`
+|우편번호
+
+|`+result.address+`
+|`+String+`
+|주소
+
+|===
