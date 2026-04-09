@@ -21,4 +21,12 @@ public interface SearchMemberMapper {
 	 * @return : 회원 상세 정보
 	 */
 	public MemberVo findByAccount(final String account);
+	
+	/**
+	 * 회원 아이디(숫자 형식)를 통한 회원 정보 상세 조회<br/>
+	 * 
+	 * @param memberId : 회원 아이디(숫자 형식)
+	 * @return : 회원 상세 정보
+	 */
+	public MemberVo findByMemberId(final long memberId);
 }

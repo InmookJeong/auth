@@ -65,6 +65,22 @@ public class SearchMemberServiceImpl implements SearchMemberService {
 		return responseDto;
 	}
 	
+	@Override
+	public ResponseDto searchByMemberId(long memberId, Locale locale) throws Exception {
+		ResponseDto responseDto = ResponseDto.builder()
+											.locale(locale)
+											.build();
+		
+		MemberVo memberVo = this._searchMemberMapper.findByMemberId(memberId);
+		
+		// 계정이 가입되어 있지 않은 경우
+		if(memberVo == null) {
+			return this._getResponseDtoForNotFound(responseDto, "id", locale);
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * 회원 데이터를 찾을 수 없음을 반환하도록 DTO 작성
 	 * 

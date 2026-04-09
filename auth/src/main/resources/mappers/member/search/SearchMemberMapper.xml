@@ -30,4 +30,30 @@
 		WHERE
 			M.ACCOUNT = #{account}
 	</select>
+	
+	<select id="findByMemberId" parameterType="long" resultType="MemberVo">
+		/** SearchMemberMapper.findByMemberId */
+		SELECT
+			M.MEMBER_ID,
+			M.ACCOUNT,
+			M.PASSWORD,
+			M.ACTIVE,
+			M.NAME,
+			M.BIRTH,
+			M.GENDER,
+			M.EMAIL,
+			M.PHONE_NUMBER,
+			M.POST_NUMBER,
+			M.ADDRESS,
+			M.CREATE_ID,
+			M.CREATE_DATE,
+			M.UPDATE_ID,
+			M.UPDATE_DATE,
+			M.LOGIN_FAILED_COUNT,
+			M.LATEST_LOGOUT_DATE
+		FROM
+			MEMBER M
+		WHERE
+			M.MEMBER_ID = #{memberId}
+	</select>
 </mapper>

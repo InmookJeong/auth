@@ -42,4 +42,13 @@ public interface SearchMemberService {
 	 */
 	public ResponseDto searchByAccount(final String account, final Locale locale) throws Exception;
 	
+	/**
+	 * 회원 아이디(숫자 형식)를 통한 회원 정보 상세 조회<br/>
+	 * 
+	 * @param memberId
+	 * @param locale
+	 * @return
+	 * @throws Exception
+	 */
+	public ResponseDto searchByMemberId(final long memberId, final Locale locale) throws Exception;
 }

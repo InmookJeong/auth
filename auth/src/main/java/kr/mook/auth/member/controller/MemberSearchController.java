@@ -85,6 +85,13 @@ public class MemberSearchController {
 	 */
 	@GetMapping("/id/{memberId}")
 	public ResponseEntity<ResponseDto> searchByMemberId(@PathVariable(value = "memberId") final long memberId, final Locale locale) throws Exception {
+		ResponseDto responseDto = this._searchMemberService.searchByMemberId(memberId, locale);
+		
+		// 회원 아이디로 회원 정보를 찾을 수 없는 경우
+		if(ResponseDtoUtil.isStatusNotFound(responseDto)) {
+			return ResponseEntity.status(404).body(responseDto);
+		}
+		
 		return null;
 	}
 	
