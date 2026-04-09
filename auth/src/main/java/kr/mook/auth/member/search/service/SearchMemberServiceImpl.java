@@ -35,7 +35,7 @@ public class SearchMemberServiceImpl implements SearchMemberService {
 	/**
 	 * 계정을 통한 화원 정보 상세 조회<br/>
 	 * 
-	 *  @since 2026. 04. 05.
+	 * @since 2026. 04. 05.
 	 * @param account : 회원 계정
 	 * @param locale : 다국어 처리를 위한 언어 정보
 	 * @Return 회원 정보 상세 조회 결과 데이터
@@ -65,6 +65,14 @@ public class SearchMemberServiceImpl implements SearchMemberService {
 		return responseDto;
 	}
 	
+	/**
+	 * 회원 아이디(숫자 형식)를 통한 화원 정보 상세 조회<br/>
+	 * 
+	 * @since 2026. 04. 09.
+	 * @param memberId : 회원 아이디(숫자 형식)
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @Return 회원 정보 상세 조회 결과 데이터
+	 */
 	@Override
 	public ResponseDto searchByMemberId(long memberId, Locale locale) throws Exception {
 		ResponseDto responseDto = ResponseDto.builder()
@@ -78,7 +86,16 @@ public class SearchMemberServiceImpl implements SearchMemberService {
 			return this._getResponseDtoForNotFound(responseDto, "id", locale);
 		}
 		
-		return null;
+		MemberDto memberDto = MemberDto.builder().build();
+		memberDto.fromMemberVo(memberVo);
+		
+		responseDto.setHttpStatusCode(RestfulApiHttpStatusUtil.OK_CODE_STRING);
+		responseDto.setStatusCode("MEM-SER-002");
+		responseDto.setStatus("SEARCH");
+		responseDto.setResult(memberDto);
+		responseDto.setResultType(ResponseTypeEnum.OBJECT);
+		
+		return responseDto;
 	}
 	
 	/**
