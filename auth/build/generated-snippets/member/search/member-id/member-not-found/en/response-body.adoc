@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"404","statusCode":"ERR-MEM-SER-002","status":"SEARCH ERROR","resultType":"STRING","result":"Member information could not be found. Please check your ID again.","locale":"en_US"}
+----

@@ -384,3 +384,20 @@ operation::member/search/account/member-not-found/en[snippets='http-request,http
 
 [[회원-정보-상세-조회-API-2]]
 operation::member/search/account/search-member[snippets='http-request,http-response,response-fields']
+
+=== *2) 회원 아이디(숫자 형식)를 통한 회원 정보 상세 조회*
+
+==== (1) 가입되어 있지 않은 회원 아이디를 통해 상세 조회를 시도할 경우
+
+설명::
+- 회원 정보를 상세 조회할 때 가입되어 있지 않은 회원 아이디를 통해 조회할 경우 오류가 발생합니다.
+- 이 때 *HTTP Status Code* 중 데이터를 찾을 수 없음을 의미하는 `*404*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[회원-정보-상세-조회-API-3-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::member/search/member-id/member-not-found/ko[snippets='http-request,http-response,response-fields']
+
+[[회원-정보-상세-조회-API-3-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::member/search/member-id/member-not-found/en[snippets='http-request,http-response,response-fields']
