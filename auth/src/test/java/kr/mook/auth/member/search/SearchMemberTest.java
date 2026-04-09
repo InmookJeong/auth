@@ -105,7 +105,7 @@ public class SearchMemberTest {
 	 * @throws Exception
 	 */
 	@Test
-	void testMemberNotFoundWithLocaleKoKr() throws Exception {
+	void testMemberNotFoundByAccountWithLocaleKoKr() throws Exception {
 		String account = "korean2026";
 		String httpStatusCode = "404";
 		String statusCode = "ERR-MEM-SER-001";
@@ -125,7 +125,7 @@ public class SearchMemberTest {
 	 * @throws Exception
 	 */
 	@Test
-	void testMemberNotFoundWithLocaleEnUs() throws Exception {
+	void testMemberNotFoundByAccountWithLocaleEnUs() throws Exception {
 		String account = "korean2026";
 		String httpStatusCode = "404";
 		String statusCode = "ERR-MEM-SER-001";
