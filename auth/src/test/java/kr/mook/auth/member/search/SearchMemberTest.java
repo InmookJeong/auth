@@ -98,7 +98,7 @@ public class SearchMemberTest {
 	void dropTable() {}
 	
 	/**
-	 * 회원 정보 조회 실패 테스트<br/>
+	 * 계정을 통한 회원 정보 조회 실패 테스트<br/>
 	 * - 저장되지 않은 계정을 통해 API를 실행할 경우, 조회되는 데이터가 없다는 에러 메시지가 출력되는지 테스트<br/>
 	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
 	 * 
@@ -118,7 +118,7 @@ public class SearchMemberTest {
 	}
 	
 	/**
-	 * 회원 정보 조회 실패 테스트<br/>
+	 * 계정을 통한 회원 정보 조회 실패 테스트<br/>
 	 * - 저장되지 않은 계정을 통해 API를 실행할 경우, 조회되는 데이터가 없다는 에러 메시지가 출력되는지 테스트<br/>
 	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
 	 * 
@@ -138,10 +138,50 @@ public class SearchMemberTest {
 	}
 	
 	/**
+	 * 아이디를 통한 회원 정보 조회 실패 테스트<br/>
+	 * - 저장되지 않은 회원 아이디를 통해 API를 실행할 경우, 조회되는 데이터가 없다는 에러 메시지가 출력되는지 테스트<br/>
+	 * - 결과 메시지는 한글로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testMemberNotFoundByMemberIdWithLocaleKoKr() throws Exception {
+		long memberId = 10L;
+		String httpStatusCode = "404";
+		String statusCode = "ERR-MEM-SER-002";
+		String status = "SEARCH ERROR";
+		String resultMessage = "회원 정보를 찾을 수 없습니다. 아이디을(를) 다시 확인해주세요.";
+		String apiDocsDir = "member/search/member-id/member-not-found/ko";
+		ResultMatcher resultMatcher = status().isNotFound();
+		
+		this._testSearchByNotValidData2(memberId, this._LOCALE_KO_KR, this._ACCEPT_LANGUAGE_KO_KR, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
+	 * 아이디를 통한 회원 정보 조회 실패 테스트<br/>
+	 * - 저장되지 않은 회원 아이디 통해 API를 실행할 경우, 조회되는 데이터가 없다는 에러 메시지가 출력되는지 테스트<br/>
+	 * - 결과 메시지는 영어로 출력되도록 다국어 적용
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	void testMemberNotFoundByMemberIdWithLocaleEnUs() throws Exception {
+		long memberId = 10L;
+		String httpStatusCode = "404";
+		String statusCode = "ERR-MEM-SER-002";
+		String status = "SEARCH ERROR";
+		String resultMessage = "Member information could not be found. Please check your ID again.";
+		String apiDocsDir = "member/search/member-id/member-not-found/en";
+		ResultMatcher resultMatcher = status().isNotFound();
+		
+		this._testSearchByNotValidData2(memberId, this._LOCALE_EN_US, this._ACCEPT_LANGUAGE_EN_US, httpStatusCode, statusCode, status, resultMessage, apiDocsDir, resultMatcher);
+	}
+	
+	/**
 	 * 회원 정보 상세 조회 오류 테스트<br/>
 	 * - 가입되어 있지 않은 계정으로 회원 정보를 검색하였을 오류가 발생하는지 테스트<br/>
 	 * 
-	 * @param account : 회원 계정
+	 * @param url : 회원 계정 및 아이디 등 API URL을 통해 전달되어야 하는 데이터
 	 * @param locale : 다국어
 	 * @param acceptLanguage : 다국어 정보(ex. ko-KR 또는 en-US)
 	 * @param statusCode : 처리 상태 코드(ex. 400, 404)
@@ -153,6 +193,31 @@ public class SearchMemberTest {
 	 */
 	private void _testSearchByNotValidData(String account, Locale locale, String acceptLanguage, String httpStatusCode, String statusCode, String status, String resultMessage, String apiDocsDir, ResultMatcher resultMatcher) throws Exception {
 		mockMvc.perform(get("/api/member/{account}", account)
+				.header("Accept-Language", acceptLanguage)
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(resultMatcher)
+				.andExpect(jsonPath("$.httpStatusCode").value(httpStatusCode))
+				.andExpect(jsonPath("$.statusCode").value(statusCode))
+				.andExpect(jsonPath("$.status").value(status))
+				.andExpect(jsonPath("$.resultType").value(ResponseTypeEnum.STRING.name()))
+				.andExpect(jsonPath("$.result").value(resultMessage))
+				.andExpect(jsonPath("$.locale").value(locale.toString()))
+				.andDo(print())
+				.andDo(document(
+						apiDocsDir,
+						responseFields(
+								fieldWithPath("httpStatusCode").description("HTTP 응답 상태 코드"),
+								fieldWithPath("statusCode").description("결과 상태 코드"),
+								fieldWithPath("status").description("상태코드 명칭(설명)"),
+								fieldWithPath("resultType").description("결과 타입(ex. Number, String)"),
+								fieldWithPath("result").description("결과 메시지"),
+								fieldWithPath("locale").description("사용 언어")
+								)
+						));
+	}
+	
+	private void _testSearchByNotValidData2(long memberId, Locale locale, String acceptLanguage, String httpStatusCode, String statusCode, String status, String resultMessage, String apiDocsDir, ResultMatcher resultMatcher) throws Exception {
+		mockMvc.perform(get("/api/member/id/{memberId}", memberId)
 				.header("Accept-Language", acceptLanguage)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpect(resultMatcher)
