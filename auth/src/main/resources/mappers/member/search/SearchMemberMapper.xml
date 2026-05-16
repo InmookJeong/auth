@@ -56,4 +56,36 @@
 		WHERE
 			M.MEMBER_ID = #{memberId}
 	</select>
+	
+	<select id="findMembers" parameterType="SearchMemberVo" resultType="MemberVo">
+		/** SearchMemberMapper.findMembers */
+		SELECT
+			M.MEMBER_ID,
+			M.ACCOUNT,
+			M.PASSWORD,
+			M.ACTIVE,
+			M.NAME,
+			M.BIRTH,
+			M.GENDER,
+			M.EMAIL,
+			M.PHONE_NUMBER,
+			M.POST_NUMBER,
+			M.ADDRESS,
+			M.CREATE_ID,
+			M.CREATE_DATE,
+			M.UPDATE_ID,
+			M.UPDATE_DATE,
+			M.LOGIN_FAILED_COUNT,
+			M.LATEST_LOGOUT_DATE
+		FROM
+			MEMBER M
+		WHERE
+			1 = 1
+			<if test='account != null and account != ""' > 
+			AND M.ACCOUNT LIKE CONCAT('%', #{account}, '%')
+			</if>
+			<if test='name != null and name != ""' > 
+			AND M.NAME LIKE CONCAT('%', #{name}, '%')
+			</if>
+	</select>
 </mapper>
