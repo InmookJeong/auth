@@ -110,6 +110,11 @@ public class MemberSearchController {
 			return ResponseEntity.status(404).body(responseDto);
 		}
 		
+		// 서버에서 오류가 발생한 경우
+		if(ResponseDtoUtil.isStatusInternalServerError(responseDto)) {
+			return ResponseEntity.internalServerError().body(responseDto);
+		}
+		
 		// 회원 조회 성공
 		return ResponseEntity.ok(responseDto);
 	}
@@ -124,7 +129,18 @@ public class MemberSearchController {
 	 */
 	@PostMapping("/list")
 	public ResponseEntity<ResponseDto> members(@RequestBody MemberSearchDto memberSearchDto, final Locale locale) throws Exception {
+		// 회원 계정, 회원 이름을 통한 회원 목록 조회(LIKE 검색)
+		ResponseDto responseDto = this._searchMemberService.searchMembers(memberSearchDto, locale);
+		if(ResponseDtoUtil.isStatusNotFound(responseDto)) {
+			return ResponseEntity.status(404).body(responseDto);
+		}
 		
-		return null;
+		// 서버에서 오류가 발생한 경우
+		if(ResponseDtoUtil.isStatusInternalServerError(responseDto)) {
+			return ResponseEntity.internalServerError().body(responseDto);
+		}
+		
+		// 목록 조회 성공
+		return ResponseEntity.ok(responseDto);
 	}
 }

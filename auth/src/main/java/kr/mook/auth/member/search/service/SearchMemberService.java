@@ -3,6 +3,7 @@ package kr.mook.auth.member.search.service;
 import java.util.Locale;
 
 import kr.mook.auth.common.dto.ResponseDto;
+import kr.mook.auth.member.dto.search.MemberSearchDto;
 
 /**
  * 회원 검색을 위한 서비스 인터페이스<br/>
@@ -45,8 +46,8 @@ public interface SearchMemberService {
 	/**
 	 * 회원 아이디(숫자 형식)를 통한 회원 정보 상세 조회<br/>
 	 * 
-	 * @param memberId
-	 * @param locale
+	 * @param memberId : 회원 아이디
+	 * @param locale : 다국어 처리를 위한 언어 정보
 	 * @return responseDto = {<br/>
 	 * 				&emsp; "httpStatusCode" : 200,<br/>
 	 * 				&emsp; "statusCode" : MEM-SER-002,<br/>
@@ -69,4 +70,14 @@ public interface SearchMemberService {
 	 * @throws Exception
 	 */
 	public ResponseDto searchByMemberId(final long memberId, final Locale locale) throws Exception;
+	
+	/**
+	 * 회원 목록 조회<br/>
+	 * 
+	 * @param memberSearchDto : 검색을 위한 값을 담고있는 DTO
+	 * @param locale : 다국어 처리를 위한 언어 정보
+	 * @return
+	 * @throws Exception
+	 */
+	public ResponseDto searchMembers(final MemberSearchDto memberSearchDto, final Locale locale) throws Exception;
 }

@@ -1,8 +1,12 @@
 package kr.mook.auth.member.search.persistence;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.mook.auth.member.dto.search.MemberSearchDto;
 import kr.mook.auth.member.vo.MemberVo;
+import kr.mook.auth.member.vo.search.list.SearchMemberVo;
 
 /**
  * 이용약관 데이터 검색을 위한 매퍼<br/>
@@ -29,4 +33,12 @@ public interface SearchMemberMapper {
 	 * @return : 회원 상세 정보
 	 */
 	public MemberVo findByMemberId(final long memberId);
+	
+	/**
+	 * 회원 계정 또는 회원 이름을 통한 회원 목록 조회<br/>
+	 * 
+	 * @param memberSearchDto : 회원 목록 조회 조건(회원 계정, 회원 이름 등)
+	 * @return : 조회된 회원 목록
+	 */
+	public List<MemberVo> findMembers(final SearchMemberVo searchMemberVo);
 }
