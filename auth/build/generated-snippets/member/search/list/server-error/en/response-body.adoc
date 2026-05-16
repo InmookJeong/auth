@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"500","statusCode":"ERR-MEM-LST-002","status":"LIST ERROR","resultType":"STRING","result":"Unable to search for member list. Please contact the administrator.","locale":"en_US"}
+----

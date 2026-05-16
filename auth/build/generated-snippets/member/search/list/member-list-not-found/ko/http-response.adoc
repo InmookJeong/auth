@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+Content-Length: 205
+
+{"httpStatusCode":"404","statusCode":"ERR-MEM-LST-001","status":"LIST ERROR","resultType":"OBJECT","result":{"count":0,"members":null,"message":"조회된 회원 목록이 없습니다."},"locale":"ko_KR"}
+----

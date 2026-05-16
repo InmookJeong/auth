@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"account":null,"name":null}
+----

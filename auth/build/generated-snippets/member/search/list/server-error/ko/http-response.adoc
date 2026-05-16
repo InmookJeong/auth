@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 208
+
+{"httpStatusCode":"500","statusCode":"ERR-MEM-LST-002","status":"LIST ERROR","resultType":"STRING","result":"회원 목록를 조회할 수 없습니다. 관리자에게 문의해주세요.","locale":"ko_KR"}
+----

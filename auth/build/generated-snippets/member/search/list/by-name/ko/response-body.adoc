@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"200","statusCode":"MEM-LST-001","status":"LIST","resultType":"OBJECT","result":{"count":1,"members":[{"memberId":1,"account":"kor2026","password":"pwd2026","active":"Y","name":"�븳援��씤","birth":"19901207","gender":"M","email":"kor2026@korea.co.kr","phoneNumber":"01012345678","postNumber":"01123","address":"�꽌�슱�떆 醫낅줈援� 醫낅줈�룞 醫낅줈1媛� 1踰덉�","createId":1,"createDate":"2026-04-03T23:47:36","updateId":null,"updateDate":null,"loginFailedCount":0,"latestLogoutDate":null}],"message":"�쉶�썝 紐⑸줉 議고쉶�뿉 �꽦怨듯뻽�뒿�땲�떎."},"locale":"ko_KR"}
+----

@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 582
+
+{"httpStatusCode":"200","statusCode":"MEM-LST-001","status":"LIST","resultType":"OBJECT","result":{"count":1,"members":[{"memberId":1,"account":"kor2026","password":"pwd2026","active":"Y","name":"한국인","birth":"19901207","gender":"M","email":"kor2026@korea.co.kr","phoneNumber":"01012345678","postNumber":"01123","address":"서울시 종로구 종로동 종로1가 1번지","createId":1,"createDate":"2026-04-03T23:47:36","updateId":null,"updateDate":null,"loginFailedCount":0,"latestLogoutDate":null}],"message":"회원 목록 조회에 성공했습니다."},"locale":"ko_KR"}
+----

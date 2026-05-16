@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 1318
+
+{"httpStatusCode":"200","statusCode":"MEM-LST-001","status":"LIST","resultType":"OBJECT","result":{"count":3,"members":[{"memberId":1,"account":"kor2026","password":"pwd2026","active":"Y","name":"한국인","birth":"19901207","gender":"M","email":"kor2026@korea.co.kr","phoneNumber":"01012345678","postNumber":"01123","address":"서울시 종로구 종로동 종로1가 1번지","createId":1,"createDate":"2026-04-03T23:47:36","updateId":null,"updateDate":null,"loginFailedCount":0,"latestLogoutDate":null},{"memberId":2,"account":"test1","password":"test1","active":"Y","name":"테스트1","birth":"19910201","gender":"W","email":"test1@korea.co.kr","phoneNumber":"01012389447","postNumber":"01642","address":"서울시 성북구 임시동 임시로 90번지","createId":1,"createDate":"2026-04-28T22:42:32","updateId":null,"updateDate":null,"loginFailedCount":0,"latestLogoutDate":null},{"memberId":3,"account":"test2","password":"test2","active":"N","name":"테스트2","birth":"19930101","gender":"M","email":"test2@korea.co.kr","phoneNumber":"01033449988","postNumber":"02938","address":"세종시 한솔동 한솔1로 20","createId":1,"createDate":"2026-04-28T22:42:33","updateId":null,"updateDate":null,"loginFailedCount":0,"latestLogoutDate":null}],"message":"Member list lookup successful."},"locale":"en_US"}
+----

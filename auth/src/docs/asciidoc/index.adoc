@@ -411,3 +411,90 @@ operation::member/search/member-id/member-not-found/en[snippets='http-request,ht
 
 [[회원-정보-상세-조회-API-4]]
 operation::member/search/member-id/search-member[snippets='http-request,http-response,response-fields']
+
+[[회원-목록-조회]]
+=== *3) 계정 또는 이름을 통한 회원 목록 조회*
+
+==== (1) 가입되어 있지 않은 계정 또는 이름을 통해 목록 조회를 시도할 경우
+
+설명::
+- 회원 목록을 조회할 때 가입되어 있지 않은 계정 또는 이름을 통해 조회할 경우 오류가 발생합니다.
+- 이 때 *HTTP Status Code* 중 데이터를 찾을 수 없음을 의미하는 `*404*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[회원-목록-조회-API-1-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::member/search/list/member-list-not-found/ko[snippets='http-request,http-response,response-fields']
+
+[[회원-목록-조회-API-1-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::member/search/list/member-list-not-found/en[snippets='http-request,http-response,response-fields']
+
+==== (2) 회원 목록을 조회하는 중 서버 오류가 발생할 경우
+
+설명::
+- 회원 목록을 조회하는 중에 서버 오류가 발생할 수 있습니다.
+- 이 때 *HTTP Status Code* 중 데이터를 찾을 수 없음을 의미하는 `*500*` 코드가 반환되며,
+- 서비스 이용자가 전달한 언어 정보(Locale)에 따라 오류 메시지를 반환합니다.
+
+[[회원-목록-조회-API-2-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::member/search/list/server-error/ko[snippets='http-request,http-response,response-fields']
+
+[[회원-목록-조회-API-2-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::member/search/list/server-error/en[snippets='http-request,http-response,response-fields']
+
+==== (3) 전체 회원 목록의 조회에 성공하는 경우
+
+설명::
+- 전체 회원 목록을 조회할 수 있습니다.
+- 전체 회원 목록을 조회하기 위해서는 회원 목록 검색을 위한 정보(회원 이름, 회원 계정)를 전달하지 않습니다.
+- 이 때 *HTTP Status Code* 중 조회 성공(OK)을 의미하는 `*200*` 코드가 반환되며,
+- 회원 목록, 회원 목록 건수, 결과 메시지 등을 반환합니다.
+- 전달한 언어 정보(Locale)에 따라 결과 메시지를 반환합니다.
+
+[[회원-목록-조회-API-3-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::member/search/list/all/ko[snippets='http-request,http-response,response-fields']
+
+[[회원-목록-조회-API-3-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::member/search/list/all/en[snippets='http-request,http-response,response-fields']
+
+
+==== (4) 회원 이름을 통해 회원 목록의 조회에 성공하는 경우
+
+설명::
+- 회원 이름을 통해 회원 목록을 조회할 수 있습니다.
+- 회원 목록을 조회하기 위해서는 회원 목록 검색을 위한 정보(회원 이름, 회원 계정) 중 회원 이름을 전달하며,
+- 전달된 회원 이름이 포함된 회원들의 정보를 반환합니다.
+- 이 때 *HTTP Status Code* 중 조회 성공(OK)을 의미하는 `*200*` 코드가 반환되며,
+- 회원 목록, 회원 목록 건수, 결과 메시지 등을 반환합니다.
+- 전달한 언어 정보(Locale)에 따라 결과 메시지를 반환합니다.
+
+[[회원-목록-조회-API-4-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::member/search/list/by-name/ko[snippets='http-request,http-response,response-fields']
+
+[[회원-목록-조회-API-4-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::member/search/list/by-name/en[snippets='http-request,http-response,response-fields']
+
+==== (5) 회원 계정을 통해 회원 목록의 조회에 성공하는 경우
+
+설명::
+- 회원 계정을 통해 회원 목록을 조회할 수 있습니다.
+- 회원 목록을 조회하기 위해서는 회원 목록 검색을 위한 정보(회원 이름, 회원 계정) 중 회원 계정을 전달하며,
+- 전달된 회원 계정이 포함된 회원들의 정보를 반환합니다.
+- 이 때 *HTTP Status Code* 중 조회 성공(OK)을 의미하는 `*200*` 코드가 반환되며,
+- 회원 목록, 회원 목록 건수, 결과 메시지 등을 반환합니다.
+- 전달한 언어 정보(Locale)에 따라 결과 메시지를 반환합니다.
+
+[[회원-목록-조회-API-5-다국어-한글-지원]]
+===== *※ 다국어 한글 지원*
+operation::member/search/list/by-account/ko[snippets='http-request,http-response,response-fields']
+
+[[회원-목록-조회-API-5-다국어-영어-지원]]
+===== *※ 다국어 영어 지원*
+operation::member/search/list/by-account/en[snippets='http-request,http-response,response-fields']

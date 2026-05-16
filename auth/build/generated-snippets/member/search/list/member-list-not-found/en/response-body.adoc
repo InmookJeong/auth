@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"404","statusCode":"ERR-MEM-LST-001","status":"LIST ERROR","resultType":"OBJECT","result":{"count":0,"members":null,"message":"There is no list of retrieved members."},"locale":"en_US"}
+----

@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"httpStatusCode":"404","statusCode":"ERR-MEM-LST-001","status":"LIST ERROR","resultType":"OBJECT","result":{"count":0,"members":null,"message":"議고쉶�맂 �쉶�썝 紐⑸줉�씠 �뾾�뒿�땲�떎."},"locale":"ko_KR"}
+----

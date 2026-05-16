@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+Content-Length: 195
+
+{"httpStatusCode":"500","statusCode":"ERR-MEM-LST-002","status":"LIST ERROR","resultType":"STRING","result":"Unable to search for member list. Please contact the administrator.","locale":"en_US"}
+----
